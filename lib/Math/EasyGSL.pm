@@ -31,12 +31,12 @@ GSL_MAJOR_VERSION
 
  # the main module Math::EasyGSL has just functions providing simple info
  use Math::EasyGSL ':all';
- print "Welcome to Math::EasyGSL version=" . GSL_VERSION;
+ print "Welcome to Math::EasyGSL based on GSL-v=", GSL_VERSION, "\n";
  
  # the real math related function are in accompanying modules
  use Math::EasyGSL::Statistics ':all';
  my @data = (11, 12, 13, 14, 15);
- print "Mean=" . stats_mean(\@data);
+ print "Mean=", stats_mean(\@data), "\n";
 
 This module B<is not intended> as a replacement for L<Math::GSL>.
 
