@@ -1,0 +1,57 @@
+### Random
+- (later)shuffle_inplace
+- fix func names
+- more tests: seed() rand() irand() min() max() size()
+- finish pod
+
+### PDF
+- double gsl_ran_discrete_pdf (size_t k, const gsl_ran_discrete_t * g)
+
+### Statistics
+- pod
+
+### EasyGSL
+- global doc/readme
+- Basic Functions - xs + t + pod
+- (later)Special Functions - xs + t + pod
+- typemap+gsl_mode_t
+
+### custom error handler somehow works
+- BOOT section called just once
+
+******************* LATER ******************* 
+
+
+### Math::EasyGSL::Constants;
+
+### Math::EasyGSL::Complex;
+
+### Math::EasyGSL::FFTW;
+
+
+gsl_version.h
+#define GSL_VERSION "1.14"
+#define GSL_MAJOR_VERSION 1
+#define GSL_MINOR_VERSION 14
+GSL_VAR const char * gsl_version;
+
+gsl_sys.h
+double gsl_log1p (const double x);
+double gsl_expm1 (const double x);
+double gsl_hypot (const double x, const double y);
+double gsl_hypot3 (const double x, const double y, const double z);
+double gsl_acosh (const double x);
+double gsl_asinh (const double x);
+double gsl_atanh (const double x);
+int gsl_isnan (const double x);
+int gsl_isinf (const double x);
+int gsl_finite (const double x);
+double gsl_nan (void);
+double gsl_posinf (void);
+double gsl_neginf (void);
+double gsl_fdiv (const double x, const double y);
+double gsl_coerce_double (const double x);
+double gsl_ldexp(const double x, const int e);
+double gsl_frexp(const double x, int * e);
+int gsl_fcmp (const double x1, const double x2, const double epsilon);
+

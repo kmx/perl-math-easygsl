@@ -1,0 +1,66 @@
+###### generated part - start ######
+
+[% FOREACH f IN allfnc -%]
+## GSL function: [% f.orig %]
+void
+[% f.xs_name %]([% f.xs_params %])
+[% FOREACH p IN f.xs_args -%]
+		[% p.decl %];
+[% END -%]
+[% IF f.init_decl.size -%]
+	INIT:
+		int i;
+		AV * av;
+[% FOREACH p IN f.init_decl -%]
+		[% p %];
+[% END -%]	
+[% END -%]
+	PPCODE:
+[% IF f.init_arr_size.size -%]
+		/* check valid ARRAYREF */
+[% FOREACH p IN f.init_arr_size -%]
+		[% p %];
+[% END -%]			
+		if ([% f.init_arr_size_if %]) XSRETURN_UNDEF;
+[% IF f.init_arr_size_if_n.length -%]
+		/* check size */
+		if ([% f.init_arr_size_if_n %]) {
+		  warn("Warning: [%f.xs_name%]() - array sizes differ: [%f.init_arr_size_warn1%]", [%f.init_arr_size_warn2%]);
+		  XSRETURN_UNDEF;
+		}
+[% END -%]			
+[% END -%]
+[% IF f.init_arr.size -%]
+		/* allocate memory */
+[% FOREACH p IN f.init_arr -%]
+		[%p.name%] = malloc([%p.name%]size * sizeof([%p.type%]));
+[% END -%]
+		if ([%f.init_arr_alloc_if%]) {
+		  warn("Warning: [%f.xs_name%]() - malloc failed");
+[% IF f.init_arr.size>1 -%]
+[% FOREACH p IN f.init_arr -%]
+		  if ([%p.name%]) free([%p.name%]);
+[% END -%]
+[% END -%]
+		  XSRETURN_UNDEF;
+		}
+[% END -%]
+[% IF f.init_arr.size -%]
+		/* copy data */
+[% FOREACH p IN f.init_arr -%]
+		for(i=0, av=(AV*)SvRV([%p.origname%]); i<[%p.name%]size; i++) [%p.name%][i] = [%p.sv2val%](*av_fetch(av,i,0));	
+[% END -%]
+[% END -%]
+[% IF f.init_arr.size -%]
+		/* do the job */
+[% END -%]
+		XPUSHs(sv_2mortal([% f.svfunc %]([% f.gsl_name %]([% f.gsl_params %]))));
+[% IF f.init_arr.size -%]
+		/* free memory */
+[% FOREACH p IN f.init_arr -%]
+		free([%p.name%]);
+[% END -%]
+[% END -%]
+
+[% END -%]
+###### generated part - end ######

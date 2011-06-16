@@ -1,0 +1,49 @@
+\B\.svn\b
+\B\.git\b
+\B\.gitignore\b
+
+\bMANIFEST\.bak
+^MANIFEST\.SKIP
+\bblib/
+\bBuild$
+\b_build/
+\bBuild.bat$
+\bBuild.COM$
+\bBUILD.COM$
+\bbuild.com$
+
+# Avoid temp and backup files.
+~$
+\.old$
+\#$
+\b\.#
+\.bak$
+\.tmp$
+\.#
+\.rej$
+\.c$
+\.o$
+\.obj$
+
+# Avoid configuration metadata file
+^MYMETA\.
+
+# Avoid Module::Build generated and utility files.
+\bBuild$
+\bBuild.bat$
+\b_build
+\bBuild.COM$
+\bBUILD.COM$
+\bbuild.com$
+
+# Avoid archives of this distribution
+\bMath-EasyGSL-[\d\.\_]+
+
+# Misc
+ignore.txt
+\.gif$
+\.png$
+tmp*
+\b_generator/
+\b_delete/
+\bxt/

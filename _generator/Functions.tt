@@ -1,0 +1,92 @@
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
+#include "ppport.h"
+
+#include <gsl/gsl_sf.h>
+#include <gsl/gsl_mode.h>
+
+void warn_handler (const char * reason, const char * file, int line, int gsl_errno) {
+  warn("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
+  return;
+}
+
+double r2double(int rv_, gsl_sf_result result_) {
+  if(rv_) warn("Error: rv(%d)='%s' err=%f",rv_,gsl_strerror(rv_),result_.err);
+  return result_.val;
+}
+
+double e10r2double(int rv_, gsl_sf_result_e10 result_) {
+  if(rv_) warn("Error: rv(%d)='%s' err=%f e10=%f",rv_,gsl_strerror(rv_),result_.err,result_.e10);
+  return result_.val;
+}
+
+size_t arr_ref_size(SV * data, char * warnmsg) {
+  size_t rv;
+  if ((!SvROK(data)) || (SvTYPE(SvRV(data)) != SVt_PVAV) || ((rv = av_len((AV *)SvRV(data))) < 0)) {
+    if (warnmsg) warn(warnmsg);
+    return -1;
+  }
+  return rv+1;
+}
+
+MODULE = Math::EasyGSL::Functions	PACKAGE = Math::EasyGSL::Functions
+
+void
+GSL_PREC_DOUBLE()
+	PPCODE:
+		XPUSHs(sv_2mortal(newSViv(GSL_PREC_DOUBLE)));
+
+void
+GSL_PREC_SINGLE()
+	PPCODE:
+		XPUSHs(sv_2mortal(newSViv(GSL_PREC_SINGLE)));
+
+void
+GSL_PREC_APPROX()
+	PPCODE:
+		XPUSHs(sv_2mortal(newSViv(GSL_PREC_APPROX)));
+
+###### generated part - start ######
+
+[% FOREACH f IN allfnc -%]
+## GSL function: [% f.orig %]
+void
+[% f.xs_name %]([% f.xs_params %])
+[% FOREACH p IN f.xs_args -%]
+		[% p.decl %];
+[% END -%]
+	INIT:
+		int rv_;
+[% FOREACH p IN f.init_decl -%]
+		[% p %];
+[% END -%]	
+	PPCODE:
+[% IF f.r2val -%]
+		rv_ = [% f.gsl_name %]([% f.gsl_params %]);
+		XPUSHs(sv_2mortal(newSVnv([% f.r2val %](rv_,result_))));
+[% ELSIF f.result_array_size_msg %]
+		/* allocate memory */
+		result_array_size = [% f.result_array_size %];
+		if (result_array_size<=0) {
+                  warn("Warning: [% f.xs_name %]() - [% f.result_array_size_msg %]");
+                  XSRETURN_UNDEF;
+		}
+		result_array_ = malloc(result_array_size * sizeof(double));
+		if (!result_array_) {
+                  warn("Warning: [% f.xs_name %]() - malloc failed");
+                  XSRETURN_UNDEF;
+		}
+		/* do the job */
+		rv_ = [% f.gsl_name %]([% f.gsl_params %]);
+		if (rv_) warn("Error: rv(%d)",gsl_strerror(rv_));
+		for(i=0;i<result_array_size;i++)
+		  XPUSHs(sv_2mortal(newSVnv(result_array_[i])));
+		/* free memory */
+		free(result_array_);
+[% ELSE %]
+		XPUSHs(sv_2mortal(newSVnv([% f.gsl_name %]([% f.gsl_params %]))));
+[% END -%]
+
+[% END -%]
+###### generated part - end ######

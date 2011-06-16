@@ -1,0 +1,28 @@
+#include "EXTERN.h"
+#include "perl.h"
+#include "XSUB.h"
+#include "ppport.h"
+
+#include <gsl/gsl_cdf.h>
+
+void warn_handler (const char * reason, const char * file, int line, int gsl_errno) {
+  warn("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
+  return;
+}
+
+void croak_handler (const char * reason, const char * file, int line, int gsl_errno) {
+  croak("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
+  return;
+}
+
+void silent_handler (const char * reason, const char * file, int line, int gsl_errno) {
+  return;
+}
+
+MODULE = Math::EasyGSL::CDF       PACKAGE = Math::EasyGSL::CDF
+
+BOOT:
+/* printf("Hello from the bootstrap - CDF!\n"); / * XXX-FIXME */
+gsl_set_error_handler (&warn_handler);
+
+[% INCLUDE Common.tt %]

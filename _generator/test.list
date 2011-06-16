@@ -1,0 +1,4 @@
+#chisq_pdf#double gsl_ran_chisq_pdf (const double x, const double nu);
+#sf_bessel_Jn_array#int gsl_sf_bessel_Jn_array(int nmin, int nmax, double x, double * result_array);
+#sf_bessel_Y0#int gsl_sf_bessel_Y0_e(const double x, gsl_sf_result * result);
+#sf_gegenpoly_array#int gsl_sf_gegenpoly_array(int nmax, double lambda, double x, double * result_array); 

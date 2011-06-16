@@ -1,0 +1,376 @@
+=head1 NAME
+
+Math::EasyGSL::PDF - [Functions] probability density functions
+
+=head1 SYNOPSIS
+
+ use Math::EasyGSL::PDF ':all';
+ 
+ my @pdf_values;
+ for(my $i=0.0; $i<+4.0; $i+=0.1) {
+   my $v = pdf_lognormal($i, 0.3, 0.5);
+   printf("[%.1f] %s\n", $i, '#' x int($v*50));
+ }
+
+=head1 USAGE
+
+You can import all available functions by calling:
+
+ use Math::EasyGSL::PDF ':all';
+
+Or you can import just selected functions:
+
+ use Math::EasyGSL::PDF qw(pdf_gaussian pdf_lognormal);
+
+There are no other import tags.
+
+=head1 DESCRIPTION
+
+The library provides probability density functions for different
+random number distributions.
+
+=head1 FUNCTIONS
+
+=head2 The Gaussian Distribution
+
+=head3 ran_gaussian_pdf
+
+ $y = pdf_gaussian($x, $sigma);
+
+This function computes the probability density p(x) at I<x> for a
+Gaussian distribution with standard deviation I<sigma>, using the
+formula given above.
+
+=head3 ran_ugaussian_pdf
+
+ $y = pdf_ugaussian($x);
+
+Thise function computes the probability density for Gaussian distribution
+with a standard deviation of one, I<sigma> = 1.
+
+=head2 The Gaussian Tail Distribution
+
+=head3 ran_gaussian_tail_pdf
+
+ $y = pdf_gaussian_tail($x, $a, $sigma);
+
+This function computes the probability density p(x) at I<x> for a
+Gaussian tail distribution with standard deviation I<sigma> and lower
+limit I<a>, using the formula given above.
+
+=head3 ran_ugaussian_tail_pdf
+
+ $y = pdf_ugaussian_tail($x, $a);
+
+This function computes results for the tail of a unit Gaussian
+distribution (equivalent to ran_gaussian_tail_pdf with a
+standard deviation of one, I<sigma> = 1).
+
+=head2 The Bivariate Gaussian Distribution
+
+=head3 ran_bivariate_gaussian_pdf
+
+ $y = pdf_bivariate_gaussian($x, $y, $sigma_x, $sigma_y, $rho);
+
+This function computes the probability density p(x,y) at (I<x>,I<y>)
+for a bivariate Gaussian distribution with standard deviations
+I<sigma_x>, I<sigma_y> and correlation coefficient I<rho>, using the
+formula given above.
+
+=head2 The Exponential Distribution
+
+=head3 ran_exponential_pdf
+
+ $y = pdf_exponential($x, $mu);
+
+This function computes the probability density p(x) at I<x> for an
+exponential distribution with mean I<mu>, using the formula given
+above.
+
+=head2 The Laplace Distribution
+
+=head3 ran_laplace_pdf
+
+ $y = pdf_laplace($x, $a);
+
+This function computes the probability density p(x) at I<x> for a
+Laplace distribution with width I<a>, using the formula given above.
+
+=head2 The Exponential Power Distribution
+
+=head3 ran_exppow_pdf
+
+ $y = pdf_exppow($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for an
+exponential power distribution with scale parameter I<a> and exponent
+I<b>, using the formula given above.
+
+=head2 The Cauchy Distribution
+
+=head3 ran_cauchy_pdf
+
+ $y = pdf_cauchy($x, $a);
+
+This function computes the probability density p(x) at I<x> for a
+Cauchy distribution with scale parameter I<a>, using the formula given
+above.
+
+=head2 The Rayleigh Distribution
+
+=head3 ran_rayleigh_pdf
+
+ $y = pdf_rayleigh($x, $sigma);
+
+This function computes the probability density p(x) at I<x> for a
+Rayleigh distribution with scale parameter I<sigma>, using the formula
+given above.
+
+=head2 The Rayleigh Tail Distribution
+
+=head3 ran_rayleigh_tail_pdf
+
+ $y = pdf_rayleigh_tail($x, $a, $sigma);
+
+This function computes the probability density p(x) at I<x> for a
+Rayleigh tail distribution with scale parameter I<sigma> and lower
+limit I<a>, using the formula given above.
+
+=head2 The Landau Distribution
+
+=head3 ran_landau_pdf
+
+ $y = pdf_landau($x);
+
+This function computes the probability density p(x) at I<x> for the
+Landau distribution using an approximation to the formula given above.
+
+=head2 The Gamma Distribution
+
+=head3 ran_gamma_pdf
+
+ $y = pdf_gamma($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a gamma
+distribution with parameters I<a> and I<b>, using the formula given
+above.
+
+=head2 The Flat (Uniform) Distribution
+
+=head3 ran_flat_pdf
+
+ $y = pdf_flat($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a
+uniform distribution from I<a> to I<b>, using the formula given above.
+
+=head2 The Lognormal Distribution
+
+=head3 ran_lognormal_pdf
+
+ $y = pdf_lognormal($x, $zeta, $sigma);
+
+This function computes the probability density p(x) at I<x> for a
+lognormal distribution with parameters I<zeta> and I<sigma>, using the
+formula given above.
+
+=head2 The Chi-squared Distribution
+
+=head3 ran_chisq_pdf
+
+ $y = pdf_chisq($x, $nu);
+
+This function computes the probability density p(x) at I<x> for a
+chi-squared distribution with I<nu> degrees of freedom, using the
+formula given above.
+
+=head2 The F-distribution
+
+=head3 ran_fdist_pdf
+
+ $y = pdf_fdist($x, $nu1, $nu2);
+
+This function computes the probability density p(x) at I<x> for an
+F-distribution with I<nu1> and I<nu2> degrees of freedom, using the
+formula given above.
+
+=head2 The t-distribution
+
+=head3 ran_tdist_pdf
+
+ $y = pdf_tdist($x, $nu);
+
+This function computes the probability density p(x) at I<x> for a
+t-distribution with I<nu> degrees of freedom, using the formula given
+above.
+
+=head2 The Beta Distribution
+
+=head3 ran_beta_pdf
+
+ $y = pdf_beta($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a beta
+distribution with parameters I<a> and I<b>, using the formula given
+above.
+
+=head2 The Logistic Distribution
+
+=head3 ran_logistic_pdf
+
+ $y = pdf_logistic($x, $a);
+
+This function computes the probability density p(x) at I<x> for a
+logistic distribution with scale parameter I<a>, using the formula
+given above.
+
+=head2 The Pareto Distribution
+
+=head3 ran_pareto_pdf
+
+ $y = pdf_pareto($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a
+Pareto distribution with exponent I<a> and scale I<b>, using the
+formula given above.
+
+=head2 The Weibull Distribution
+
+=head3 ran_weibull_pdf
+
+ $y = pdf_weibull($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a
+Weibull distribution with scale I<a> and exponent I<b>, using the
+formula given above.
+
+=head2 The Type-1 Gumbel Distribution
+
+=head3 ran_gumbel1_pdf
+
+ $y = pdf_gumbel1($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a
+Type-1 Gumbel distribution with parameters I<a> and I<b>, using the
+formula given above.
+
+=head2 The Type-2 Gumbel Distribution
+
+=head3 ran_gumbel2_pdf
+
+ $y = pdf_gumbel2($x, $a, $b);
+
+This function computes the probability density p(x) at I<x> for a
+Type-2 Gumbel distribution with parameters I<a> and I<b>, using the
+formula given above.
+
+=head2 The Dirichlet Distribution
+
+=head3 ran_dirichlet_pdf
+
+ $y = pdf_dirichlet($K, \@alpha, \@theta);
+
+This function computes the probability density p(\theta_1, ... ,
+\theta_K) at I<theta>[I<K>] for a Dirichlet distribution with
+parameters I<alpha>[I<K>], using the formula given above.
+
+=head2 The Poisson Distribution
+
+=head3 ran_poisson_pdf
+
+ $y = pdf_poisson($k, $mu);
+
+This function computes the probability p(k) of obtaining I<k> from a
+Poisson distribution with mean I<mu>, using the formula given above.
+
+=head2 The Bernoulli Distribution
+
+=head3 ran_bernoulli_pdf
+
+ $y = pdf_bernoulli($k, $p);
+
+This function computes the probability p(k) of obtaining I<k> from a
+Bernoulli distribution with probability parameter I<p>, using the
+formula given above.
+
+=head2 The Binomial Distribution
+
+=head3 ran_binomial_pdf
+
+ $y = pdf_binomial($k, $p, $n);
+
+This function computes the probability p(k) of obtaining I<k> from a
+binomial distribution with parameters I<p> and I<n>, using the formula
+given above.
+
+=head2 The Multinomial Distribution
+
+=head3 ran_multinomial_pdf
+
+ $y = pdf_multinomial($K, \@p);
+
+This function computes the probability P(n_1, n_2, ..., n_K) of
+sampling I<n>[I<K>] from a multinomial distribution with parameters
+I<p>[I<K>], using the formula given above.
+
+=head3 ran_multinomial_lnpdf
+
+ $y = pdf_multinomial_ln($K, \@p);
+
+This function returns the logarithm of the probability for the
+multinomial distribution P(n_1, n_2, ..., n_K) with parameters
+I<p>[I<K>].
+
+=head2 The Negative Binomial Distribution
+
+=head3 ran_negative_binomial_pdf
+
+ $y = pdf_negative_binomial($k, $p, $n);
+
+This function computes the probability p(k) of obtaining I<k> from a
+negative binomial distribution with parameters I<p> and I<n>, using the
+formula given above.
+
+=head2 The Pascal Distribution
+
+=head3 ran_pascal_pdf
+
+ $y = pdf_pascal($k, $p, $n);
+
+This function computes the probability p(k) of obtaining I<k> from a
+Pascal distribution with parameters I<p> and I<n>, using the formula
+given above.
+
+=head2 The Geometric Distribution
+
+=head3 ran_geometric_pdf
+
+ $y = pdf_geometric($k, $p);
+
+This function computes the probability p(k) of obtaining I<k> from a
+geometric distribution with probability parameter I<p>, using the
+formula given above.
+
+=head2 The Hypergeometric Distribution
+
+=head3 ran_hypergeometric_pdf
+
+ $y = pdf_hypergeometric($k, $n1, $n2, $t);
+
+This function computes the probability p(k) of obtaining I<k> from a
+hypergeometric distribution with parameters I<n1>, I<n2>, I<t>, using
+the formula given above.
+
+=head2 The Logarithmic Distribution
+
+=head3 ran_logarithmic_pdf
+
+ $y = pdf_logarithmic($k, $p);
+
+This function computes the probability p(k) of obtaining I<k> from a
+logarithmic distribution with probability parameter I<p>, using the
+formula given above.
+
+=head1 SEE ALSO
+
+L<Math::EasyGSL::CDF>, L<Math::EasyGSL::Random>

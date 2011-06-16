@@ -1,0 +1,53 @@
+?#get_dirichlet#void gsl_ran_dirichlet(const gsl_rng * r, const size_t K, const double alpha[], double theta[]);
+?#get_multinomial#void gsl_ran_multinomial(const gsl_rng * r, const size_t K, const unsigned int N, const double p[], unsigned int n[]);
+?#get_poisson_array#void gsl_ran_poisson_array(const gsl_rng * r, size_t n, unsigned int array[], double mu);
+?#get_discrete#size_t gsl_ran_discrete (const gsl_rng * r, const gsl_ran_discrete_t * g)
+?#xxx_discrete_pre#void gsl_ran_discrete_preproc (size_t K, const double * P)
+?#xxx_discrete_free#void gsl_ran_discrete_free (gsl_ran_discrete_t * g)
+
+?#shuffle#void gsl_ran_shuffle(const gsl_rng * r, void * base, size_t nmembm, size_t size);
+?#choose#int gsl_ran_choose(const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size);
+?#sample#void gsl_ran_sample(const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size);
+
+#get_bernoulli#unsigned int gsl_ran_bernoulli (const gsl_rng * r, double p);
+#get_beta#double gsl_ran_beta (const gsl_rng * r, const double a, const double b);
+#get_binomial#unsigned int gsl_ran_binomial (const gsl_rng * r, double p, unsigned int n);
+#get_binomial_knuth#unsigned int gsl_ran_binomial_knuth (const gsl_rng * r, double p, unsigned int n);
+#get_binomial_tpe#unsigned int gsl_ran_binomial_tpe (const gsl_rng * r, double p, unsigned int n);
+#get_cauchy#double gsl_ran_cauchy (const gsl_rng * r, const double a);
+#get_chisq#double gsl_ran_chisq (const gsl_rng * r, const double nu);
+#get_erlang#double gsl_ran_erlang (const gsl_rng * r, const double a, const double n);
+#get_exponential#double gsl_ran_exponential (const gsl_rng * r, const double mu);
+#get_exppow#double gsl_ran_exppow (const gsl_rng * r, const double a, const double b);
+#get_fdist#double gsl_ran_fdist (const gsl_rng * r, const double nu1, const double nu2);
+#get_flat#double gsl_ran_flat (const gsl_rng * r, const double a, const double b);
+#get_gamma#double gsl_ran_gamma (const gsl_rng * r, const double a, const double b);
+#get_gamma_int#double gsl_ran_gamma_int (const gsl_rng * r, const unsigned int a);
+#get_gamma_knuth#double gsl_ran_gamma_knuth (const gsl_rng * r, const double a, const double b);
+#get_gamma_mt#double gsl_ran_gamma_mt (const gsl_rng * r, const double a, const double b);
+#get_gaussian#double gsl_ran_gaussian (const gsl_rng * r, const double sigma);
+#get_gaussian_ratio_method#double gsl_ran_gaussian_ratio_method (const gsl_rng * r, const double sigma);
+#get_gaussian_tail#double gsl_ran_gaussian_tail (const gsl_rng * r, const double a, const double sigma);
+#get_gaussian_ziggurat#double gsl_ran_gaussian_ziggurat (const gsl_rng * r, const double sigma);
+#get_geometric#unsigned int gsl_ran_geometric (const gsl_rng * r, const double p);
+#get_gumbel1#double gsl_ran_gumbel1 (const gsl_rng * r, const double a, const double b);
+#get_gumbel2#double gsl_ran_gumbel2 (const gsl_rng * r, const double a, const double b);
+#get_hypergeometric#unsigned int gsl_ran_hypergeometric (const gsl_rng * r, unsigned int n1, unsigned int n2, unsigned int t);
+#get_landau#double gsl_ran_landau (const gsl_rng * r);
+#get_laplace#double gsl_ran_laplace (const gsl_rng * r, const double a);
+#get_levy#double gsl_ran_levy (const gsl_rng * r, const double c, const double alpha);
+#get_levy_skew#double gsl_ran_levy_skew (const gsl_rng * r, const double c, const double alpha, const double beta);
+#get_logarithmic#unsigned int gsl_ran_logarithmic (const gsl_rng * r, const double p);
+#get_logistic#double gsl_ran_logistic (const gsl_rng * r, const double a);
+#get_lognormal#double gsl_ran_lognormal (const gsl_rng * r, const double zeta, const double sigma);
+#get_negative_binomial#unsigned int gsl_ran_negative_binomial (const gsl_rng * r, double p, double n);
+#get_pareto#double gsl_ran_pareto (const gsl_rng * r, double a, const double b);
+#get_pascal#unsigned int gsl_ran_pascal (const gsl_rng * r, double p, unsigned int n);
+#get_poisson#unsigned int gsl_ran_poisson (const gsl_rng * r, double mu);
+#get_rayleigh#double gsl_ran_rayleigh (const gsl_rng * r, const double sigma);
+#get_rayleigh_tail#double gsl_ran_rayleigh_tail (const gsl_rng * r, const double a, const double sigma);
+#get_tdist#double gsl_ran_tdist (const gsl_rng * r, const double nu);
+#get_ugaussian#double gsl_ran_ugaussian (const gsl_rng * r);
+#get_ugaussian_ratio_method#double gsl_ran_ugaussian_ratio_method (const gsl_rng * r);
+#get_ugaussian_tail#double gsl_ran_ugaussian_tail (const gsl_rng * r, const double a);
+#get_weibull#double gsl_ran_weibull (const gsl_rng * r, const double a, const double b);

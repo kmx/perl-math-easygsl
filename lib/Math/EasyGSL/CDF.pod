@@ -1,0 +1,505 @@
+=head1 NAME
+
+Math::EasyGSL::CDF - [Functions] cumulative distribution functions
+
+=head1 SYNOPSIS
+
+ use Math::EasyGSL::CDF ':all';
+ 
+ my $x = 2.0;
+     
+ my $P = cdf_ugaussian_P($x);
+ printf ("prob(x < %f) = %f\n", $x, $P);
+     
+ my $Q = cdf_ugaussian_Q($x);
+ printf ("prob(x > %f) = %f\n", $x, $Q);
+     
+ my $pi = cdf_ugaussian_Pinv($P);
+ printf ("Pinv(%f) = %f\n", $P, $pi);
+     
+ my $qi = cdf_ugaussian_Qinv($Q);
+ printf ("Qinv(%f) = %f\n", $Q, $qi);
+
+=head1 USAGE
+
+You can import all available functions by calling:
+
+ use Math::EasyGSL::CDF ':all';
+
+Or you can import just selected functions:
+
+ use Math::EasyGSL::CDF qw(cdf_ugaussian_P cdf_ugaussian_Q);
+
+There are no other import tags.
+
+=head1 DESCRIPTION
+
+The library  provides cumulative distribution functions and inverse cumulative 
+distribution functions, sometimes referred to as quantile functions. 
+The cumulative distribution functions and their inverses are computed 
+separately for the upper and lower tails of the distribution, 
+allowing full accuracy to be retained for small results.
+
+Let us have a continuous random number distributions are defined by a 
+probability density function I<p(x)> - see L<Math::EasyGSL::PDF>.
+
+The cumulative distribution function for the lower tail P(x) is defined
+by the integral of I<p(x)>, and gives the probability of a variate taking a value
+less than x. These functions are named B<cdf_NNNNNNN_P()>.
+
+The cumulative distribution function for the upper tail Q(x) is defined
+by the integral of I<p(x)>, and gives the probability of a variate taking a value
+greater than x. These functions are named B<cdf_NNNNNNN_Q()>.
+
+The upper and lower cumulative distribution functions are related by
+P(x) + Q(x) = 1 and satisfy C<0 E<lt>= P(x) E<lt>= 1> and C<0 E<lt>= Q(x)
+E<lt>= 1>.
+
+The inverse cumulative distributions, x=P^{-1}(P) and x=Q^{-1}(Q) give
+the values of x which correspond to a specific value of P or Q. They
+can be used to find confidence limits from probability values.
+These functions are named B<cdf_NNNNNNN_Pinv()> and B<cdf_NNNNNNN_Qinv()>.
+
+For discrete distributions the probability of sampling the integer
+value k is given by p(k), where C<sum_k p(k) = 1>. The cumulative
+distribution for the lower tail P(k) of a discrete distribution is
+defined as, where the sum is over the allowed range of the distribution
+less than or equal to k.
+
+The cumulative distribution for the upper tail of a discrete
+distribution Q(k) is defined as giving the sum of probabilities for all
+values greater than k. These two definitions satisfy the identity
+P(k)+Q(k)=1.
+
+If the range of the distribution is 1 to n inclusive then P(n)=1,
+Q(n)=0 while P(1) = p(1), Q(1)=1-p(1).
+
+=head1 FUNCTIONS
+
+=head2 The Gaussian Distribution
+
+=head3 cdf_gaussian_P
+
+=head3 cdf_gaussian_Q
+
+=head3 cdf_gaussian_Pinv
+
+=head3 cdf_gaussian_Qinv
+
+ $p  = cdf_gaussian_P($x, $sigma);
+ $q  = cdf_gaussian_Q($x, $sigma);
+ $pi = cdf_gaussian_Pinv($P, $sigma);
+ $qi = cdf_gaussian_Qinv($Q, $sigma);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Gaussian distribution with standard
+deviation I<sigma>.
+
+=head3 cdf_ugaussian_P
+
+=head3 cdf_ugaussian_Q
+
+=head3 cdf_ugaussian_Pinv
+
+=head3 cdf_ugaussian_Qinv
+
+ $p  = cdf_ugaussian_P($x);
+ $q  = cdf_ugaussian_Q($x);
+ $pi = cdf_ugaussian_Pinv($P);
+ $qi = cdf_ugaussian_Qinv($Q);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the unit Gaussian distribution.
+
+=head2 The Exponential Distribution
+
+=head3 cdf_exponential_P
+
+=head3 cdf_exponential_Q
+
+=head3 cdf_exponential_Pinv
+
+=head3 cdf_exponential_Qinv
+
+ $p  = cdf_exponential_P($x, $mu);
+ $q  = cdf_exponential_Q($x, $mu);
+ $pi = cdf_exponential_Pinv($P, $mu);
+ $qi = cdf_exponential_Qinv($Q, $mu);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the exponential distribution with mean
+I<mu>.
+
+=head2 The Laplace Distribution
+
+=head3 cdf_laplace_P
+
+=head3 cdf_laplace_Q
+
+=head3 cdf_laplace_Pinv
+
+=head3 cdf_laplace_Qinv
+
+ $p  = cdf_laplace_P($x, $a);
+ $q  = cdf_laplace_Q($x, $a);
+ $pi = cdf_laplace_Pinv($P, $a);
+ $qi = cdf_laplace_Qinv($Q, $a);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Laplace distribution with width I<a>.
+
+=head2 The Exponential Power Distribution
+
+=head3 cdf_exppow_P
+
+=head3 cdf_exppow_Q
+
+ $p  = cdf_exppow_P($x, $a, $b);
+ $q  = cdf_exppow_Q($x, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) for the exponential power distribution with parameters I<a> and
+I<b>.
+
+=head2 The Cauchy Distribution
+
+=head3 cdf_cauchy_P
+
+=head3 cdf_cauchy_Q
+
+=head3 cdf_cauchy_Pinv
+
+=head3 cdf_cauchy_Qinv
+
+ $p  = cdf_cauchy_P($x, $a);
+ $q  = cdf_cauchy_Q($x, $a);
+ $pi = cdf_cauchy_Pinv($P, $a);
+ $qi = cdf_cauchy_Qinv($Q, $a);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Cauchy distribution with scale
+parameter I<a>.
+
+=head2 The Rayleigh Distribution
+
+=head3 cdf_rayleigh_P
+
+=head3 cdf_rayleigh_Q
+
+=head3 cdf_rayleigh_Pinv
+
+=head3 cdf_rayleigh_Qinv
+
+ $p  = cdf_rayleigh_P($x, $sigma);
+ $q  = cdf_rayleigh_Q($x, $sigma);
+ $pi = cdf_rayleigh_Pinv($P, $sigma);
+ $qi = cdf_rayleigh_Qinv($Q, $sigma);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Rayleigh distribution with scale
+parameter I<sigma>.
+
+=head2 The Gamma Distribution
+
+=head3 cdf_gamma_P
+
+=head3 cdf_gamma_Q
+
+=head3 cdf_gamma_Pinv
+
+=head3 cdf_gamma_Qinv
+
+ $p  = cdf_gamma_P($x, $a, $b);
+ $q  = cdf_gamma_Q($x, $a, $b);
+ $pi = cdf_gamma_Pinv($P, $a, $b);
+ $qi = cdf_gamma_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the gamma distribution with parameters I<a>
+and I<b>.
+
+=head2 The Flat (Uniform) Distribution
+
+=head3 cdf_flat_P
+
+=head3 cdf_flat_Q
+
+=head3 cdf_flat_Pinv
+
+=head3 cdf_flat_Qinv
+
+ $p  = cdf_flat_P($x, $a, $b);
+ $q  = cdf_flat_Q($x, $a, $b);
+ $pi = cdf_flat_Pinv($P, $a, $b);
+ $qi = cdf_flat_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for a uniform distribution from I<a> to I<b>.
+
+=head2 The Lognormal Distribution
+
+=head3 cdf_lognormal_P
+
+=head3 cdf_lognormal_Q
+
+=head3 cdf_lognormal_Pinv
+
+=head3 cdf_lognormal_Qinv
+
+ $p  = cdf_lognormal_P($x, $zeta, $sigma);
+ $q  = cdf_lognormal_Q($x, $zeta, $sigma);
+ $pi = cdf_lognormal_Pinv($P, $zeta, $sigma);
+ $qi = cdf_lognormal_Qinv($Q, $zeta, $sigma);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the lognormal distribution with parameters
+I<zeta> and I<sigma>.
+
+=head2 The Chi-squared Distribution
+
+=head3 cdf_chisq_P
+
+=head3 cdf_chisq_Q
+
+=head3 cdf_chisq_Pinv
+
+=head3 cdf_chisq_Qinv
+
+ $p  = cdf_chisq_P($x, $nu);
+ $q  = cdf_chisq_Q($x, $nu);
+ $pi = cdf_chisq_Pinv($P, $nu);
+ $qi = cdf_chisq_Qinv($Q, $nu);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the chi-squared distribution with I<nu>
+degrees of freedom.
+
+=head2 The F-distribution
+
+=head3 cdf_fdist_P
+
+=head3 cdf_fdist_Q
+
+=head3 cdf_fdist_Pinv
+
+=head3 cdf_fdist_Qinv
+
+ $p  = cdf_fdist_P($x, $nu1, $nu2);
+ $q  = cdf_fdist_Q($x, $nu1, $nu2);
+ $pi = cdf_fdist_Pinv($P, $nu1, $nu2);
+ $qi = cdf_fdist_Qinv($Q, $nu1, $nu2);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the F-distribution with I<nu1> and I<nu2>
+degrees of freedom.
+
+=head2 The t-distribution
+
+=head3 cdf_tdist_P
+
+=head3 cdf_tdist_Q
+
+=head3 cdf_tdist_Pinv
+
+=head3 cdf_tdist_Qinv
+
+ $p  = cdf_tdist_P($x, $nu);
+ $q  = cdf_tdist_Q($x, $nu);
+ $pi = cdf_tdist_Pinv($P, $nu);
+ $qi = cdf_tdist_Qinv($Q, $nu);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the t-distribution with I<nu> degrees of
+freedom.
+
+=head2 The Beta Distribution
+
+=head3 cdf_beta_P
+
+=head3 cdf_beta_Q
+
+=head3 cdf_beta_Pinv
+
+=head3 cdf_beta_Qinv
+
+ $p  = cdf_beta_P($x, $a, $b);
+ $q  = cdf_beta_Q($x, $a, $b);
+ $pi = cdf_beta_Pinv($P, $a, $b);
+ $qi = cdf_beta_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the beta distribution with parameters I<a>
+and I<b>.
+
+=head2 The Logistic Distribution
+
+=head3 cdf_logistic_P
+
+=head3 cdf_logistic_Q
+
+=head3 cdf_logistic_Pinv
+
+=head3 cdf_logistic_Qinv
+
+ $p  = cdf_logistic_P($x, $a);
+ $q  = cdf_logistic_Q($x, $a);
+ $pi = cdf_logistic_Pinv($P, $a);
+ $qi = cdf_logistic_Qinv($Q, $a);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the logistic distribution with scale
+parameter I<a>.
+
+=head2 The Pareto Distribution
+
+=head3 cdf_pareto_P
+
+=head3 cdf_pareto_Q
+
+=head3 cdf_pareto_Pinv
+
+=head3 cdf_pareto_Qinv
+
+ $p  = cdf_pareto_P($x, $a, $b);
+ $q  = cdf_pareto_Q($x, $a, $b);
+ $pi = cdf_pareto_Pinv($P, $a, $b);
+ $qi = cdf_pareto_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Pareto distribution with exponent I<a>
+and scale I<b>.
+
+=head2 The Weibull Distribution
+
+=head3 cdf_weibull_P
+
+=head3 cdf_weibull_Q
+
+=head3 cdf_weibull_Pinv
+
+=head3 cdf_weibull_Qinv
+
+ $p  = cdf_weibull_P($x, $a, $b);
+ $q  = cdf_weibull_Q($x, $a, $b);
+ $pi = cdf_weibull_Pinv($P, $a, $b);
+ $qi = cdf_weibull_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Weibull distribution with scale I<a>
+and exponent I<b>.
+
+=head2 The Type-1 Gumbel Distribution
+
+=head3 cdf_gumbel1_P
+
+=head3 cdf_gumbel1_Q
+
+=head3 cdf_gumbel1_Pinv
+
+=head3 cdf_gumbel1_Qinv
+
+ $p  = cdf_gumbel1_P($x, $a, $b);
+ $q  = cdf_gumbel1_Q($x, $a, $b);
+ $pi = cdf_gumbel1_Pinv($P, $a, $b);
+ $qi = cdf_gumbel1_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Type-1 Gumbel distribution with
+parameters I<a> and I<b>.
+
+=head2 The Type-2 Gumbel Distribution
+
+=head3 cdf_gumbel2_P
+
+=head3 cdf_gumbel2_Q
+
+=head3 cdf_gumbel2_Pinv
+
+=head3 cdf_gumbel2_Qinv
+
+ $p  = cdf_gumbel2_P($x, $a, $b);
+ $q  = cdf_gumbel2_Q($x, $a, $b);
+ $pi = cdf_gumbel2_Pinv($P, $a, $b);
+ $qi = cdf_gumbel2_Qinv($Q, $a, $b);
+
+These functions compute the cumulative distribution functions P(x),
+Q(x) and their inverses for the Type-2 Gumbel distribution with
+parameters I<a> and I<b>.
+
+=head2 The Poisson Distribution
+
+=head3 cdf_poisson_P
+
+=head3 cdf_poisson_Q
+
+ $p = cdf_poisson_P($k, $mu);
+ $q = cdf_poisson_Q($k, $mu);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the Poisson distribution with parameter I<mu>.
+
+=head2 The Binomial Distribution
+
+=head3 cdf_binomial_P
+
+=head3 cdf_binomial_Q
+
+ $p = cdf_binomial_P($k, $p, $n);
+ $q = cdf_binomial_Q($k, $p, $n);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the binomial distribution with parameters I<p> and I<n>.
+
+=head2 The Negative Binomial Distribution
+
+=head3 cdf_negative_binomial_P
+
+=head3 cdf_negative_binomial_Q
+
+ $p = cdf_negative_binomial_P($k, $p, $n);
+ $q = cdf_negative_binomial_Q($k, $p, $n);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the negative binomial distribution with parameters I<p> and
+I<n>.
+
+=head2 The Pascal Distribution
+
+=head3 cdf_pascal_P
+
+=head3 cdf_pascal_Q
+
+ $p = cdf_pascal_P($k, $p, $n);
+ $q = cdf_pascal_Q($k, $p, $n);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the Pascal distribution with parameters I<p> and I<n>.
+
+=head2 The Geometric Distribution
+
+=head3 cdf_geometric_P
+
+=head3 cdf_geometric_Q
+
+ $p = cdf_geometric_P($k, $p);
+ $q = cdf_geometric_Q($k, $p);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the geometric distribution with parameter I<p>.
+
+=head2 The Hypergeometric Distribution
+
+=head3 cdf_hypergeometric_P
+
+=head3 cdf_hypergeometric_Q
+
+ $p = cdf_hypergeometric_P($k, $n1, $n2, $t);
+ $q = cdf_hypergeometric_Q($k, $n1, $n2, $t);
+
+These functions compute the cumulative distribution functions P(k),
+Q(k) for the hypergeometric distribution with parameters I<n1>, I<n2>
+and I<t>.
+
+=head1 SEE ALSO
+
+L<Math::EasyGSL::PDF>, L<Math::EasyGSL::Random>
