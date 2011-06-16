@@ -10,15 +10,6 @@ void warn_handler (const char * reason, const char * file, int line, int gsl_err
   return;
 }
 
-void croak_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  croak("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
-  return;
-}
-
-void silent_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  return;
-}
-
 size_t arr_ref_size(SV * data, char * warnmsg) {
   size_t rv;
   if ((!SvROK(data)) || (SvTYPE(SvRV(data)) != SVt_PVAV) || ((rv = av_len((AV *)SvRV(data))) < 0)) {
@@ -29,10 +20,6 @@ size_t arr_ref_size(SV * data, char * warnmsg) {
 }
 
 MODULE = Math::EasyGSL::PDF       PACKAGE = Math::EasyGSL::PDF
-
-BOOT:
-/* printf("Hello from the bootstrap - PDF!\n"); / * XXX-FIXME */
-gsl_set_error_handler (&warn_handler);
 
 ## GSL function: double gsl_ran_dirichlet_pdf(size_t K, const double alpha[], const double theta[]);
 void

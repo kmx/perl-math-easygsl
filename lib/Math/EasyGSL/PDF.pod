@@ -33,7 +33,7 @@ random number distributions.
 
 =head2 The Gaussian Distribution
 
-=head3 ran_gaussian_pdf
+=head3 pdf_gaussian
 
  $y = pdf_gaussian($x, $sigma);
 
@@ -41,7 +41,7 @@ This function computes the probability density p(x) at I<x> for a
 Gaussian distribution with standard deviation I<sigma>, using the
 formula given above.
 
-=head3 ran_ugaussian_pdf
+=head3 pdf_ugaussian
 
  $y = pdf_ugaussian($x);
 
@@ -50,7 +50,7 @@ with a standard deviation of one, I<sigma> = 1.
 
 =head2 The Gaussian Tail Distribution
 
-=head3 ran_gaussian_tail_pdf
+=head3 pdf_gaussian_tail
 
  $y = pdf_gaussian_tail($x, $a, $sigma);
 
@@ -58,7 +58,7 @@ This function computes the probability density p(x) at I<x> for a
 Gaussian tail distribution with standard deviation I<sigma> and lower
 limit I<a>, using the formula given above.
 
-=head3 ran_ugaussian_tail_pdf
+=head3 pdf_ugaussian_tail
 
  $y = pdf_ugaussian_tail($x, $a);
 
@@ -68,7 +68,7 @@ standard deviation of one, I<sigma> = 1).
 
 =head2 The Bivariate Gaussian Distribution
 
-=head3 ran_bivariate_gaussian_pdf
+=head3 pdf_bivariate_gaussian
 
  $y = pdf_bivariate_gaussian($x, $y, $sigma_x, $sigma_y, $rho);
 
@@ -79,7 +79,7 @@ formula given above.
 
 =head2 The Exponential Distribution
 
-=head3 ran_exponential_pdf
+=head3 pdf_exponential
 
  $y = pdf_exponential($x, $mu);
 
@@ -89,7 +89,7 @@ above.
 
 =head2 The Laplace Distribution
 
-=head3 ran_laplace_pdf
+=head3 pdf_laplace
 
  $y = pdf_laplace($x, $a);
 
@@ -98,7 +98,7 @@ Laplace distribution with width I<a>, using the formula given above.
 
 =head2 The Exponential Power Distribution
 
-=head3 ran_exppow_pdf
+=head3 pdf_exppow
 
  $y = pdf_exppow($x, $a, $b);
 
@@ -108,7 +108,7 @@ I<b>, using the formula given above.
 
 =head2 The Cauchy Distribution
 
-=head3 ran_cauchy_pdf
+=head3 pdf_cauchy
 
  $y = pdf_cauchy($x, $a);
 
@@ -118,7 +118,7 @@ above.
 
 =head2 The Rayleigh Distribution
 
-=head3 ran_rayleigh_pdf
+=head3 pdf_rayleigh
 
  $y = pdf_rayleigh($x, $sigma);
 
@@ -128,7 +128,7 @@ given above.
 
 =head2 The Rayleigh Tail Distribution
 
-=head3 ran_rayleigh_tail_pdf
+=head3 pdf_rayleigh_tail
 
  $y = pdf_rayleigh_tail($x, $a, $sigma);
 
@@ -138,7 +138,7 @@ limit I<a>, using the formula given above.
 
 =head2 The Landau Distribution
 
-=head3 ran_landau_pdf
+=head3 pdf_landau
 
  $y = pdf_landau($x);
 
@@ -147,7 +147,7 @@ Landau distribution using an approximation to the formula given above.
 
 =head2 The Gamma Distribution
 
-=head3 ran_gamma_pdf
+=head3 pdf_gamma
 
  $y = pdf_gamma($x, $a, $b);
 
@@ -157,7 +157,7 @@ above.
 
 =head2 The Flat (Uniform) Distribution
 
-=head3 ran_flat_pdf
+=head3 pdf_flat
 
  $y = pdf_flat($x, $a, $b);
 
@@ -166,7 +166,7 @@ uniform distribution from I<a> to I<b>, using the formula given above.
 
 =head2 The Lognormal Distribution
 
-=head3 ran_lognormal_pdf
+=head3 pdf_lognormal
 
  $y = pdf_lognormal($x, $zeta, $sigma);
 
@@ -176,7 +176,7 @@ formula given above.
 
 =head2 The Chi-squared Distribution
 
-=head3 ran_chisq_pdf
+=head3 pdf_chisq
 
  $y = pdf_chisq($x, $nu);
 
@@ -186,7 +186,7 @@ formula given above.
 
 =head2 The F-distribution
 
-=head3 ran_fdist_pdf
+=head3 pdf_fdist
 
  $y = pdf_fdist($x, $nu1, $nu2);
 
@@ -196,7 +196,7 @@ formula given above.
 
 =head2 The t-distribution
 
-=head3 ran_tdist_pdf
+=head3 pdf_tdist
 
  $y = pdf_tdist($x, $nu);
 
@@ -206,7 +206,7 @@ above.
 
 =head2 The Beta Distribution
 
-=head3 ran_beta_pdf
+=head3 pdf_beta
 
  $y = pdf_beta($x, $a, $b);
 
@@ -216,7 +216,7 @@ above.
 
 =head2 The Logistic Distribution
 
-=head3 ran_logistic_pdf
+=head3 pdf_logistic
 
  $y = pdf_logistic($x, $a);
 
@@ -226,7 +226,7 @@ given above.
 
 =head2 The Pareto Distribution
 
-=head3 ran_pareto_pdf
+=head3 pdf_pareto
 
  $y = pdf_pareto($x, $a, $b);
 
@@ -236,7 +236,7 @@ formula given above.
 
 =head2 The Weibull Distribution
 
-=head3 ran_weibull_pdf
+=head3 pdf_weibull
 
  $y = pdf_weibull($x, $a, $b);
 
@@ -246,7 +246,7 @@ formula given above.
 
 =head2 The Type-1 Gumbel Distribution
 
-=head3 ran_gumbel1_pdf
+=head3 pdf_gumbel1
 
  $y = pdf_gumbel1($x, $a, $b);
 
@@ -256,7 +256,7 @@ formula given above.
 
 =head2 The Type-2 Gumbel Distribution
 
-=head3 ran_gumbel2_pdf
+=head3 pdf_gumbel2
 
  $y = pdf_gumbel2($x, $a, $b);
 
@@ -266,7 +266,7 @@ formula given above.
 
 =head2 The Dirichlet Distribution
 
-=head3 ran_dirichlet_pdf
+=head3 pdf_dirichlet
 
  $y = pdf_dirichlet($K, \@alpha, \@theta);
 
@@ -276,7 +276,7 @@ parameters I<alpha>[I<K>], using the formula given above.
 
 =head2 The Poisson Distribution
 
-=head3 ran_poisson_pdf
+=head3 pdf_poisson
 
  $y = pdf_poisson($k, $mu);
 
@@ -285,7 +285,7 @@ Poisson distribution with mean I<mu>, using the formula given above.
 
 =head2 The Bernoulli Distribution
 
-=head3 ran_bernoulli_pdf
+=head3 pdf_bernoulli
 
  $y = pdf_bernoulli($k, $p);
 
@@ -295,7 +295,7 @@ formula given above.
 
 =head2 The Binomial Distribution
 
-=head3 ran_binomial_pdf
+=head3 pdf_binomial
 
  $y = pdf_binomial($k, $p, $n);
 
@@ -305,7 +305,7 @@ given above.
 
 =head2 The Multinomial Distribution
 
-=head3 ran_multinomial_pdf
+=head3 pdf_multinomial
 
  $y = pdf_multinomial($K, \@p);
 
@@ -323,7 +323,7 @@ I<p>[I<K>].
 
 =head2 The Negative Binomial Distribution
 
-=head3 ran_negative_binomial_pdf
+=head3 pdf_negative_binomial
 
  $y = pdf_negative_binomial($k, $p, $n);
 
@@ -333,7 +333,7 @@ formula given above.
 
 =head2 The Pascal Distribution
 
-=head3 ran_pascal_pdf
+=head3 pdf_pascal
 
  $y = pdf_pascal($k, $p, $n);
 
@@ -343,7 +343,7 @@ given above.
 
 =head2 The Geometric Distribution
 
-=head3 ran_geometric_pdf
+=head3 pdf_geometric
 
  $y = pdf_geometric($k, $p);
 
@@ -353,7 +353,7 @@ formula given above.
 
 =head2 The Hypergeometric Distribution
 
-=head3 ran_hypergeometric_pdf
+=head3 pdf_hypergeometric
 
  $y = pdf_hypergeometric($k, $n1, $n2, $t);
 
@@ -363,7 +363,7 @@ the formula given above.
 
 =head2 The Logarithmic Distribution
 
-=head3 ran_logarithmic_pdf
+=head3 pdf_logarithmic
 
  $y = pdf_logarithmic($k, $p);
 

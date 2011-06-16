@@ -11,15 +11,6 @@ void warn_handler (const char * reason, const char * file, int line, int gsl_err
   return;
 }
 
-void croak_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  croak("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
-  return;
-}
-
-void silent_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  return;
-}
-
 size_t arr_ref_size(SV * data, char * warnmsg) {
   size_t rv;
   if ((!SvROK(data)) || (SvTYPE(SvRV(data)) != SVt_PVAV) || ((rv = av_len((AV *)SvRV(data))) < 0)) {
@@ -28,12 +19,6 @@ size_t arr_ref_size(SV * data, char * warnmsg) {
   }
   return rv+1;
 }
-
-MODULE = Math::EasyGSL::CDF       PACKAGE = Math::EasyGSL::CDF
-
-BOOT:
-/* printf("Hello from the bootstrap - Statistics!\n"); / * XXX-FIXME */
-gsl_set_error_handler (&warn_handler);
 
 MODULE = Math::EasyGSL::Statistics	PACKAGE = Math::EasyGSL::Statistics
 

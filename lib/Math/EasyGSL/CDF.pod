@@ -20,9 +20,10 @@ Math::EasyGSL::CDF - [Functions] cumulative distribution functions
  my $qi = cdf_ugaussian_Qinv($Q);
  printf ("Qinv(%f) = %f\n", $Q, $qi);
 
-=head1 USAGE
+=head1 EXPORT
 
-You can import all available functions by calling:
+By default there are no functions exported. You can import into your
+program all available functions by calling:
 
  use Math::EasyGSL::CDF ':all';
 

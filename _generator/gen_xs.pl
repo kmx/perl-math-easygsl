@@ -197,12 +197,12 @@ sub proc_list {
 }
 
 proc_list('Math::EasyGSL', 'functions.list', qr/^#/, 'Functions.tt', rel2abs('..\lib\Math\EasyGSL\Functions.xs'));
-exit;
-
 proc_list('Math::EasyGSL::PDF', 'pdf.list', qr/^#/, 'PDF.tt', rel2abs('..\lib\Math\EasyGSL\PDF.xs'));
-#proc_list(undef, 'pdf.list', qr/^\?/, 'PDF.tt', 'PDF_questionmark.xs');
 proc_list('Math::EasyGSL::CDF', 'cdf.list', qr/^#/, 'CDF.tt', rel2abs('..\lib\Math\EasyGSL\CDF.xs'));
 proc_list('Math::EasyGSL::Random', 'random.list', qr/^#/, 'Random.tt', rel2abs('..\lib\Math\EasyGSL\Random.xs'));
-#proc_list(undef, 'random.list', qr/^\?/, 'Random.tt', 'Random_questionmark.xs');
 proc_list('Math::EasyGSL::Statistics', 'statistics.list', qr/^#/, 'Statistics.tt', rel2abs('..\lib\Math\EasyGSL\Statistics.xs'));
+
+#proc_list(undef, 'pdf.list', qr/^\?/, 'PDF.tt', 'PDF_questionmark.xs');
+#proc_list(undef, 'random.list', qr/^\?/, 'Random.tt', 'Random_questionmark.xs');
+#proc_list(undef, 'statistics.list', qr/^\?/, 'Statistics.tt', 'Statistics_questionmark.xs');
 #proc_list(undef, 'statistics.list', qr/^\?/, 'Statistics.tt', 'Statistics_questionmark.xs');

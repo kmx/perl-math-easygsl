@@ -10,20 +10,7 @@ void warn_handler (const char * reason, const char * file, int line, int gsl_err
   return;
 }
 
-void croak_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  croak("Error(gsl-internal): '%s/%s' (%s:%d)", gsl_strerror(gsl_errno), reason, file, line);
-  return;
-}
-
-void silent_handler (const char * reason, const char * file, int line, int gsl_errno) {
-  return;
-}
-
 MODULE = Math::EasyGSL::CDF       PACKAGE = Math::EasyGSL::CDF
-
-BOOT:
-/* printf("Hello from the bootstrap - CDF!\n"); / * XXX-FIXME */
-gsl_set_error_handler (&warn_handler);
 
 ###### generated part - start ######
 

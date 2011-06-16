@@ -202,7 +202,7 @@ found using the auxiliary functions described in the next section.
 
 =head2 The Gaussian Distribution
 
-=head3 ran_gaussian
+=head3 get_gaussian
 
  double B<gsl_ran_gaussian> (I<const gsl_rng * r, double sigma>)
 
@@ -214,7 +214,7 @@ numbers returned by C<gsl_ran_gaussian> to obtain a Gaussian
 distribution with mean \mu. This function uses the Box-Muller algorithm
 which requires two calls to the random number generator I<r>.
 
-=head3 ran_gaussian_pdf
+=head3 get_gaussian_pdf
 
  double B<gsl_ran_gaussian_pdf> (I<double x, double sigma>)
 
@@ -222,11 +222,11 @@ This function computes the probability density p(x) at I<x> for a
 Gaussian distribution with standard deviation I<sigma>, using the
 formula given above.
 
-=head3 ran_gaussian_ziggurat
+=head3 get_gaussian_ziggurat
 
  double B<gsl_ran_gaussian_ziggurat> (I<const gsl_rng * r, double sigma>)
 
-=head3 ran_gaussian_ratio_method
+=head3 get_gaussian_ratio_method
 
  double B<gsl_ran_gaussian_ratio_method> (I<const gsl_rng * r, double sigma>)
 
@@ -235,7 +235,7 @@ variate using the alternative Marsaglia-Tsang ziggurat and
 Kinderman-Monahan-Leva ratio methods. The Ziggurat algorithm is the
 fastest available algorithm in most cases.
 
-=head3 ran_ugaussian
+=head3 get_ugaussian
 
  double B<gsl_ran_ugaussian> (I<const gsl_rng * r>)
 
@@ -245,7 +245,7 @@ one, I<sigma> = 1.
 
 =head2 The Gaussian Tail Distribution
 
-=head3 ran_gaussian_tail
+=head3 get_gaussian_tail
 
  double B<gsl_ran_gaussian_tail> (I<const gsl_rng * r, double a, double sigma>)
 
@@ -260,7 +260,7 @@ with this aspect explained in Knuth, v2, 3rd ed, p139,586 (exercise
 The probability distribution for Gaussian tail random variates is, for
 x E<gt> a where N(a;\sigma) is the normalization constant,
 
-=head3 ran_ugaussian_tail
+=head3 get_ugaussian_tail
 
  double B<gsl_ran_ugaussian_tail> (I<const gsl_rng * r, double a>)
 
@@ -270,7 +270,7 @@ standard deviation of one, I<sigma> = 1.
 
 =head2 The Bivariate Gaussian Distribution
 
-=head3 ran_bivariate_gaussian
+=head3 get_bivariate_gaussian
 
  void B<gsl_ran_bivariate_gaussian> (I<const gsl_rng * r, double sigma_x, double sigma_y, double rho, double * x, double * y>)
 
@@ -284,7 +284,7 @@ to +\infty. The correlation coefficient I<rho> should lie between 1 and
 
 =head2 The Exponential Distribution
 
-=head3 ran_exponential
+=head3 get_exponential
 
  double B<gsl_ran_exponential> (I<const gsl_rng * r, double mu>)
 
@@ -294,7 +294,7 @@ distribution is, for x E<gt>= 0.
 
 =head2 The Laplace Distribution
 
-=head3 ran_laplace
+=head3 get_laplace
 
  double B<gsl_ran_laplace> (I<const gsl_rng * r, double a>)
 
@@ -304,7 +304,7 @@ width I<a>. The distribution is, for -\infty E<lt> x E<lt> \infty.
 
 =head2 The Exponential Power Distribution
 
-=head3 ran_exppow
+=head3 get_exppow
 
  double B<gsl_ran_exppow> (I<const gsl_rng * r, double a, double b>)
 
@@ -316,7 +316,7 @@ the same form as a Gaussian distribution, but with a = \sqrt{2} \sigma.
 
 =head2 The Cauchy Distribution
 
-=head3 ran_cauchy
+=head3 get_cauchy
 
  double B<gsl_ran_cauchy> (I<const gsl_rng * r, double a>)
 
@@ -328,7 +328,7 @@ distribution.
 
 =head2 The Rayleigh Distribution
 
-=head3 ran_rayleigh
+=head3 get_rayleigh
 
  double B<gsl_ran_rayleigh> (I<const gsl_rng * r, double sigma>)
 
@@ -338,7 +338,7 @@ The distribution is, for x E<gt> 0.
 
 =head2 The Rayleigh Tail Distribution
 
-=head3 ran_rayleigh_tail
+=head3 get_rayleigh_tail
 
  double B<gsl_ran_rayleigh_tail> (I<const gsl_rng * r, double a, double sigma>)
 
@@ -348,7 +348,7 @@ I<sigma> and a lower limit of I<a>. The distribution is, for x E<gt> a.
 
 =head2 The Landau Distribution
 
-=head3 ran_landau
+=head3 get_landau
 
  double B<gsl_ran_landau> (I<const gsl_rng * r>)
 
@@ -360,7 +360,7 @@ equivalent form of the integral,
 
 =head2 The Levy alpha-Stable Distributions
 
-=head3 ran_levy
+=head3 get_levy
 
  double B<gsl_ran_levy> (I<const gsl_rng * r, double c, double alpha>)
 
@@ -378,7 +378,7 @@ The algorithm only works for 0 E<lt> alpha E<lt>= 2.
 
 =head2 The Levy skew alpha-Stable Distribution
 
-=head3 ran_levy_skew
+=head3 get_levy_skew
 
  double B<gsl_ran_levy_skew> (I<const gsl_rng * r, double c, double alpha, double beta>)
 
@@ -405,7 +405,7 @@ distributed as an alpha-stable variate, p(N^(1/\alpha) c, \alpha,
 
 =head2 The Gamma Distribution
 
-=head3 ran_gamma
+=head3 get_gamma
 
  double B<gsl_ran_gamma> (I<const gsl_rng * r, double a, double b>)
 
@@ -420,7 +420,7 @@ The variates are computed using the Marsaglia-Tsang fast gamma method.
 This function for this method was previously called C<gsl_ran_gamma_mt>
 and can still be accessed using this name.
 
-=head3 ran_gamma_knuth
+=head3 get_gamma_knuth
 
  double B<gsl_ran_gamma_knuth> (I<const gsl_rng * r, double a, double b>)
 
@@ -429,7 +429,7 @@ This function returns a gamma variate using the algorithms from Knuth
 
 =head2 The Flat (Uniform) Distribution
 
-=head3 ran_flat
+=head3 get_flat
 
  double B<gsl_ran_flat> (I<const gsl_rng * r, double a, double b>)
 
@@ -440,7 +440,7 @@ otherwise.
 
 =head2 The Lognormal Distribution
 
-=head3 ran_lognormal
+=head3 get_lognormal
 
  double B<gsl_ran_lognormal> (I<const gsl_rng * r, double zeta, double sigma>)
 
@@ -455,7 +455,7 @@ independent Gaussian random variates with unit variance then the
 sum-of-squares, has a chi-squared distribution with n degrees of
 freedom.
 
-=head3 ran_chisq
+=head3 get_chisq
 
  double B<gsl_ran_chisq> (I<const gsl_rng * r, double nu>)
 
@@ -469,7 +469,7 @@ The F-distribution arises in statistics. If Y_1 and Y_2 are chi-squared
 deviates with \nu_1 and \nu_2 degrees of freedom then the ratio, has an
 F-distribution F(x;\nu_1,\nu_2).
 
-=head3 ran_fdist
+=head3 get_fdist
 
  double B<gsl_ran_fdist> (I<const gsl_rng * r, double nu1, double nu2>)
 
@@ -484,7 +484,7 @@ distribution and Y_2 has a chi-squared distribution with \nu degrees of
 freedom then the ratio, has a t-distribution t(x;\nu) with \nu degrees
 of freedom.
 
-=head3 ran_tdist
+=head3 get_tdist
 
  double B<gsl_ran_tdist> (I<const gsl_rng * r, double nu>)
 
@@ -494,7 +494,7 @@ distribution function is, for -\infty E<lt> x E<lt> +\infty.
 
 =head2 The Beta Distribution
 
-=head3 ran_beta
+=head3 get_beta
 
  double B<gsl_ran_beta> (I<const gsl_rng * r, double a, double b>)
 
@@ -504,7 +504,7 @@ x E<lt>= 1.
 
 =head2 The Logistic Distribution
 
-=head3 ran_logistic
+=head3 get_logistic
 
  double B<gsl_ran_logistic> (I<const gsl_rng * r, double a>)
 
@@ -514,7 +514,7 @@ for -\infty E<lt> x E<lt> +\infty.
 
 =head2 The Pareto Distribution
 
-=head3 ran_pareto
+=head3 get_pareto
 
  double B<gsl_ran_pareto> (I<const gsl_rng * r, double a, double b>)
 
@@ -528,11 +528,11 @@ The spherical distributions generate random vectors, located on a
 spherical surface. They can be used as random directions, for example
 in the steps of a random walk.
 
-=head3 ran_dir_2d
+=head3 get_dir_2d
 
  void B<gsl_ran_dir_2d> (I<const gsl_rng * r, double * x, double * y>)
 
-=head3 ran_dir_2d_trig_method
+=head3 get_dir_2d_trig_method
 
  void B<gsl_ran_dir_2d_trig_method> (I<const gsl_rng * r, double * x, double * y>)
 
@@ -553,7 +553,7 @@ p140, exercise 23), requires neither trig nor a square root. In this
 approach, I<u> and I<v> are chosen at random from the interior of a
 unit circle, and then x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 
-=head3 ran_dir_3d
+=head3 get_dir_3d
 
  void B<gsl_ran_dir_3d> (I<const gsl_rng * r, double * x, double * y, double * z>)
 
@@ -565,7 +565,7 @@ three dimensions. The vector is normalized such that |v|^2 = x^2 + y^2
 surprising fact that the distribution projected along any axis is
 actually uniform (this is only true for 3 dimensions).
 
-=head3 ran_dir_nd
+=head3 get_dir_nd
 
  void B<gsl_ran_dir_nd> (I<const gsl_rng * r, size_t n, double * x>)
 
@@ -579,7 +579,7 @@ attributed to G. W. Brown, Modern Mathematics for the Engineer (1956).
 
 =head2 The Weibull Distribution
 
-=head3 ran_weibull
+=head3 get_weibull
 
  double B<gsl_ran_weibull> (I<const gsl_rng * r, double a, double b>)
 
@@ -589,7 +589,7 @@ for x E<gt>= 0.
 
 =head2 The Type-1 Gumbel Distribution
 
-=head3 ran_gumbel1
+=head3 get_gumbel1
 
  double B<gsl_ran_gumbel1> (I<const gsl_rng * r, double a, double b>)
 
@@ -600,7 +600,7 @@ The Type-1 Gumbel distribution function is, for -\infty E<lt> x E<lt>
 
 =head2 The Type-2 Gumbel Distribution
 
-=head3 ran_gumbel2
+=head3 get_gumbel2
 
  double B<gsl_ran_gumbel2> (I<const gsl_rng * r, double a, double b>)
 
@@ -610,7 +610,7 @@ The Type-2 Gumbel distribution function is, for 0 E<lt> x E<lt> \infty.
 
 =head2 The Dirichlet Distribution
 
-=head3 ran_dirichlet
+=head3 get_dirichlet
 
  void B<gsl_ran_dirichlet> (I<const gsl_rng * r, size_t K, const double alpha>[]I<, double theta>[])
 
@@ -626,7 +626,7 @@ A.M. Law, W.D. Kelton, I<Simulation Modeling and Analysis> (1991).
 
 =head2 The Poisson Distribution
 
-=head3 ran_poisson
+=head3 get_poisson
 
  unsigned int B<gsl_ran_poisson> (I<const gsl_rng * r, double mu>)
 
@@ -636,7 +636,7 @@ distribution for Poisson variates is, for k E<gt>= 0.
 
 =head2 The Bernoulli Distribution
 
-=head3 ran_bernoulli
+=head3 get_bernoulli
 
  unsigned int B<gsl_ran_bernoulli> (I<const gsl_rng * r, double p>)
 
@@ -646,7 +646,7 @@ The probability distribution for a Bernoulli trial is,
 
 =head2 The Binomial Distribution
 
-=head3 ran_binomial
+=head3 get_binomial
 
  unsigned int B<gsl_ran_binomial> (I<const gsl_rng * r, double p, unsigned int n>)
 
@@ -657,7 +657,7 @@ for binomial variates is, for 0 E<lt>= k E<lt>= n.
 
 =head2 The Multinomial Distribution
 
-=head3 ran_multinomial
+=head3 get_multinomial
 
  void B<gsl_ran_multinomial> (I<const gsl_rng * r, size_t K, unsigned int N, const double p>[]I<, unsigned int n>[])
 
@@ -677,7 +677,7 @@ variates>, Comp. Stat. Data Anal. 16 (1993) 205217 for details).
 
 =head2 The Negative Binomial Distribution
 
-=head3 ran_negative_binomial
+=head3 get_negative_binomial
 
  unsigned int B<gsl_ran_negative_binomial> (I<const gsl_rng * r, double p, double n>)
 
@@ -690,7 +690,7 @@ required to be an integer.
 
 =head2 The Pascal Distribution
 
-=head3 ran_pascal
+=head3 get_pascal
 
  unsigned int B<gsl_ran_pascal> (I<const gsl_rng * r, double p, unsigned int n>)
 
@@ -700,7 +700,7 @@ an integer value of n. for k E<gt>= 0
 
 =head2 The Geometric Distribution
 
-=head3 ran_geometric
+=head3 get_geometric
 
  unsigned int B<gsl_ran_geometric> (I<const gsl_rng * r, double p>)
 
@@ -713,7 +713,7 @@ convention in which the exponent k-1 is replaced by k.
 
 =head2 The Hypergeometric Distribution
 
-=head3 ran_hypergeometric
+=head3 get_hypergeometric
 
  unsigned int B<gsl_ran_hypergeometric> (I<const gsl_rng * r, unsigned int n1, unsigned int n2, unsigned int t>)
 
@@ -730,7 +730,7 @@ replacement.
 
 =head2 The Logarithmic Distribution
 
-=head3 ran_logarithmic
+=head3 get_logarithmic
 
  unsigned int B<gsl_ran_logarithmic> (I<const gsl_rng * r, double p>)
 
@@ -747,7 +747,7 @@ the output. In particular it is important to avoid generators with a
 short period. For more information see Knuth, v2, 3rd ed, Section
 3.4.2, Random Sampling and Shuffling.
 
-=head3 ran_shuffle
+=head3 get_shuffle
 
  $self->shuffle(\@data);
 
@@ -764,7 +764,7 @@ Example:
   my @a = map { $_ } (0..51);
   $r->shuffle(\@a);
 
-=head3 ran_choose
+=head3 get_choose
 
  @dest = $self->choose($k, \@src);
 
@@ -789,7 +789,7 @@ numbers from the set 0 to 99,
   my @b = map { $_ } (0..99);
   my @a = $r->choose(3, \@b);
 
-=head3 ran_sample
+=head3 get_sample
 
  @dest = $self->sample($k, \@src);
 
