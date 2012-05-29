@@ -65,11 +65,11 @@ DIRFILESEP = \\
 DFSEP = $(DIRFILESEP)
 NAME = Math::EasyGSL
 NAME_SYM = Math_EasyGSL
-VERSION = 0.01
+VERSION = 0.001
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_01
+VERSION_SYM = 0_001
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.01
+XS_VERSION = 0.001
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib\arch
@@ -196,12 +196,20 @@ PERL_ARCHIVE       = $(PERL_INC)\libperl512.a
 PERL_ARCHIVE_AFTER = 
 
 
-TO_INST_PM = lib/Math/EasyGSL.pm \
+TO_INST_PM = lib/Math/EasyGSL.c \
+	lib/Math/EasyGSL.o \
+	lib/Math/EasyGSL.pm \
+	lib/Math/EasyGSL.xs \
 	lib/Math/EasyGSL/CDF.c \
 	lib/Math/EasyGSL/CDF.o \
 	lib/Math/EasyGSL/CDF.pm \
 	lib/Math/EasyGSL/CDF.pod \
 	lib/Math/EasyGSL/CDF.xs \
+	lib/Math/EasyGSL/Functions.c \
+	lib/Math/EasyGSL/Functions.o \
+	lib/Math/EasyGSL/Functions.pm \
+	lib/Math/EasyGSL/Functions.pod \
+	lib/Math/EasyGSL/Functions.xs \
 	lib/Math/EasyGSL/PDF.c \
 	lib/Math/EasyGSL/PDF.o \
 	lib/Math/EasyGSL/PDF.pm \
@@ -212,9 +220,11 @@ TO_INST_PM = lib/Math/EasyGSL.pm \
 	lib/Math/EasyGSL/Random.pm \
 	lib/Math/EasyGSL/Random.pod \
 	lib/Math/EasyGSL/Random.xs \
+	lib/Math/EasyGSL/Random.xs.good \
 	lib/Math/EasyGSL/Statistics.c \
 	lib/Math/EasyGSL/Statistics.o \
 	lib/Math/EasyGSL/Statistics.pm \
+	lib/Math/EasyGSL/Statistics.pod \
 	lib/Math/EasyGSL/Statistics.xs \
 	tmp.pl
 
@@ -222,40 +232,60 @@ PM_TO_BLIB = lib/Math/EasyGSL/CDF.pod \
 	blib\lib\Math\EasyGSL\CDF.pod \
 	lib/Math/EasyGSL/CDF.c \
 	blib\lib\Math\EasyGSL\CDF.c \
+	lib/Math/EasyGSL.o \
+	blib\lib\Math\EasyGSL.o \
 	tmp.pl \
 	$(INST_LIB)\Math\tmp.pl \
 	lib/Math/EasyGSL/PDF.o \
 	blib\lib\Math\EasyGSL\PDF.o \
+	lib/Math/EasyGSL/Random.xs.good \
+	blib\lib\Math\EasyGSL\Random.xs.good \
+	lib/Math/EasyGSL/Functions.xs \
+	blib\lib\Math\EasyGSL\Functions.xs \
 	lib/Math/EasyGSL/CDF.pm \
 	blib\lib\Math\EasyGSL\CDF.pm \
+	lib/Math/EasyGSL/Functions.pm \
+	blib\lib\Math\EasyGSL\Functions.pm \
 	lib/Math/EasyGSL/Random.o \
 	blib\lib\Math\EasyGSL\Random.o \
 	lib/Math/EasyGSL/Random.pm \
 	blib\lib\Math\EasyGSL\Random.pm \
-	lib/Math/EasyGSL/PDF.c \
-	blib\lib\Math\EasyGSL\PDF.c \
 	lib/Math/EasyGSL/Random.c \
 	blib\lib\Math\EasyGSL\Random.c \
+	lib/Math/EasyGSL/PDF.c \
+	blib\lib\Math\EasyGSL\PDF.c \
+	lib/Math/EasyGSL.xs \
+	blib\lib\Math\EasyGSL.xs \
 	lib/Math/EasyGSL/Statistics.c \
 	blib\lib\Math\EasyGSL\Statistics.c \
+	lib/Math/EasyGSL/Functions.o \
+	blib\lib\Math\EasyGSL\Functions.o \
 	lib/Math/EasyGSL/Random.pod \
 	blib\lib\Math\EasyGSL\Random.pod \
+	lib/Math/EasyGSL/Statistics.pod \
+	blib\lib\Math\EasyGSL\Statistics.pod \
 	lib/Math/EasyGSL/PDF.xs \
 	blib\lib\Math\EasyGSL\PDF.xs \
 	lib/Math/EasyGSL/CDF.o \
 	blib\lib\Math\EasyGSL\CDF.o \
 	lib/Math/EasyGSL.pm \
 	blib\lib\Math\EasyGSL.pm \
-	lib/Math/EasyGSL/CDF.xs \
-	blib\lib\Math\EasyGSL\CDF.xs \
+	lib/Math/EasyGSL/Functions.pod \
+	blib\lib\Math\EasyGSL\Functions.pod \
 	lib/Math/EasyGSL/PDF.pm \
 	blib\lib\Math\EasyGSL\PDF.pm \
+	lib/Math/EasyGSL/CDF.xs \
+	blib\lib\Math\EasyGSL\CDF.xs \
+	lib/Math/EasyGSL/Functions.c \
+	blib\lib\Math\EasyGSL\Functions.c \
 	lib/Math/EasyGSL/Statistics.xs \
 	blib\lib\Math\EasyGSL\Statistics.xs \
-	lib/Math/EasyGSL/Random.xs \
-	blib\lib\Math\EasyGSL\Random.xs \
 	lib/Math/EasyGSL/Statistics.o \
 	blib\lib\Math\EasyGSL\Statistics.o \
+	lib/Math/EasyGSL/Random.xs \
+	blib\lib\Math\EasyGSL\Random.xs \
+	lib/Math/EasyGSL.c \
+	blib\lib\Math\EasyGSL.c \
 	lib/Math/EasyGSL/Statistics.pm \
 	blib\lib\Math\EasyGSL\Statistics.pm \
 	lib/Math/EasyGSL/PDF.pod \
@@ -334,7 +364,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Math-EasyGSL
-DISTVNAME = Math-EasyGSL-0.01
+DISTVNAME = Math-EasyGSL-0.001
 
 
 # --- MakeMaker macro section:
@@ -628,8 +658,8 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) Generating META.yml
 	$(NOECHO) $(ECHO) "--- #YAML:1.0" > META_new.yml
 	$(NOECHO) $(ECHO) "name:               Math-EasyGSL" >> META_new.yml
-	$(NOECHO) $(ECHO) "version:            0.01" >> META_new.yml
-	$(NOECHO) $(ECHO) "abstract:           The great new Math::EasyGSL!" >> META_new.yml
+	$(NOECHO) $(ECHO) "version:            0.001" >> META_new.yml
+	$(NOECHO) $(ECHO) "abstract:           Perl bindings to GSL (GNU Scientific Library)" >> META_new.yml
 	$(NOECHO) $(ECHO) "author:" >> META_new.yml
 	$(NOECHO) $(ECHO) "    - KMX <kmx@cpan.org>" >> META_new.yml
 	$(NOECHO) $(ECHO) "license:            perl" >> META_new.yml
@@ -1000,8 +1030,8 @@ testdb_static :: pure_all $(MAP_TARGET)
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) "<SOFTPKG NAME=\"$(DISTNAME)\" VERSION=\"0.01\">" > $(DISTNAME).ppd
-	$(NOECHO) $(ECHO) "    <ABSTRACT>The great new Math::EasyGSL!</ABSTRACT>" >> $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) "<SOFTPKG NAME=\"$(DISTNAME)\" VERSION=\"0.001\">" > $(DISTNAME).ppd
+	$(NOECHO) $(ECHO) "    <ABSTRACT>Perl bindings to GSL (GNU Scientific Library)</ABSTRACT>" >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) "    <AUTHOR>KMX &lt;kmx@cpan.org&gt;</AUTHOR>" >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) "    <IMPLEMENTATION>" >> $(DISTNAME).ppd
 	$(NOECHO) $(ECHO) "        <PERLCORE VERSION=\"5,008,0,0\" />" >> $(DISTNAME).ppd
@@ -1020,23 +1050,34 @@ pm_to_blib : $(FIRST_MAKEFILE) $(TO_INST_PM)
 	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e "pm_to_blib({{@ARGV}, '$(INST_LIB)\auto', q[$(PM_FILTER)], '$(PERM_DIR)')" -- \
 	  lib/Math/EasyGSL/CDF.pod blib\lib\Math\EasyGSL\CDF.pod \
 	  lib/Math/EasyGSL/CDF.c blib\lib\Math\EasyGSL\CDF.c \
+	  lib/Math/EasyGSL.o blib\lib\Math\EasyGSL.o \
 	  tmp.pl $(INST_LIB)\Math\tmp.pl \
 	  lib/Math/EasyGSL/PDF.o blib\lib\Math\EasyGSL\PDF.o \
+	  lib/Math/EasyGSL/Random.xs.good blib\lib\Math\EasyGSL\Random.xs.good \
+	  lib/Math/EasyGSL/Functions.xs blib\lib\Math\EasyGSL\Functions.xs \
 	  lib/Math/EasyGSL/CDF.pm blib\lib\Math\EasyGSL\CDF.pm \
+	  lib/Math/EasyGSL/Functions.pm blib\lib\Math\EasyGSL\Functions.pm \
 	  lib/Math/EasyGSL/Random.o blib\lib\Math\EasyGSL\Random.o \
 	  lib/Math/EasyGSL/Random.pm blib\lib\Math\EasyGSL\Random.pm \
-	  lib/Math/EasyGSL/PDF.c blib\lib\Math\EasyGSL\PDF.c \
 	  lib/Math/EasyGSL/Random.c blib\lib\Math\EasyGSL\Random.c \
+	  lib/Math/EasyGSL/PDF.c blib\lib\Math\EasyGSL\PDF.c \
+	  lib/Math/EasyGSL.xs blib\lib\Math\EasyGSL.xs \
 	  lib/Math/EasyGSL/Statistics.c blib\lib\Math\EasyGSL\Statistics.c \
+	  lib/Math/EasyGSL/Functions.o blib\lib\Math\EasyGSL\Functions.o \
 	  lib/Math/EasyGSL/Random.pod blib\lib\Math\EasyGSL\Random.pod \
+	  lib/Math/EasyGSL/Statistics.pod blib\lib\Math\EasyGSL\Statistics.pod \
 	  lib/Math/EasyGSL/PDF.xs blib\lib\Math\EasyGSL\PDF.xs \
 	  lib/Math/EasyGSL/CDF.o blib\lib\Math\EasyGSL\CDF.o \
 	  lib/Math/EasyGSL.pm blib\lib\Math\EasyGSL.pm \
-	  lib/Math/EasyGSL/CDF.xs blib\lib\Math\EasyGSL\CDF.xs \
+	  lib/Math/EasyGSL/Functions.pod blib\lib\Math\EasyGSL\Functions.pod 
+	$(NOECHO) $(ABSPERLRUN) -MExtUtils::Install -e "pm_to_blib({{@ARGV}, '$(INST_LIB)\auto', q[$(PM_FILTER)], '$(PERM_DIR)')" -- \
 	  lib/Math/EasyGSL/PDF.pm blib\lib\Math\EasyGSL\PDF.pm \
+	  lib/Math/EasyGSL/CDF.xs blib\lib\Math\EasyGSL\CDF.xs \
+	  lib/Math/EasyGSL/Functions.c blib\lib\Math\EasyGSL\Functions.c \
 	  lib/Math/EasyGSL/Statistics.xs blib\lib\Math\EasyGSL\Statistics.xs \
-	  lib/Math/EasyGSL/Random.xs blib\lib\Math\EasyGSL\Random.xs \
 	  lib/Math/EasyGSL/Statistics.o blib\lib\Math\EasyGSL\Statistics.o \
+	  lib/Math/EasyGSL/Random.xs blib\lib\Math\EasyGSL\Random.xs \
+	  lib/Math/EasyGSL.c blib\lib\Math\EasyGSL.c \
 	  lib/Math/EasyGSL/Statistics.pm blib\lib\Math\EasyGSL\Statistics.pm \
 	  lib/Math/EasyGSL/PDF.pod blib\lib\Math\EasyGSL\PDF.pod 
 	$(NOECHO) $(TOUCH) pm_to_blib

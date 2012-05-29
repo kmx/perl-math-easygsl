@@ -27,206 +27,221 @@ MODULE = Math::EasyGSL::Random	PACKAGE = Math::EasyGSL::Random
 
 gsl_rng *
 _create(name, env_setup)
-		char * name;
-		int env_setup;
-	CODE:
-		const gsl_rng_type ** list;
-		const gsl_rng_type * t;
-		gsl_rng * r;
-		int i;
+        char * name;
+        int env_setup;
+    CODE:
+        const gsl_rng_type ** list;
+        const gsl_rng_type * t;
+        gsl_rng * r;
+        int i;
 
-		/* honor ENV variables */
-		if (env_setup) gsl_rng_env_setup();
+        /* honor ENV variables */
+        if (env_setup) gsl_rng_env_setup();
 
-		/* get rnd_type */
-		t = NULL;
-		if (name == NULL)
-		  t = gsl_rng_default;
-		else {
-		  /* get rnd_type by name */
-		  list = gsl_rng_types_setup();
-		  for(i=0; list[i] != NULL && t == NULL; i++) {
-		    if (strcmp(name, list[i]->name) == 0)
-		      t = list[i];
-		  }
-		}
-		if (t == NULL) {
-		  t = gsl_rng_default;
-		  warn("Warning: rng type '%s' not found, falling back to default '%s'\n", name, t->name);
-		}
-		/* alloc rng */
-		RETVAL = gsl_rng_alloc(t);
+        /* get rnd_type */
+        t = NULL;
+        if (name == NULL)
+          t = gsl_rng_default;
+        else {
+          /* get rnd_type by name */
+          list = gsl_rng_types_setup();
+          for(i=0; list[i] != NULL && t == NULL; i++) {
+            if (strcmp(name, list[i]->name) == 0)
+              t = list[i];
+          }
+        }
+        if (t == NULL) {
+          t = gsl_rng_default;
+          warn("Warning: rng type '%s' not found, falling back to default '%s'\n", name, t->name);
+        }
+        /* alloc rng */
+        RETVAL = gsl_rng_alloc(t);
 
-	OUTPUT:
-		RETVAL
+    OUTPUT:
+        RETVAL
 
 void
 _destroy(r)
-		gsl_rng * r;
-	CODE:
-		gsl_rng_free(r);
+        gsl_rng * r;
+    CODE:
+        gsl_rng_free(r);
 
 const char *
 name(self)
-		SV * self;
-	CODE:
-		RETVAL = gsl_rng_name(ref2rng(self));
-	OUTPUT:
-		RETVAL
+        SV * self;
+    CODE:
+        RETVAL = gsl_rng_name(ref2rng(self));
+    OUTPUT:
+        RETVAL
 
 void
 seed(self,seed)
-		SV * self;
-		unsigned long seed;
-	CODE:
-		gsl_rng_set(ref2rng(self), seed);
+        SV * self;
+        unsigned long seed;
+    CODE:
+        gsl_rng_set(ref2rng(self), seed);
 
 unsigned long
 max(self)
-		SV * self;
-	CODE:
-		RETVAL = gsl_rng_max(ref2rng(self));
-	OUTPUT:
-		RETVAL
+        SV * self;
+    CODE:
+        RETVAL = gsl_rng_max(ref2rng(self));
+    OUTPUT:
+        RETVAL
 
 unsigned long
 min(self)
-		SV * self;
-	CODE:
-		RETVAL = gsl_rng_min(ref2rng(self));
-	OUTPUT:
-		RETVAL
+        SV * self;
+    CODE:
+        RETVAL = gsl_rng_min(ref2rng(self));
+    OUTPUT:
+        RETVAL
 
 void
 get_raw(self)
-		SV * self;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_rng_get(ref2rng(self)))));
+        SV * self;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_rng_get(ref2rng(self)))));
 
 void
 get_pos(self)
-		SV * self;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_rng_uniform_pos(ref2rng(self)))));
+        SV * self;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_rng_uniform_pos(ref2rng(self)))));
 
 void
 get(self,...)
-		SV * self;
-	INIT:
-		gsl_rng * r;
-	PPCODE:
-		r = ref2rng(self);
-		if (items==1)
-		  XPUSHs(sv_2mortal(newSVnv(gsl_rng_uniform(r))));
-		else
-		  XPUSHs(sv_2mortal(newSViv(gsl_rng_uniform_int(r, SvIV(ST(1))))));
+        SV * self;
+    INIT:
+        gsl_rng * r;
+    PPCODE:
+        r = ref2rng(self);
+        if (items==1)
+          XPUSHs(sv_2mortal(newSVnv(gsl_rng_uniform(r))));
+        else
+          XPUSHs(sv_2mortal(newSViv(gsl_rng_uniform_int(r, SvIV(ST(1))))));
 
 void
 state(self,...)
-		SV * self;
-	INIT:
-		void * state;
-		void * newstate;
-		size_t n;
-		gsl_rng * r;
-	PPCODE:
-		r = ref2rng(self);
-		state = gsl_rng_state(r);
-		n = gsl_rng_size(r);
-		if (items==1)
-		  XPUSHs(sv_2mortal(newSVpv(state,n)));
-		else {
-		  STRLEN len;
-		  newstate = SvPV(ST(1), len);
-		  if (len == n)
-		    memcpy(state, newstate, len);
-		  else
-		    warn("Error: state has wrong size %d, expected %d\n", len, n);
-		}
+        SV * self;
+    INIT:
+        void * state;
+        void * newstate;
+        size_t n;
+        gsl_rng * r;
+    PPCODE:
+        r = ref2rng(self);
+        state = gsl_rng_state(r);
+        n = gsl_rng_size(r);
+        if (items==1)
+          XPUSHs(sv_2mortal(newSVpv(state,n)));
+        else {
+          STRLEN len;
+          newstate = SvPV(ST(1), len);
+          if (len == n)
+            memcpy(state, newstate, len);
+          else
+            warn("Error: state has wrong size %d, expected %d\n", len, n);
+        }
 
 ###### the following funcs are too complicated to be generated ######
 
 ## GSL function: void gsl_ran_sample(const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size);
 void
 sample(self,k,src)
-		SV * self;
-		size_t k;
-		SV * src;
-	INIT:
-		size_t * dest;
-		size_t * indexes;
-		size_t src_size, n, i, size;
-		AV * av;
-	PPCODE:
-		src_size = arr_ref_size(src, "Warning: sample() - invalid 'src' argument");
-		if (src_size<0) XSRETURN_UNDEF;
-		indexes = malloc(src_size * sizeof(size_t));
-		dest = malloc(k * sizeof(size_t));
-		if (!indexes || !dest) {
-		  warn("Warning: sample() - malloc failed");
-		  if (indexes) free(indexes);
-		  if (dest) free(dest);
-		  XSRETURN_UNDEF;
-		}
-		for(i=0; i<src_size; i++) indexes[i] = i;
-		gsl_ran_sample(ref2rng(self),dest,k,indexes,src_size,sizeof(size_t));
-		for(i=0, av=(AV*)SvRV(src); i<k; i++) {
-		  SV ** v = av_fetch(av,dest[i],0);
-		  XPUSHs(*v);
-		}
+        SV * self;
+        size_t k;
+        SV * src;
+    INIT:
+        size_t * dest;
+        size_t * indexes;
+        size_t src_size, n, i, size;
+        AV * av;
+        AV* rv_array;
+    PPCODE:
+        src_size = arr_ref_size(src, "Warning: sample() - invalid 'src' argument");
+        if (src_size<0) XSRETURN_UNDEF;
+        indexes = malloc(src_size * sizeof(size_t));
+        dest = malloc(k * sizeof(size_t));
+        if (!indexes || !dest) {
+          warn("Warning: sample() - malloc failed");
+          if (indexes) free(indexes);
+          if (dest) free(dest);
+          XSRETURN_UNDEF;
+        }
+        for(i=0; i<src_size; i++) indexes[i] = i;
+        gsl_ran_sample(ref2rng(self),dest,k,indexes,src_size,sizeof(size_t));
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,k); /* not needed but faster */
+        for(i=0, av=(AV*)SvRV(src); i<k; i++) {
+          SV ** v = av_fetch(av,dest[i],0);
+          av_push(rv_array,newSVsv(*v));
+        }
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
 
 ## GSL function: int gsl_ran_choose(const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size);
 void
 choose(self,k,src)
-		SV * self;
-		size_t k;
-		SV * src;
-	INIT:
-		size_t * dest;
-		size_t * indexes;
-		size_t src_size, n, i, size;
-		AV * av;
-	PPCODE:
-		src_size = arr_ref_size(src, "Warning: choose() - invalid 'src' argument");
-		if (src_size<0) XSRETURN_UNDEF;
-		indexes = malloc(src_size * sizeof(size_t));
-		dest = malloc(k * sizeof(size_t));
-		if (!indexes || !dest) {
-		  warn("Warning: choose() - malloc failed");
-		  if (indexes) free(indexes);
-		  if (dest) free(dest);
-		  XSRETURN_UNDEF;
-		}
-		for(i=0; i<src_size; i++) indexes[i] = i;
-		gsl_ran_choose(ref2rng(self),dest,k,indexes,src_size,sizeof(size_t));
-		for(i=0, av=(AV*)SvRV(src); i<k; i++) {
-		  SV ** v = av_fetch(av,dest[i],0);
-		  XPUSHs(*v);
-		}
+        SV * self;
+        size_t k;
+        SV * src;
+    INIT:
+        size_t * dest;
+        size_t * indexes;
+        size_t src_size, n, i, size;
+        AV * av;
+        AV* rv_array;
+    PPCODE:
+        src_size = arr_ref_size(src, "Warning: choose() - invalid 'src' argument");
+        if (src_size<0) XSRETURN_UNDEF;
+        indexes = malloc(src_size * sizeof(size_t));
+        dest = malloc(k * sizeof(size_t));
+        if (!indexes || !dest) {
+          warn("Warning: choose() - malloc failed");
+          if (indexes) free(indexes);
+          if (dest) free(dest);
+          XSRETURN_UNDEF;
+        }
+        for(i=0; i<src_size; i++) indexes[i] = i;
+        gsl_ran_choose(ref2rng(self),dest,k,indexes,src_size,sizeof(size_t));
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,k); /* not needed but faster */
+        for(i=0, av=(AV*)SvRV(src); i<k; i++) {
+          SV ** v = av_fetch(av,dest[i],0);
+          av_push(rv_array,newSVsv(*v));
+        }
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
 
 ## GSL function: void gsl_ran_shuffle(const gsl_rng * r, void * base, size_t nmembm, size_t size);
 void
 shuffle(self,base)
-		SV * self;
-		SV * base;
-	INIT:
-		size_t base_size, i, size;
-		size_t * indexes;
-		AV * av;
-	PPCODE:
-	        base_size = arr_ref_size(base, "Warning: shuffle() - invalid 'base' argument");
-		if (base_size<0) XSRETURN_UNDEF;
-		indexes = malloc(base_size * sizeof(size_t));
-		if (!indexes) {
-                  warn("Warning: shuffle() - malloc failed");
-                  XSRETURN_UNDEF;
-                }
-		for(i=0; i<base_size; i++) indexes[i] = i;
-		gsl_ran_shuffle(ref2rng(self),indexes,base_size,sizeof(size_t));
-		for(i=0, av=(AV*)SvRV(base); i<base_size; i++) {
-		  SV ** v = av_fetch(av,indexes[i],0);
-		  XPUSHs(*v);
-		}
+        SV * self;
+        SV * base;
+    INIT:
+        size_t base_size, i, size;
+        size_t * indexes;
+        AV * av;
+        AV* rv_array;
+    PPCODE:
+        base_size = arr_ref_size(base, "Warning: shuffle() - invalid 'base' argument");
+        if (base_size<0) XSRETURN_UNDEF;
+        indexes = malloc(base_size * sizeof(size_t));
+        if (!indexes) {
+            warn("Warning: shuffle() - malloc failed");
+            XSRETURN_UNDEF;
+        }
+        for(i=0; i<base_size; i++) indexes[i] = i;
+        gsl_ran_shuffle(ref2rng(self),indexes,base_size,sizeof(size_t));
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,base_size); /* not needed but faster */
+        for(i=0, av=(AV*)SvRV(base); i<base_size; i++) {
+          SV ** v = av_fetch(av,indexes[i],0);
+          av_push(rv_array,newSVsv(*v));
+        }
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
 
 
 ## GSL function: void gsl_ran_discrete_preproc(size_t K, const double * P);
@@ -234,189 +249,203 @@ shuffle(self,base)
 ## GSL function: void gsl_ran_discrete_free(gsl_ran_discrete_t * g);
 void
 get_discrete(self,P)
-		SV * self;
-		SV * P;
-	INIT:
-		gsl_ran_discrete_t * g;
-		double * P_;
-		size_t rv;
-		size_t K;
-		AV * av;
-		int i;
-	PPCODE:
-		K = arr_ref_size(P, "Warning: get_discrete() - invalid 'P' argument");
-		if (K<0) XSRETURN_UNDEF;
-		P_ = malloc(K * sizeof(double));
-		if (!P_) {
-		  warn("Warning: get_discrete() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		for(i=0, av=(AV*)SvRV(P); i<K; i++) P_[i] = SvNV(*av_fetch(av,i,0));
-		g = gsl_ran_discrete_preproc(K,P_);
-		rv = gsl_ran_discrete(ref2rng(self),g);		
-		XPUSHs(sv_2mortal(newSViv(rv)));		
-		gsl_ran_discrete_free(g);
-		free(P_);
+        SV * self;
+        SV * P;
+    INIT:
+        gsl_ran_discrete_t * g;
+        double * P_;
+        size_t rv;
+        size_t K;
+        AV * av;
+        int i;
+    PPCODE:
+        K = arr_ref_size(P, "Warning: get_discrete() - invalid 'P' argument");
+        if (K<0) XSRETURN_UNDEF;
+        P_ = malloc(K * sizeof(double));
+        if (!P_) {
+          warn("Warning: get_discrete() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        for(i=0, av=(AV*)SvRV(P); i<K; i++) P_[i] = SvNV(*av_fetch(av,i,0));
+        g = gsl_ran_discrete_preproc(K,P_);
+        rv = gsl_ran_discrete(ref2rng(self),g);        
+        XPUSHs(sv_2mortal(newSViv(rv)));        
+        gsl_ran_discrete_free(g);
+        free(P_);
 
 ## GSL function: void gsl_ran_poisson_array(const gsl_rng * r, size_t n, unsigned int array[], double mu);
 void
 get_poisson_array(self,n,mu)
-		SV * self;
-		size_t n;
-		double mu;
-	INIT:
-		int i;
-		unsigned int * array_;
-	PPCODE:
-		array_ = malloc(n * sizeof(unsigned int));
-		if (!array_) {
-		  warn("Warning: get_poisson_array() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		/* do the job */
-		gsl_ran_poisson_array(ref2rng(self),n,array_,mu);
-		for(i=0;i<n;i++) XPUSHs(sv_2mortal(newSViv(array_[i])));
-		/* free memory */
-		free(array_);
+        SV * self;
+        size_t n;
+        double mu;
+    INIT:
+        int i;
+        unsigned int * array_;
+        AV* rv_array;
+    PPCODE:
+        array_ = malloc(n * sizeof(unsigned int));
+        if (!array_) {
+          warn("Warning: get_poisson_array() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* do the job */
+        gsl_ran_poisson_array(ref2rng(self),n,array_,mu);
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,n); /* not needed but faster */
+        for(i=0; i<n; i++) av_push(rv_array,newSViv(array_[i]));
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
+        /* free memory */
+        free(array_);
 
 ## GSL function: void gsl_ran_multinomial(const gsl_rng * r, const size_t K, const unsigned int N, const double p[], unsigned int n[]);
 void
 get_multinomial(self,N,p)
-		SV * self;
-		unsigned int N;
-		SV * p;
-	INIT:
-		int i;
-		AV * av;
-		double * p_;
-		size_t K; /* length of p array */
-		unsigned int * n_;
-		size_t n_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		K = arr_ref_size(p, "Warning: get_multinomial() - invalid 'p' argument");
-		if (K<0) XSRETURN_UNDEF;
-		/* allocate memory */
-		p_ = malloc(K * sizeof(double));
-		n_ = malloc(K * sizeof(unsigned int));
-		if (!p_ || !n_) {
-		  warn("Warning: get_multinomial() - malloc failed");
-		  if (p_) free(p_);
-		  if (n_) free(n_);
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		gsl_ran_multinomial(ref2rng(self),K,N,p_,n_);
-		for(i=0; i<K; i++) XPUSHs(sv_2mortal(newSViv(n_[i])));
-		/* free memory */
-		free(p_);
-		free(n_);
+        SV * self;
+        unsigned int N;
+        SV * p;
+    INIT:
+        int i;
+        AV * av;
+        double * p_;
+        size_t K; /* length of p array */
+        unsigned int * n_;
+        size_t n_size;
+        AV* rv_array;
+    PPCODE:
+        /* check valid ARRAYREF */
+        K = arr_ref_size(p, "Warning: get_multinomial() - invalid 'p' argument");
+        if (K<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        p_ = malloc(K * sizeof(double));
+        n_ = malloc(K * sizeof(unsigned int));
+        if (!p_ || !n_) {
+          warn("Warning: get_multinomial() - malloc failed");
+          if (p_) free(p_);
+          if (n_) free(n_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
+        /* do the job */
+        gsl_ran_multinomial(ref2rng(self),K,N,p_,n_);
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,K); /* not needed but faster */
+        for(i=0; i<K; i++) av_push(rv_array,newSViv(n_[i]));
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
+        /* free memory */
+        free(p_);
+        free(n_);
 
 ## GSL function: void gsl_ran_dirichlet(const gsl_rng * r, const size_t K, const double alpha[], double theta[]);
 void
 get_dirichlet(self,alpha)
-              SV * self;
-              SV * alpha;
-       INIT:
-              int i;
-              AV * av;
-              double * alpha_;
-              size_t alpha_size; /* = K */
-              double * theta_;
-       PPCODE:
-              /* check valid ARRAYREF */
-              alpha_size = arr_ref_size(alpha, "Warning: get_dirichlet() - invalid 'alpha' argument");
-              if (alpha_size<0) XSRETURN_UNDEF;
-              /* allocate memory */
-              alpha_ = malloc(alpha_size * sizeof(double));
-              theta_ = malloc(alpha_size * sizeof(double));
-              if (!alpha_ || !theta_) {
-                warn("Warning: get_dirichlet() - malloc failed");
-                if (alpha_) free(alpha_);
-                if (theta_) free(theta_);
-                XSRETURN_UNDEF;
-              }
-              /* copy data */
-              for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));
-              /* do the job */
-	      gsl_ran_dirichlet(ref2rng(self),alpha_size,alpha_,theta_);
-	      for(i=0; i<alpha_size; i++) {
-                XPUSHs(sv_2mortal(newSVnv(theta_[i])));
-	      }
-              /* free memory */
-              free(alpha_);
-              free(theta_);
+        SV * self;
+        SV * alpha;
+    INIT:
+        int i;
+        AV * av;
+        double * alpha_;
+        size_t alpha_size; /* = K */
+        double * theta_;
+        AV* rv_array;
+    PPCODE:
+        /* check valid ARRAYREF */
+        alpha_size = arr_ref_size(alpha, "Warning: get_dirichlet() - invalid 'alpha' argument");
+        if (alpha_size<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        alpha_ = malloc(alpha_size * sizeof(double));
+        theta_ = malloc(alpha_size * sizeof(double));
+        if (!alpha_ || !theta_) {
+          warn("Warning: get_dirichlet() - malloc failed");
+          if (alpha_) free(alpha_);
+          if (theta_) free(theta_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        gsl_ran_dirichlet(ref2rng(self),alpha_size,alpha_,theta_);
+        /* create array to be returned */
+        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(rv_array,alpha_size); /* not needed but faster */
+        for(i=0; i<alpha_size; i++) av_push(rv_array,newSVnv(theta_[i]));
+        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
+        /* free memory */
+        free(alpha_);
+        free(theta_);
 
 ## GSL function: void gsl_ran_bivariate_gaussian(const gsl_rng * r, double sigma_x, double sigma_y, double rho, double *x, double *y);
 void
 get_bivariate_gaussian(self,sigma_x,sigma_y,rho)
-		SV * self;
-		double sigma_x;
-		double sigma_y;
-		double rho;
-	INIT:
-		double x;
-		double y;
-	PPCODE:
-		gsl_ran_bivariate_gaussian(ref2rng(self),sigma_x,sigma_y,rho,&x,&y);
-		XPUSHs(sv_2mortal(newSVnv(x)));
-		XPUSHs(sv_2mortal(newSVnv(y)));
+        SV * self;
+        double sigma_x;
+        double sigma_y;
+        double rho;
+    INIT:
+        double x;
+        double y;
+    PPCODE:
+        gsl_ran_bivariate_gaussian(ref2rng(self),sigma_x,sigma_y,rho,&x,&y);
+        XPUSHs(sv_2mortal(newSVnv(x)));
+        XPUSHs(sv_2mortal(newSVnv(y)));
 
 ## GSL function: void gsl_ran_dir_2d(const gsl_rng * r, double * x, double * y);
 void
 get_dir_2d(self)
-		SV * self;
-	INIT:
-		double x;
-		double y;
-	PPCODE:
-		gsl_ran_dir_2d(ref2rng(self),&x,&y);
-		XPUSHs(sv_2mortal(newSVnv(x)));
-		XPUSHs(sv_2mortal(newSVnv(y)));
+        SV * self;
+    INIT:
+        double x;
+        double y;
+    PPCODE:
+        gsl_ran_dir_2d(ref2rng(self),&x,&y);
+        XPUSHs(sv_2mortal(newSVnv(x)));
+        XPUSHs(sv_2mortal(newSVnv(y)));
 
 ## GSL function: void gsl_ran_dir_2d_trig_method(const gsl_rng * r, double * x, double * y);
 void
 get_dir_2d_trig_method(self)
-		SV * self;
-	INIT:
-		double x;
-		double y;
-	PPCODE:
-		gsl_ran_dir_2d_trig_method(ref2rng(self),&x,&y);
-		XPUSHs(sv_2mortal(newSVnv(x)));
-		XPUSHs(sv_2mortal(newSVnv(y)));
+        SV * self;
+    INIT:
+        double x;
+        double y;
+    PPCODE:
+        gsl_ran_dir_2d_trig_method(ref2rng(self),&x,&y);
+        XPUSHs(sv_2mortal(newSVnv(x)));
+        XPUSHs(sv_2mortal(newSVnv(y)));
 
 ## GSL function: void gsl_ran_dir_3d(const gsl_rng * r, double * x, double * y, double * z);
 void
 get_dir_3d(self)
-		SV * self;
-	INIT:
-		double x;
-		double y;
-		double z;
-	PPCODE:
-		gsl_ran_dir_3d(ref2rng(self),&x,&y,&z);
-		XPUSHs(sv_2mortal(newSVnv(x)));
-		XPUSHs(sv_2mortal(newSVnv(y)));
-		XPUSHs(sv_2mortal(newSVnv(z)));
+        SV * self;
+    INIT:
+        double x;
+        double y;
+        double z;
+    PPCODE:
+        gsl_ran_dir_3d(ref2rng(self),&x,&y,&z);
+        XPUSHs(sv_2mortal(newSVnv(x)));
+        XPUSHs(sv_2mortal(newSVnv(y)));
+        XPUSHs(sv_2mortal(newSVnv(z)));
 
 ## GSL function: void gsl_ran_dir_nd(const gsl_rng * r, size_t n, double * x);
 void
 get_dir_nd(self,n)
-		SV * self;
-		size_t n;
-	INIT:
-		double * x;
-		size_t i;
-	PPCODE:
-		x = malloc(n*sizeof(double));
-		if (x !=NULL) {
-		  gsl_ran_dir_nd(ref2rng(self),n,x);
-		  for(i=0; i<n; i++) XPUSHs(sv_2mortal(newSVnv(x[i])));
-		  free(x);
-		}
+        SV * self;
+        size_t n;
+    INIT:
+        double * x;
+        size_t i;
+        AV* rv_array;
+    PPCODE:
+        x = malloc(n*sizeof(double));
+        if (x !=NULL) {
+          gsl_ran_dir_nd(ref2rng(self),n,x);
+          for(i=0; i<n; i++) XPUSHs(sv_2mortal(newSVnv(x[i])));
+          free(x);
+        }
 
 ###### generated part - start ######
 

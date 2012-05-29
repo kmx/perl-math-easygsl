@@ -42,11 +42,11 @@ delta_within([map {$r->get_geometric(2.5)} (1..5)], [0,0,0,0,0], 1e-4, 'get_geom
 delta_within([map {$r->get_hypergeometric(12, 18, 12)} (1..5)], [6,4,3,4,6], 1e-4, 'get_hypergeometric');
 delta_within([map {$r->get_logarithmic(0.95)} (1..5)], [2,3,1,1,1], 1e-4, 'get_logarithmic');
 
-delta_within( [$r->get_dirichlet([1,2])], [0.33077,0.66923], 1e-4, 'get_dirichlet');
-delta_within( [$r->get_multinomial(3, [0.15,0.15,0.3,0.2,0.2])], [0,0,2,1,0], 1e-4, 'get_multinomial');
-is_deeply( [$r->get_poisson_array(3, 2)], [3,1,4], 'get_poisson_array');
+delta_within( $r->get_dirichlet([1,2]), [0.33077,0.66923], 1e-4, 'get_dirichlet');
+delta_within( $r->get_multinomial(3, [0.15,0.15,0.3,0.2,0.2]), [0,0,2,1,0], 1e-4, 'get_multinomial');
+is_deeply( $r->get_poisson_array(3, 2), [3,1,4], 'get_poisson_array');
 is($r->get_discrete([0.05,0.05,0.6,0.1,0.2]), 2, 'get_discrete');
 
-is_deeply( [$r->shuffle([44,55,66,77,88,99])], [44,88,55,99,77,66], 'shuffle');
-is_deeply( [$r->choose(3,[44,55,66,77,88,99])], [44,55,77], 'choose');
-is_deeply( [$r->sample(5,[7,8])], [7,7,8,8,8], 'sample');
+is_deeply( $r->shuffle([44,55,66,77,88,99]), [44,88,55,99,77,66], 'shuffle');
+is_deeply( $r->choose(3,[44,55,66,77,88,99]), [44,55,77], 'choose');
+is_deeply( $r->sample(5,[7,8]), [7,7,8,8,8], 'sample');
