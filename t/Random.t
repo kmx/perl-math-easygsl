@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Math::EasyGSL::Random;
-use Test::Number::Delta tests => 39;
+use Test::Number::Delta tests => 40;
 use Test::More;
  
 my $r = Math::EasyGSL::Random->new( seed=>5555 );
@@ -47,6 +47,10 @@ delta_within( $r->get_multinomial(3, [0.15,0.15,0.3,0.2,0.2]), [0,0,2,1,0], 1e-4
 is_deeply( $r->get_poisson_array(3, 2), [3,1,4], 'get_poisson_array');
 is($r->get_discrete([0.05,0.05,0.6,0.1,0.2]), 2, 'get_discrete');
 
-is_deeply( $r->shuffle([44,55,66,77,88,99]), [44,88,55,99,77,66], 'shuffle');
+my $list = [44,55,66,77,88,99];
+$r->shuffle($list);
+is_deeply( $list, [44,88,55,99,77,66], 'shuffle in-place');
+
 is_deeply( $r->choose(3,[44,55,66,77,88,99]), [44,55,77], 'choose');
 is_deeply( $r->sample(5,[7,8]), [7,7,8,8,8], 'sample');
+is_deeply( $r->shuffle([qw/a s d f g h j k l/]), [qw/j g h l d a f s k/], 'shuffle');

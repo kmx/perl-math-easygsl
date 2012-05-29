@@ -761,8 +761,7 @@ Example:
 
   use Math::EasyGSL::Random;  
   my $r = Math::EasyGSL::Random->new();
-  my @a = map { $_ } (0..51);
-  $r->shuffle(\@a);
+  my $list = $r->shuffle([0..51]);
 
 =head3 get_choose
 
@@ -786,8 +785,7 @@ numbers from the set 0 to 99,
 
   use Math::EasyGSL::Random;  
   my $r = Math::EasyGSL::Random->new();
-  my @b = map { $_ } (0..99);
-  my @a = $r->choose(3, \@b);
+  my $list = $r->choose(3, [0..99]);
 
 =head3 get_sample
 

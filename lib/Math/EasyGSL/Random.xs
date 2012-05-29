@@ -223,7 +223,7 @@ shuffle(self,base)
         size_t base_size, i, size;
         size_t * indexes;
         AV * av;
-        AV* rv_array;
+        AV * av_backup;
     PPCODE:
         base_size = arr_ref_size(base, "Warning: shuffle() - invalid 'base' argument");
         if (base_size<0) XSRETURN_UNDEF;
@@ -235,13 +235,22 @@ shuffle(self,base)
         for(i=0; i<base_size; i++) indexes[i] = i;
         gsl_ran_shuffle(ref2rng(self),indexes,base_size,sizeof(size_t));
         /* create array to be returned */
-        rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
-        av_extend(rv_array,base_size); /* not needed but faster */
-        for(i=0, av=(AV*)SvRV(base); i<base_size; i++) {
+        av=(AV*)SvRV(base);
+        av_backup = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+        av_extend(av_backup,base_size); /* not needed but faster */
+        for(i=0; i<base_size; i++) {
           SV ** v = av_fetch(av,indexes[i],0);
-          av_push(rv_array,newSVsv(*v));
+          av_push(av_backup,newSVsv(*v));
         }
-        XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
+        av_clear(av);
+        av_extend(av,base_size); /* not needed but faster */
+        for(i=0; i<base_size; i++) {
+          SV ** v = av_fetch(av_backup,i,0);
+          av_push(av,newSVsv(*v));
+        }
+        av_clear(av_backup);
+        /*XXX-TODO-FIXME sv_free(av_backup); */
+        XPUSHs(sv_2mortal(newRV((SV*)av)));
 
 
 ## GSL function: void gsl_ran_discrete_preproc(size_t K, const double * P);
