@@ -2,8 +2,9 @@ use strict;
 use warnings;
 
 use Template;
-use File::Spec::Functions qw/rel2abs/;
+use File::Spec::Functions qw/rel2abs canonpath/;
 use Data::Dumper;
+use FindBin;
 
 sub proc_list {
   my ($intro, $list, $qr, $template, $outxs) = @_; 
@@ -185,10 +186,10 @@ sub proc_list {
       }
     }
 
-    my $tt = Template->new();
+    my $tt = Template->new(ABSOLUTE=>1, INCLUDE_PATH=>$FindBin::Bin);
     #warn Dumper(\@allfnc);
     warn "tt.start\n";
-    my $rv = $tt->process($template, { allfnc => \@allfnc, intro => $intro } , $outxs) or die "ERROR during process()\n";
+    my $rv = $tt->process($template, { allfnc => \@allfnc, intro => $intro } , $outxs) or die "ERROR during process($template)", $tt->error(),"\n";
     warn "tt.done\n";
   }  
   else {
@@ -196,11 +197,11 @@ sub proc_list {
   }
 }
 
-proc_list('Math::EasyGSL', 'functions.list', qr/^#/, 'Functions.tt', rel2abs('..\lib\Math\EasyGSL\Functions.xs'));
-proc_list('Math::EasyGSL::PDF', 'pdf.list', qr/^#/, 'PDF.tt', rel2abs('..\lib\Math\EasyGSL\PDF.xs'));
-proc_list('Math::EasyGSL::CDF', 'cdf.list', qr/^#/, 'CDF.tt', rel2abs('..\lib\Math\EasyGSL\CDF.xs'));
-proc_list('Math::EasyGSL::Random', 'random.list', qr/^#/, 'Random.tt', rel2abs('..\lib\Math\EasyGSL\Random.xs'));
-proc_list('Math::EasyGSL::Statistics', 'statistics.list', qr/^#/, 'Statistics.tt', rel2abs('..\lib\Math\EasyGSL\Statistics.xs'));
+proc_list('Math::EasyGSL', "$FindBin::Bin/functions.list", qr/^#/, "$FindBin::Bin/Functions.tt", canonpath("$FindBin::Bin/../lib/Math/EasyGSL/Functions.xs"));
+proc_list('Math::EasyGSL::PDF', "$FindBin::Bin/pdf.list", qr/^#/, "$FindBin::Bin/PDF.tt", canonpath("$FindBin::Bin/../lib/Math/EasyGSL/PDF.xs"));
+proc_list('Math::EasyGSL::CDF', "$FindBin::Bin/cdf.list", qr/^#/, "$FindBin::Bin/CDF.tt", canonpath("$FindBin::Bin/../lib/Math/EasyGSL/CDF.xs"));
+proc_list('Math::EasyGSL::Random', "$FindBin::Bin/random.list", qr/^#/, "$FindBin::Bin/Random.tt", canonpath("$FindBin::Bin/../lib/Math/EasyGSL/Random.xs"));
+proc_list('Math::EasyGSL::Statistics', "$FindBin::Bin/statistics.list", qr/^#/, "$FindBin::Bin/Statistics.tt", canonpath("$FindBin::Bin/../lib/Math/EasyGSL/Statistics.xs"));
 
 #proc_list(undef, 'pdf.list', qr/^\?/, 'PDF.tt', 'PDF_questionmark.xs');
 #proc_list(undef, 'random.list', qr/^\?/, 'Random.tt', 'Random_questionmark.xs');

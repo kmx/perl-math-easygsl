@@ -1,0 +1,2662 @@
+=head1 NAME
+
+Math::EasyGSL::Functions - [Functions] various math functions
+
+=head1 SYNOPSIS
+
+ use Math::EasyGSL::Functions ':all';
+ xxx
+
+=head1 EXPORT
+
+By default there are no functions exported. You can import into your
+program all available functions by calling:
+
+ use Math::EasyGSL::Functions ':all';
+
+Or you can import just selected functions:
+
+ use Math::EasyGSL::Functions qw(sf_gamma sf_exp sf_cos);
+
+There are no other import tags.
+
+=head1 DESCRIPTION
+
+The module includes routines for calculating the
+values of Airy functions, Bessel functions, Clausen functions, Coulomb
+wave functions, Coupling coefficients, the Dawson function, Debye
+functions, Dilogarithms, Elliptic integrals, Jacobi elliptic functions,
+Error functions, Exponential integrals, Fermi-Dirac functions, Gamma
+functions, Gegenbauer functions, Hypergeometric functions, Laguerre
+functions, Legendre functions and Spherical Harmonics, the Psi
+(Digamma) Function, Synchrotron functions, Transport functions,
+Trigonometric functions and Zeta functions. Each routine also computes
+an estimate of the numerical error in the calculated value of the
+function.
+
+=head1 FUNCTIONS
+
+=head2 Precision Mode Constants
+
+The goal of the library is to achieve double precision accuracy
+wherever possible. However the cost of evaluating some special
+functions to double precision can be significant, particularly where
+very high order terms are required. In these cases a C<mode> argument
+allows the accuracy of the function to be reduced in order to improve
+performance. The following precision levels are available for the mode
+argument,
+
+=head3 GSL_PREC_DOUBLE
+
+Double-precision, a relative accuracy of approximately 2 * 10^-16.
+
+=head3 GSL_PREC_SINGLE
+
+Single-precision, a relative accuracy of approximately 10^-7.
+
+=head3 GSL_PREC_APPROX
+
+Approximate values, a relative accuracy of approximately 5 * 10^-4.
+
+The approximate mode provides the fastest evaluation at the lowest
+accuracy.
+
+=head2 Airy Functions and Derivatives
+
+The Airy functions Ai(x) and Bi(x) are defined by the integral
+representations, For further information see Abramowitz & Stegun,
+Section 10.4.
+
+=head2 Airy Functions
+
+=head3 sf_airy_Ai
+
+ $result = sf_airy_Ai($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Ai_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the Airy function Ai(x) with an accuracy
+specified by I<mode>.
+
+=head3 sf_airy_Bi
+
+ $result = sf_airy_Bi($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Bi_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the Airy function Bi(x) with an accuracy
+specified by I<mode>.
+
+=head3 sf_airy_Ai_scaled
+
+ $result = sf_airy_Ai_scaled($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Ai_scaled_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute a scaled version of the Airy function S_A(x)
+Ai(x). For xE<gt>0 the scaling factor S_A(x) is \exp(+(2/3) x^(3/2)),
+and is 1 for xE<lt>0.
+
+=head3 sf_airy_Bi_scaled
+
+ $result = sf_airy_Bi_scaled($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Bi_scaled_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute a scaled version of the Airy function S_B(x)
+Bi(x). For xE<gt>0 the scaling factor S_B(x) is exp(-(2/3) x^(3/2)),
+and is 1 for xE<lt>0.
+
+=head2 Derivatives of Airy Functions
+
+=head3 sf_airy_Ai_deriv
+
+ $result = sf_airy_Ai_deriv($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Ai_deriv_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the Airy function derivative Ai'(x) with an
+accuracy specified by I<mode>.
+
+=head3 sf_airy_Bi_deriv
+
+ $result = sf_airy_Bi_deriv($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Bi_deriv_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the Airy function derivative Bi'(x) with an
+accuracy specified by I<mode>.
+
+=head3 sf_airy_Ai_deriv_scaled
+
+ $result = sf_airy_Ai_deriv_scaled($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Ai_deriv_scaled_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the scaled Airy function derivative S_A(x)
+Ai'(x). For xE<gt>0 the scaling factor S_A(x) is \exp(+(2/3) x^(3/2)),
+and is 1 for xE<lt>0.
+
+=head3 sf_airy_Bi_deriv_scaled
+
+ $result = sf_airy_Bi_deriv_scaled($x, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_Bi_deriv_scaled_e> (I<double x, $mode, gsl_sf_result * result>)
+
+These routines compute the scaled Airy function derivative S_B(x)
+Bi'(x). For xE<gt>0 the scaling factor S_B(x) is exp(-(2/3) x^(3/2)),
+and is 1 for xE<lt>0.
+
+=head2 Zeros of Airy Functions
+
+=head3 sf_airy_zero_Ai
+
+ $result = sf_airy_zero_Ai($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_zero_Ai_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th zero of the Airy
+function Ai(x).
+
+=head3 sf_airy_zero_Bi
+
+ $result = sf_airy_zero_Bi($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_zero_Bi_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th zero of the Airy
+function Bi(x).
+
+=head2 Zeros of Derivatives of Airy Functions
+
+=head3 sf_airy_zero_Ai_deriv
+
+ $result = sf_airy_zero_Ai_deriv($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_zero_Ai_deriv_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th zero of the Airy
+function derivative Ai'(x).
+
+=head3 sf_airy_zero_Bi_deriv
+
+ $result = sf_airy_zero_Bi_deriv($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_airy_zero_Bi_deriv_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th zero of the Airy
+function derivative Bi'(x).
+
+=head2 Bessel Functions
+
+The routines described in this section
+compute the Cylindrical Bessel functions J_n(x), Y_n(x), Modified
+cylindrical Bessel functions I_n(x), K_n(x), Spherical Bessel functions
+j_l(x), y_l(x), and Modified Spherical Bessel functions i_l(x), k_l(x).
+For more information see Abramowitz & Stegun, Chapters 9 and 10.
+
+=head2 Regular Cylindrical Bessel Functions 
+
+=head3 sf_bessel_J0
+
+ $result = sf_bessel_J0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_J0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular cylindrical Bessel function of
+zeroth order, J_0(x).
+
+=head3 sf_bessel_J1
+
+ $result = sf_bessel_J1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_J1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular cylindrical Bessel function of first
+order, J_1(x).
+
+=head3 sf_bessel_Jn
+
+ $result = sf_bessel_Jn($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Jn_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the regular cylindrical Bessel function of order
+I<n>, J_n(x).
+
+=head3 sf_bessel_Jn_array
+
+ int B<gsl_sf_bessel_Jn_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the regular cylindrical Bessel
+functions J_n(x) for n from I<nmin> to I<nmax> inclusive, storing the
+results in the array I<result_array>. The values are computed using
+recurrence relations for efficiency, and therefore may differ slightly
+from the exact values.
+
+=head2 Irregular Cylindrical Bessel Functions
+
+=head3 sf_bessel_Y0
+
+ $result = sf_bessel_Y0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Y0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular cylindrical Bessel function of
+zeroth order, Y_0(x), for xE<gt>0.
+
+=head3 sf_bessel_Y1
+
+ $result = sf_bessel_Y1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Y1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular cylindrical Bessel function of
+first order, Y_1(x), for xE<gt>0.
+
+=head3 sf_bessel_Yn
+
+ $result = sf_bessel_Yn($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Yn_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the irregular cylindrical Bessel function of
+order I<n>, Y_n(x), for xE<gt>0.
+
+=head3 sf_bessel_Yn_array
+
+ int B<gsl_sf_bessel_Yn_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the irregular cylindrical Bessel
+functions Y_n(x) for n from I<nmin> to I<nmax> inclusive, storing the
+results in the array I<result_array>. The domain of the function is
+xE<gt>0. The values are computed using recurrence relations for
+efficiency, and therefore may differ slightly from the exact values.
+
+=head2 Regular Modified Cylindrical Bessel Functions
+
+=head3 sf_bessel_I0
+
+ $result = sf_bessel_I0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_I0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular modified cylindrical Bessel function
+of zeroth order, I_0(x).
+
+=head3 sf_bessel_I1
+
+ $result = sf_bessel_I1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_I1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular modified cylindrical Bessel function
+of first order, I_1(x).
+
+=head3 sf_bessel_In
+
+ $result = sf_bessel_In($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_In_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the regular modified cylindrical Bessel function
+of order I<n>, I_n(x).
+
+=head3 sf_bessel_In_array
+
+ int B<gsl_sf_bessel_In_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the regular modified cylindrical
+Bessel functions I_n(x) for n from I<nmin> to I<nmax> inclusive,
+storing the results in the array I<result_array>. The start of the
+range I<nmin> must be positive or zero. The values are computed using
+recurrence relations for efficiency, and therefore may differ slightly
+from the exact values.
+
+=head3 sf_bessel_I0_scaled
+
+ $result = sf_bessel_I0_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_I0_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified cylindrical Bessel
+function of zeroth order \exp(-|x|) I_0(x).
+
+=head3 sf_bessel_I1_scaled
+
+ $result = sf_bessel_I1_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_I1_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified cylindrical Bessel
+function of first order \exp(-|x|) I_1(x).
+
+=head3 sf_bessel_In_scaled
+
+ $result = sf_bessel_In_scaled($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_In_scaled_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified cylindrical Bessel
+function of order I<n>, \exp(-|x|) I_n(x)
+
+=head3 sf_bessel_In_scaled_array
+
+ int B<gsl_sf_bessel_In_scaled_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the scaled regular cylindrical
+Bessel functions \exp(-|x|) I_n(x) for n from I<nmin> to I<nmax>
+inclusive, storing the results in the array I<result_array>. The start
+of the range I<nmin> must be positive or zero. The values are computed
+using recurrence relations for efficiency, and therefore may differ
+slightly from the exact values.
+
+=head2 Irregular Modified Cylindrical Bessel Functions
+
+=head3 sf_bessel_K0
+
+ $result = sf_bessel_K0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_K0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular modified cylindrical Bessel
+function of zeroth order, K_0(x), for x E<gt> 0.
+
+=head3 sf_bessel_K1
+
+ $result = sf_bessel_K1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_K1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular modified cylindrical Bessel
+function of first order, K_1(x), for x E<gt> 0.
+
+=head3 sf_bessel_Kn
+
+ $result = sf_bessel_Kn($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Kn_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the irregular modified cylindrical Bessel
+function of order I<n>, K_n(x), for x E<gt> 0.
+
+=head3 sf_bessel_Kn_array
+
+ int B<gsl_sf_bessel_Kn_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the irregular modified cylindrical
+Bessel functions K_n(x) for n from I<nmin> to I<nmax> inclusive,
+storing the results in the array I<result_array>. The start of the
+range I<nmin> must be positive or zero. The domain of the function is
+xE<gt>0. The values are computed using recurrence relations for
+efficiency, and therefore may differ slightly from the exact values.
+
+=head3 sf_bessel_K0_scaled
+
+ $result = sf_bessel_K0_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_K0_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified cylindrical Bessel
+function of zeroth order \exp(x) K_0(x) for xE<gt>0.
+
+=head3 sf_bessel_K1_scaled
+
+ $result = sf_bessel_K1_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_K1_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified cylindrical Bessel
+function of first order \exp(x) K_1(x) for xE<gt>0.
+
+=head3 sf_bessel_Kn_scaled
+
+ $result = sf_bessel_Kn_scaled($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Kn_scaled_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified cylindrical Bessel
+function of order I<n>, \exp(x) K_n(x), for xE<gt>0.
+
+=head3 sf_bessel_Kn_scaled_array
+
+ int B<gsl_sf_bessel_Kn_scaled_array> (I<int nmin, int nmax, double x, double result_array>[])
+
+This routine computes the values of the scaled irregular cylindrical
+Bessel functions \exp(x) K_n(x) for n from I<nmin> to I<nmax>
+inclusive, storing the results in the array I<result_array>. The start
+of the range I<nmin> must be positive or zero. The domain of the
+function is xE<gt>0. The values are computed using recurrence relations
+for efficiency, and therefore may differ slightly from the exact
+values.
+
+=head2 Regular Spherical Bessel Functions
+
+=head3 sf_bessel_j0
+
+ $result = sf_bessel_j0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_j0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular spherical Bessel function of zeroth
+order, j_0(x) = \sin(x)/x.
+
+=head3 sf_bessel_j1
+
+ $result = sf_bessel_j1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_j1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular spherical Bessel function of first
+order, j_1(x) = (\sin(x)/x - \cos(x))/x.
+
+=head3 sf_bessel_j2
+
+ $result = sf_bessel_j2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_j2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the regular spherical Bessel function of second
+order, j_2(x) = ((3/x^2 - 1)\sin(x) - 3\cos(x)/x)/x.
+
+=head3 sf_bessel_jl
+
+ $result = sf_bessel_jl($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_jl_e> (I<int l, double x, gsl_sf_result * result>)
+
+These routines compute the regular spherical Bessel function of order
+I<l>, j_l(x), for l E<gt>= 0 and x E<gt>= 0.
+
+=head3 sf_bessel_jl_array
+
+ int B<gsl_sf_bessel_jl_array> (I<int lmax, double x, double result_array>[])
+
+This routine computes the values of the regular spherical Bessel
+functions j_l(x) for l from 0 to I<lmax> inclusive for lmax E<gt>= 0
+and x E<gt>= 0, storing the results in the array I<result_array>. The
+values are computed using recurrence relations for efficiency, and
+therefore may differ slightly from the exact values.
+
+=head3 sf_bessel_jl_steed_array
+
+ int B<gsl_sf_bessel_jl_steed_array> (I<int lmax, double x, double * result_array>)
+
+This routine uses Steed's method to compute the values of the regular
+spherical Bessel functions j_l(x) for l from 0 to I<lmax> inclusive for
+lmax E<gt>= 0 and x E<gt>= 0, storing the results in the array
+I<result_array>. The Steed/Barnett algorithm is described in I<Comp.
+Phys. Comm.> 21, 297 (1981). Steed's method is more stable than the
+recurrence used in the other functions but is also slower.
+
+=head2 Irregular Spherical Bessel Functions
+
+=head3 sf_bessel_y0
+
+ $result = sf_bessel_y0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_y0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular spherical Bessel function of
+zeroth order, y_0(x) = -\cos(x)/x.
+
+=head3 sf_bessel_y1
+
+ $result = sf_bessel_y1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_y1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular spherical Bessel function of first
+order, y_1(x) = -(\cos(x)/x + \sin(x))/x.
+
+=head3 sf_bessel_y2
+
+ $result = sf_bessel_y2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_y2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the irregular spherical Bessel function of
+second order, y_2(x) = (-3/x^3 + 1/x)\cos(x) - (3/x^2)\sin(x).
+
+=head3 sf_bessel_yl
+
+ $result = sf_bessel_yl($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_yl_e> (I<int l, double x, gsl_sf_result * result>)
+
+These routines compute the irregular spherical Bessel function of order
+I<l>, y_l(x), for l E<gt>= 0.
+
+=head3 sf_bessel_yl_array
+
+ int B<gsl_sf_bessel_yl_array> (I<int lmax, double x, double result_array>[])
+
+This routine computes the values of the irregular spherical Bessel
+functions y_l(x) for l from 0 to I<lmax> inclusive for lmax E<gt>= 0,
+storing the results in the array I<result_array>. The values are
+computed using recurrence relations for efficiency, and therefore may
+differ slightly from the exact values.
+
+=head2 Regular Modified Spherical Bessel Functions
+
+The regular modified spherical Bessel functions i_l(x) are related to
+the modified Bessel functions of fractional order, i_l(x) =
+\sqrt{\pi/(2x)} I_{l+1/2}(x)
+
+=head3 sf_bessel_i0_scaled
+
+ $result = sf_bessel_i0_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_i0_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified spherical Bessel
+function of zeroth order, \exp(-|x|) i_0(x).
+
+=head3 sf_bessel_i1_scaled
+
+ $result = sf_bessel_i1_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_i1_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified spherical Bessel
+function of first order, \exp(-|x|) i_1(x).
+
+=head3 sf_bessel_i2_scaled
+
+ $result = sf_bessel_i2_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_i2_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified spherical Bessel
+function of second order, \exp(-|x|) i_2(x)
+
+=head3 sf_bessel_il_scaled
+
+ $result = sf_bessel_il_scaled($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_il_scaled_e> (I<int l, double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified spherical Bessel
+function of order I<l>, \exp(-|x|) i_l(x)
+
+=head3 sf_bessel_il_scaled_array
+
+ int B<gsl_sf_bessel_il_scaled_array> (I<int lmax, double x, double result_array>[])
+
+This routine computes the values of the scaled regular modified
+cylindrical Bessel functions \exp(-|x|) i_l(x) for l from 0 to I<lmax>
+inclusive for lmax E<gt>= 0, storing the results in the array
+I<result_array>. The values are computed using recurrence relations for
+efficiency, and therefore may differ slightly from the exact values.
+
+=head2 Irregular Modified Spherical Bessel Functions
+
+The irregular modified spherical Bessel functions k_l(x) are related to
+the irregular modified Bessel functions of fractional order, k_l(x) =
+\sqrt{\pi/(2x)} K_{l+1/2}(x).
+
+=head3 sf_bessel_k0_scaled
+
+ $result = sf_bessel_k0_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_k0_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified spherical Bessel
+function of zeroth order, \exp(x) k_0(x), for xE<gt>0.
+
+=head3 sf_bessel_k1_scaled
+
+ $result = sf_bessel_k1_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_k1_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified spherical Bessel
+function of first order, \exp(x) k_1(x), for xE<gt>0.
+
+=head3 sf_bessel_k2_scaled
+
+ $result = sf_bessel_k2_scaled($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_k2_scaled_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified spherical Bessel
+function of second order, \exp(x) k_2(x), for xE<gt>0.
+
+=head3 sf_bessel_kl_scaled
+
+ $result = sf_bessel_kl_scaled($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_kl_scaled_e> (I<int l, double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified spherical Bessel
+function of order I<l>, \exp(x) k_l(x), for xE<gt>0.
+
+=head3 sf_bessel_kl_scaled_array
+
+ int B<gsl_sf_bessel_kl_scaled_array> (I<int lmax, double x, double result_array>[])
+
+This routine computes the values of the scaled irregular modified
+spherical Bessel functions \exp(x) k_l(x) for l from 0 to I<lmax>
+inclusive for lmax E<gt>= 0 and xE<gt>0, storing the results in the
+array I<result_array>. The values are computed using recurrence
+relations for efficiency, and therefore may differ slightly from the
+exact values.
+
+=head2 Regular Bessel FunctionFractional Order
+
+=head3 sf_bessel_Jnu
+
+ $result = sf_bessel_Jnu($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Jnu_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the regular cylindrical Bessel function of
+fractional order \nu, J_\nu(x).;#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_sequence_Jnu_e> (I<double nu, $mode, size_t size, double v>[])
+
+This function computes the regular cylindrical Bessel function of
+fractional order \nu, J_\nu(x), evaluated at a series of x values. The
+array I<v> of length I<size> contains the x values. They are assumed to
+be strictly ordered and positive. The array is over-written with the
+values of J_\nu(x_i).
+
+=head2 7.5.10 Irregular Bessel FunctionsFractional Order
+
+=head3 sf_bessel_Ynu
+
+ $result = sf_bessel_Ynu($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Ynu_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the irregular cylindrical Bessel function of
+fractional order \nu, Y_\nu(x).
+
+=head2 7.5.11 Regular Modified Bessel FunctionsFractional Order
+
+=head3 sf_bessel_Inu
+
+ $result = sf_bessel_Inu($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Inu_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the regular modified Bessel function of
+fractional order \nu, I_\nu(x) for xE<gt>0, \nuE<gt>0.
+
+=head3 sf_bessel_Inu_scaled
+
+ $result = sf_bessel_Inu_scaled($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Inu_scaled_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the scaled regular modified Bessel function of
+fractional order \nu, \exp(-|x|)I_\nu(x) for xE<gt>0, \nuE<gt>0.
+
+=head2 7.5.12 Irregular Modified Bessel FunctionsFractional Order
+
+=head3 sf_bessel_Knu
+
+ $result = sf_bessel_Knu($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Knu_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the irregular modified Bessel function of
+fractional order \nu, K_\nu(x) for xE<gt>0, \nuE<gt>0.
+
+=head3 sf_bessel_lnKnu
+
+ $result = sf_bessel_lnKnu($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_lnKnu_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the logarithm of the irregular modified Bessel
+function of fractional order \nu, \ln(K_\nu(x)) for xE<gt>0, \nuE<gt>0.
+
+=head3 sf_bessel_Knu_scaled
+
+ $result = sf_bessel_Knu_scaled($nu, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_Knu_scaled_e> (I<double nu, double x, gsl_sf_result * result>)
+
+These routines compute the scaled irregular modified Bessel function of
+fractional order \nu, \exp(+|x|) K_\nu(x) for xE<gt>0, \nuE<gt>0.
+
+=head2 7.5.13 Zeros of Regular Bessel Functions
+
+=head3 sf_bessel_zero_J0
+
+ $result = sf_bessel_zero_J0($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_zero_J0_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th positive zero of the
+Bessel function J_0(x).
+
+=head3 sf_bessel_zero_J1
+
+ $result = sf_bessel_zero_J1($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_zero_J1_e> (I<unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th positive zero of the
+Bessel function J_1(x).
+
+=head3 sf_bessel_zero_Jnu
+
+ $result = sf_bessel_zero_Jnu($nu, $s);#TODO
+ XXX-delete-XXX int B<gsl_sf_bessel_zero_Jnu_e> (I<double nu, unsigned int s, gsl_sf_result * result>)
+
+These routines compute the location of the I<s>-th positive zero of the
+Bessel function J_\nu(x). The current implementation does not support
+negative values of I<nu>.
+
+=head2 Clausen Functions
+
+The Clausen function is defined by the
+following integral, It is related to the dilogarithm by Cl_2(\theta) =
+\Im Li_2(\exp(i\theta)).
+
+=head3 sf_clausen
+
+ $result = sf_clausen($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_clausen_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Clausen integral Cl_2(x).
+
+=head2 Coulomb Functions
+
+=head2 Normalized Hydrogenic Bound States
+
+=head3 sf_hydrogenicR_1
+
+ $result = sf_hydrogenicR_1($Z, $r);#TODO
+ XXX-delete-XXX int B<gsl_sf_hydrogenicR_1_e> (I<double Z, double r, gsl_sf_result * result>)
+
+These routines compute the lowest-order normalized hydrogenic bound
+state radial wavefunction R_1 := 2Z \sqrt{Z} \exp(-Z r).
+
+=head3 sf_hydrogenicR
+
+ $result = sf_hydrogenicR($n, $l, $Z, $r);#TODO
+ XXX-delete-XXX int B<gsl_sf_hydrogenicR_e> (I<int n, int l, double Z, double r, gsl_sf_result * result>)
+
+These routines compute the I<n>-th normalized hydrogenic bound state
+radial wavefunction, where L^a_b(x) is the generalized Laguerre
+polynomial (see Laguerre Functions>). The
+normalization is chosen such that the wavefunction \psi is given by
+\psi(n,l,r) = R_n Y_{lm}.
+
+=head2 Coulomb Wave Functions
+
+The Coulomb wave functions F_L(\eta,x), G_L(\eta,x) are described in
+Abramowitz & Stegun, Chapter 14. Because there can be a large dynamic
+range of values for these functions, overflows are handled gracefully.
+If an overflow occurs, C<GSL_EOVRFLW> is signalled and exponent(s) are
+returned through the modifiable parameters I<exp_F>, I<exp_G>. The full
+solution can be reconstructed from the following relations,
+
+=head3 sf_coulomb_wave_FG_e
+
+ int B<gsl_sf_coulomb_wave_FG_e> (I<double eta, double x, double L_F, int k, gsl_sf_result * F, gsl_sf_result * Fp, gsl_sf_result * G, gsl_sf_result * Gp, double * exp_F, double * exp_G>)
+
+This function computes the Coulomb wave functions F_L(\eta,x),
+G_{L-k}(\eta,x) and their derivatives F'_L(\eta,x), G'_{L-k}(\eta,x)
+with respect to x. The parameters are restricted to L, L-k E<gt> -1/2,
+x E<gt> 0 and integer k. Note that L itself is not restricted to being
+an integer. The results are stored in the parameters I<F>, I<G> for the
+function values and I<Fp>, I<Gp> for the derivative values. If an
+overflow occurs, C<GSL_EOVRFLW> is returned and scaling exponents are
+stored in the modifiable parameters I<exp_F>, I<exp_G>.
+
+=head3 sf_coulomb_wave_F_array
+
+ int B<gsl_sf_coulomb_wave_F_array> (I<double L_min, int kmax, double eta, double x, double fc_array>[]I<, double * F_exponent>)
+
+This function computes the Coulomb wave function F_L(\eta,x) for L =
+Lmin \dots Lmin + kmax, storing the results in I<fc_array>. In the case
+of overflow the exponent is stored in I<F_exponent>.
+
+=head3 sf_coulomb_wave_FG_array
+
+ int B<gsl_sf_coulomb_wave_FG_array> (I<double L_min, int kmax, double eta, double x, double fc_array>[]I<, double gc_array>[]I<, double * F_exponent, double * G_exponent>)
+
+This function computes the functions F_L(\eta,x), G_L(\eta,x) for L =
+Lmin \dots Lmin + kmax storing the results in I<fc_array> and
+I<gc_array>. In the case of overflow the exponents are stored in
+I<F_exponent> and I<G_exponent>.
+
+=head3 sf_coulomb_wave_FGp_array
+
+kmax, double eta, double x, double fc_array>[]I<, double
+fcp_array>[]I<, double gc_array>[]I<, double gcp_array>[]I<, double *
+F_exponent, double *
+G_exponent>)
+
+ int B<gsl_sf_coulomb_wave_FGp_array> (I<double L_min, int
+kmax, double eta, double x, double fc_array>[]I<, double
+fcp_array>[]I<, double gc_array>[]I<, double gcp_array>[]I<, double *
+F_exponent, double *
+G_exponent>)
+
+This function computes the functions F_L(\eta,x), G_L(\eta,x) and their
+derivatives F'_L(\eta,x), G'_L(\eta,x) for L = Lmin \dots Lmin + kmax
+storing the results in I<fc_array>, I<gc_array>, I<fcp_array> and
+I<gcp_array>. In the case of overflow the exponents are stored in
+I<F_exponent> and I<G_exponent>.
+
+=head3 sf_coulomb_wave_sphF_array
+
+ int B<gsl_sf_coulomb_wave_sphF_array> (I<double L_min, int kmax, double eta, double x, double fc_array>[]I<, double F_exponent>[])
+
+This function computes the Coulomb wave function divided by the
+argument F_L(\eta, x)/x for L = Lmin \dots Lmin + kmax, storing the
+results in I<fc_array>. In the case of overflow the exponent is stored
+in I<F_exponent>. This function reduces to spherical Bessel functions
+in the limit \eta \to 0.
+
+=head2 Coulomb Wave Function Normalization Constant
+
+The Coulomb wave function normalization constant is defined in
+Abramowitz 14.1.7.
+
+=head3 sf_coulomb_CL_e
+
+ int B<gsl_sf_coulomb_CL_e> (I<double L, double eta, gsl_sf_result * result>)
+
+This function computes the Coulomb wave function normalization constant
+C_L(\eta) for L E<gt> -1.
+
+=head3 sf_coulomb_CL_array
+
+ int B<gsl_sf_coulomb_CL_array> (I<double Lmin, int kmax, double eta, double cl>[])
+
+This function computes the Coulomb wave function normalization constant
+C_L(\eta) for L = Lmin \dots Lmin + kmax, Lmin E<gt> -1.
+
+=head2 Coupling Coefficients
+
+The Wigner 3-j, 6-j and 9-j symbols give the coupling coefficients for
+combined angular momentum vectors. Since the arguments of the standard
+coupling coefficient functions are integer or half-integer, the
+arguments of the following functions are, by convention, integers equal
+to twice the actual spin value. For information on the 3-j coefficients
+see Abramowitz & Stegun, Section 27.9.
+
+=head2 3-j Symbols
+
+=head3 sf_coupling_3j
+
+ $result = sf_coupling_3j($two_ja, $two_jb, $two_jc, $two_ma, $two_mb, $two_mc);#TODO
+ XXX-delete-XXX int B<gsl_sf_coupling_3j_e> (I<int two_ja, int two_jb, int two_jc, int two_ma, int two_mb, int two_mc, gsl_sf_result * result>)
+
+These routines compute the Wigner 3-j coefficient, where the arguments
+are given in half-integer units, ja = I<two_ja>/2, ma = I<two_ma>/2,
+etc.
+
+=head2 6-j Symbols
+
+=head3 sf_coupling_6j
+
+ $result = sf_coupling_6j($two_ja, $two_jb, $two_jc, $two_jd, $two_je, $two_jf);#TODO
+ XXX-delete-XXX int B<gsl_sf_coupling_6j_e> (I<int two_ja, int two_jb, int two_jc, int two_jd, int two_je, int two_jf, gsl_sf_result * result>)
+
+These routines compute the Wigner 6-j coefficient, where the arguments
+are given in half-integer units, ja = I<two_ja>/2, ma = I<two_ma>/2,
+etc.
+
+=head2 9-j Symbols
+
+=head3 sf_coupling_9j
+
+ $result = sf_coupling_9j($two_ja, $two_jb, $two_jc, $two_jd, $two_je, $two_jf, $two_jg, $two_jh, $two_ji);#TODO
+ XXX-delete-XXX int B<gsl_sf_coupling_9j_e> (I<int two_ja, int two_jb, int two_jc, int two_jd, int two_je, int two_jf, int two_jg, int two_jh, int two_ji, gsl_sf_result * result>)
+
+These routines compute the Wigner 9-j coefficient, where the arguments
+are given in half-integer units, ja = I<two_ja>/2, ma = I<two_ma>/2,
+etc.
+
+=head2 Dawson Function
+
+The Dawson integral is defined by
+\exp(-x^2) \int_0^x dt \exp(t^2). A table of Dawson's integral can be
+found in Abramowitz & Stegun, Table 7.5.
+
+=head3 sf_dawson
+
+ $result = sf_dawson($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_dawson_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the value of Dawson's integral for I<x>.
+
+=head2 Debye Functions
+
+The Debye functions D_n(x) are defined by
+the following integral, For further information see Abramowitz &
+Stegun, Section 27.1.
+
+=head3 sf_debye_1
+
+ $result = sf_debye_1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the first-order Debye function D_1(x) = (1/x)
+\int_0^x dt (t/(e^t - 1)).
+
+=head3 sf_debye_2
+
+ $result = sf_debye_2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the second-order Debye function D_2(x) = (2/x^2)
+\int_0^x dt (t^2/(e^t - 1)).
+
+=head3 sf_debye_3
+
+ $result = sf_debye_3($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_3_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the third-order Debye function D_3(x) = (3/x^3)
+\int_0^x dt (t^3/(e^t - 1)).
+
+=head3 sf_debye_4
+
+ $result = sf_debye_4($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_4_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the fourth-order Debye function D_4(x) = (4/x^4)
+\int_0^x dt (t^4/(e^t - 1)).
+
+=head3 sf_debye_5
+
+ $result = sf_debye_5($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_5_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the fifth-order Debye function D_5(x) = (5/x^5)
+\int_0^x dt (t^5/(e^t - 1)).
+
+=head3 sf_debye_6
+
+ $result = sf_debye_6($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_debye_6_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the sixth-order Debye function D_6(x) = (6/x^6)
+\int_0^x dt (t^6/(e^t - 1)).
+
+=head2 Dilogarithm
+
+=head2 Real Argument
+
+=head3 sf_dilog
+
+ $result = sf_dilog($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_dilog_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the dilogarithm for a real argument. In Lewin's
+notation this is Li_2(x), the real part of the dilogarithm of a real x.
+It is defined by the integral representation Li_2(x) = - \Re \int_0^x
+ds \log(1-s) / s. Note that \Im(Li_2(x)) = 0 for x E<lt>= 1, and
+-\pi\log(x) for x E<gt> 1.
+
+Note that Abramowitz & Stegun refer to the Spence integral
+S(x)=Li_2(1-x) as the dilogarithm rather than Li_2(x).
+
+=head2 Complex Argument
+
+=head3 sf_complex_dilog_e
+
+ int B<gsl_sf_complex_dilog_e> (I<double r, double theta, gsl_sf_result * result_re, gsl_sf_result * result_im>)
+
+This function computes the full complex-valued dilogarithm for the
+complex argument z = r \exp(i \theta). The real and imaginary parts of
+the result are returned in I<result_re>, I<result_im>.
+
+=head2 Elementary Operations
+
+The following functions allow for the propagation of errors when combining
+quantities by multiplication.
+
+=head3 sf_multiply
+
+ xxx-FIXME $result = sf_multiply($x, $y);
+
+This function multiplies I<x> and I<y> storing the product and its
+associated error in I<result>.
+
+=head3 sf_multiply_err
+
+ $result = sf_multiply_err($x, $dx, $y, $dy);
+
+This function multiplies I<x> and I<y> with associated absolute errors
+I<dx> and I<dy>. The product xy +/- xy \sqrt((dx/x)^2 +(dy/y)^2) is
+stored in I<result>.
+
+=head2 Elliptic Integrals
+
+Further information
+about the elliptic integrals can be found in Abramowitz & Stegun,
+Chapter 17.
+
+=head2 Definition of Legendre Forms
+
+The Legendre forms of
+elliptic integrals F(\phi,k), E(\phi,k) and \Pi(\phi,k,n) are defined
+by, The complete Legendre forms are denoted by K(k) = F(\pi/2, k) and
+E(k) = E(\pi/2, k).
+
+The notation used here is based on Carlson, I<Numerische Mathematik> 33
+(1979) 1 and differs slightly from that used by Abramowitz & Stegun,
+where the functions are given in terms of the parameter m = k^2 and n
+is replaced by -n.
+
+=head2 Definition of Carlson Forms
+
+The Carlson symmetric
+forms of elliptical integrals RC(x,y), RD(x,y,z), RF(x,y,z) and
+RJ(x,y,z,p) are defined by,
+
+=head2 Legendre Form of Complete Elliptic Integrals
+
+=head3 sf_ellint_Kcomp
+
+ $result = sf_ellint_Kcomp($k, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_Kcomp_e> (I<double k, $mode, gsl_sf_result * result>)
+
+These routines compute the complete elliptic integral K(k) to the
+accuracy specified by the mode variable I<mode>. Note that Abramowitz &
+Stegun define this function in terms of the parameter m = k^2.
+
+=head3 sf_ellint_Ecomp
+
+ $result = sf_ellint_Ecomp($k, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_Ecomp_e> (I<double k, $mode, gsl_sf_result * result>)
+
+These routines compute the complete elliptic integral E(k) to the
+accuracy specified by the mode variable I<mode>. Note that Abramowitz &
+Stegun define this function in terms of the parameter m = k^2.
+
+=head3 sf_ellint_Pcomp
+
+ $result = sf_ellint_Pcomp($k, $n, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_Pcomp_e> (I<double k, double n, $mode, gsl_sf_result * result>)
+
+These routines compute the complete elliptic integral \Pi(k,n) to the
+accuracy specified by the mode variable I<mode>. Note that Abramowitz &
+Stegun define this function in terms of the parameters m = k^2 and
+\sin^2(\alpha) = k^2, with the change of sign n \to -n.
+
+=head2 Legendre Form of Incomplete Elliptic Integrals
+
+=head3 sf_ellint_F
+
+ $result = sf_ellint_F($phi, $k, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_F_e> (I<double phi, double k, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral F(\phi,k) to
+the accuracy specified by the mode variable I<mode>. Note that
+Abramowitz & Stegun define this function in terms of the parameter m =
+k^2.
+
+=head3 sf_ellint_E
+
+ $result = sf_ellint_E($phi, $k, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_E_e> (I<double phi, double k, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral E(\phi,k) to
+the accuracy specified by the mode variable I<mode>. Note that
+Abramowitz & Stegun define this function in terms of the parameter m =
+k^2.
+
+=head3 sf_ellint_P
+
+ $result = sf_ellint_P($phi, $k, $n, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_P_e> (I<double phi, double k, double n, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral \Pi(\phi,k,n)
+to the accuracy specified by the mode variable I<mode>. Note that
+Abramowitz & Stegun define this function in terms of the parameters m =
+k^2 and \sin^2(\alpha) = k^2, with the change of sign n \to -n.
+
+=head3 sf_ellint_D
+
+ $result = sf_ellint_D($phi, $k, $n, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_D_e> (I<double phi, double k, double n, $mode, gsl_sf_result * result>)
+
+These functions compute the incomplete elliptic integral D(\phi,k)
+which is defined through the Carlson form RD(x,y,z) by the following
+relation, The argument I<n> is not used and will be removed in a future
+release.
+
+=head2 Carlson Forms
+
+=head3 sf_ellint_RC
+
+ $result = sf_ellint_RC($x, $y, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_RC_e> (I<double x, double y, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral RC(x,y) to the
+accuracy specified by the mode variable I<mode>.
+
+=head3 sf_ellint_RD
+
+ $result = sf_ellint_RD($x, $y, $z, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_RD_e> (I<double x, double y, double z, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral RD(x,y,z) to
+the accuracy specified by the mode variable I<mode>.
+
+=head3 sf_ellint_RF
+
+ $result = sf_ellint_RF($x, $y, $z, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_RF_e> (I<double x, double y, double z, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral RF(x,y,z) to
+the accuracy specified by the mode variable I<mode>.
+
+=head3 sf_ellint_RJ
+
+ $result = sf_ellint_RJ($x, $y, $z, $p, $mode);#TODO
+ XXX-delete-XXX int B<gsl_sf_ellint_RJ_e> (I<double x, double y, double z, double p, $mode, gsl_sf_result * result>)
+
+These routines compute the incomplete elliptic integral RJ(x,y,z,p) to
+the accuracy specified by the mode variable I<mode>.
+
+=head2 Elliptic Functions (Jacobi)
+
+The Jacobian Elliptic functions are defined in Abramowitz & Stegun,
+Chapter 16.
+
+=head3 sf_elljac_e
+
+ int B<gsl_sf_elljac_e> (I<double u, double m, double * sn, double * cn, double * dn>)
+
+This function computes the Jacobian elliptic functions sn(u|m),
+cn(u|m), dn(u|m) by descending Landen transformations.
+
+=head2 Error Functions
+
+The error function is described in Abramowitz & Stegun, Chapter 7.
+
+=head2 Error Function
+
+=head3 sf_erf
+
+ $result = sf_erf($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_erf_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the error function erf(x), where erf(x) =
+(2/\sqrt(\pi)) \int_0^x dt \exp(-t^2).
+
+=head2 Complementary Error Function
+
+=head3 sf_erfc
+
+ $result = sf_erfc($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_erfc_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complementary error function erfc(x) = 1 -
+erf(x) = (2/\sqrt(\pi)) \int_x^\infty \exp(-t^2).
+
+=head2 Log Complementary Error Function
+
+=head3 sf_log_erfc
+
+ $result = sf_log_erfc($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_log_erfc_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the logarithm of the complementary error
+function \log(\erfc(x)).
+
+=head2 Probability functions
+
+The probability functions for the Normal or Gaussian distribution are
+described in Abramowitz & Stegun, Section 26.2.
+
+=head3 sf_erf_Z
+
+ $result = sf_erf_Z($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_erf_Z_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Gaussian probability density function Z(x) =
+(1/\sqrt{2\pi}) \exp(-x^2/2).
+
+=head3 sf_erf_Q
+
+ $result = sf_erf_Q($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_erf_Q_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the upper tail of the Gaussian probability
+function Q(x) = (1/\sqrt{2\pi}) \int_x^\infty dt \exp(-t^2/2).
+
+The
+B<hazard function> for the normal distribution, also known as the
+inverse Mills' ratio, is defined as, It decreases rapidly as x
+approaches -\infty and asymptotes to h(x) \sim x as x approaches
++\infty.
+
+=head3 sf_hazard
+
+ $result = sf_hazard($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hazard_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the hazard function for the normal distribution.
+
+=head2 Exponential Functions
+
+=head2 Exponential Function
+
+=head3 sf_exp
+
+ $result = sf_exp($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_exp_e> (I<double x, gsl_sf_result * result>)
+
+These routines provide an exponential function \exp(x) using GSL
+semantics and error checking.;#TODO
+ XXX-delete-XXX int B<gsl_sf_exp_e10_e> (I<double x, gsl_sf_result_e10 * result>)
+
+This function computes the exponential \exp(x) using the
+C<gsl_sf_result_e10> type to return a result with extended range. This
+function may be useful if the value of \exp(x) would overflow the
+numeric range of C<double>.
+
+=head3 sf_exp_mult
+
+ $result = sf_exp_mult($x, $y);#TODO
+ XXX-delete-XXX int B<gsl_sf_exp_mult_e> (I<double x, double y, gsl_sf_result * result>)
+
+These routines exponentiate I<x> and multiply by the factor I<y> to
+return the product y \exp(x).;#TODO
+ XXX-delete-XXX int B<gsl_sf_exp_mult_e10_e> (I<const double x, const double y, gsl_sf_result_e10 * result>)
+
+This function computes the product y \exp(x) using the
+C<gsl_sf_result_e10> type to return a result with extended numeric
+range.
+
+=head2 Relative Exponential Functions
+
+=head3 sf_expm1
+
+ $result = sf_expm1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expm1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the quantity \exp(x)-1 using an algorithm that
+is accurate for small x.
+
+=head3 sf_exprel
+
+ $result = sf_exprel($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_exprel_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the quantity (\exp(x)-1)/x using an algorithm
+that is accurate for small x. For small x the algorithm is based on the
+expansion (\exp(x)-1)/x = 1 + x/2 + x^2/(2*3) + x^3/(2*3*4) + \dots.
+
+=head3 sf_exprel_2
+
+ $result = sf_exprel_2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_exprel_2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the quantity 2(\exp(x)-1-x)/x^2 using an
+algorithm that is accurate for small x. For small x the algorithm is
+based on the expansion 2(\exp(x)-1-x)/x^2 = 1 + x/3 + x^2/(3*4) +
+x^3/(3*4*5) + \dots.
+
+=head3 sf_exprel_n
+
+ $result = sf_exprel_n($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_exprel_n_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the N-relative exponential, which is the I<n>-th
+generalization of the functions C<gsl_sf_exprel> and
+C<gsl_sf_exprel_2>. The N-relative exponential is given by,
+
+=head2 Exponentiation With Error Estimate
+
+=head3 sf_exp_err
+
+ $result = sf_exp_err($x, $dx);
+
+This function exponentiates I<x> with an associated absolute error I<dx>.
+
+ XXX-FIXME int B<gsl_sf_exp_err_e10_e> (I<double x, double dx, gsl_sf_result_e10 * result>)
+
+This function exponentiates a quantity I<x> with an associated absolute
+error I<dx> using the C<gsl_sf_result_e10> type to return a result with
+extended range.
+
+=head3 sf_exp_mult_err
+
+ $result = sf_exp_mult_err($x, $dx, $y, $dy);
+
+This routine computes the product y \exp(x) for the quantities I<x>,
+I<y> with associated absolute errors I<dx>, I<dy>.
+
+ XXX-FIXME int B<gsl_sf_exp_mult_err_e10_e> (I<double x, double dx, double y, double dy, gsl_sf_result_e10 * result>)
+
+This routine computes the product y \exp(x) for the quantities I<x>,
+I<y> with associated absolute errors I<dx>, I<dy> using the
+C<gsl_sf_result_e10> type to return a result with extended range.
+
+=head2 Exponential Integrals
+
+Information on the exponential integrals can be found in Abramowitz &
+Stegun, Chapter 5.
+
+=head2 Exponential Integral
+
+=head3 sf_expint_E1
+
+ $result = sf_expint_E1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expint_E1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the exponential integral E_1(x),
+
+=head3 sf_expint_E2
+
+ $result = sf_expint_E2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expint_E2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the second-order exponential integral E_2(x),
+
+=head3 sf_expint_En
+
+ $result = sf_expint_En($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expint_En_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the exponential integral E_n(x) of order n,
+
+=head2 Ei(x)
+
+=head3 sf_expint_Ei
+
+ $result = sf_expint_Ei($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expint_Ei_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the exponential integral Ei(x), where PV denotes
+the principal value of the integral.
+
+=head2 Hyperbolic Integrals
+
+=head3 sf_Shi
+
+ $result = sf_Shi($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_Shi_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the integral Shi(x) = \int_0^x dt \sinh(t)/t.
+
+=head3 sf_Chi
+
+ $result = sf_Chi($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_Chi_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the integral Chi(x) := \Re[ \gamma_E + \log(x) +
+\int_0^x dt (\cosh(t)-1)/t] , where \gamma_E is the Euler constant
+(available as the macro C<M_EULER>).
+
+=head2 Ei_3(x)
+
+=head3 sf_expint_3
+
+ $result = sf_expint_3($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_expint_3_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the third-order exponential integral Ei_3(x) =
+\int_0^xdt \exp(-t^3) for x E<gt>= 0.
+
+=head2 Trigonometric Integrals
+
+=head3 sf_Si
+
+ $result = sf_Si($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_Si_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Sine integral Si(x) = \int_0^x dt \sin(t)/t.
+
+=head3 sf_Ci
+
+ $result = sf_Ci($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_Ci_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Cosine integral Ci(x) = -\int_x^\infty dt
+\cos(t)/t for x E<gt> 0.
+
+=head2 Arctangent Integral
+
+=head3 sf_atanint
+
+ $result = sf_atanint($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_atanint_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Arctangent integral, which is defined as
+AtanInt(x) = \int_0^x dt \arctan(t)/t.
+
+=head2 Fermi-Dirac Function
+
+=head2 Complete Fermi-Dirac Integrals
+
+The
+complete Fermi-Dirac integral F_j(x) is given by, Note that the
+Fermi-Dirac integral is sometimes defined without the normalisation
+factor in other texts.
+
+=head3 sf_fermi_dirac_m1
+
+ $result = sf_fermi_dirac_m1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_m1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral with an index
+of -1. This integral is given by F_{-1}(x) = e^x / (1 + e^x).
+
+=head3 sf_fermi_dirac_0
+
+ $result = sf_fermi_dirac_0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral with an index
+of 0. This integral is given by F_0(x) = \ln(1 + e^x).
+
+=head3 sf_fermi_dirac_1
+
+ $result = sf_fermi_dirac_1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral with an index
+of 1, F_1(x) = \int_0^\infty dt (t /(\exp(t-x)+1)).
+
+=head3 sf_fermi_dirac_2
+
+ $result = sf_fermi_dirac_2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral with an index
+of 2, F_2(x) = (1/2) \int_0^\infty dt (t^2 /(\exp(t-x)+1)).
+
+=head3 sf_fermi_dirac_int
+
+ $result = sf_fermi_dirac_int($j, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_int_e> (I<int j, double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral with an
+integer index of j, F_j(x) = (1/\Gamma(j+1)) \int_0^\infty dt (t^j
+/(\exp(t-x)+1)).
+
+=head3 sf_fermi_dirac_mhalf
+
+ $result = sf_fermi_dirac_mhalf($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_mhalf_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral F_{-1/2}(x).
+
+=head3 sf_fermi_dirac_half
+
+ $result = sf_fermi_dirac_half($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_half_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral F_{1/2}(x).
+
+=head3 sf_fermi_dirac_3half
+
+ $result = sf_fermi_dirac_3half($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_3half_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the complete Fermi-Dirac integral F_{3/2}(x).
+
+=head2 Incomplete Fermi-Dirac Integrals
+
+The
+incomplete Fermi-Dirac integral F_j(x,b) is given by,
+
+=head3 sf_fermi_dirac_inc_0
+
+ $result = sf_fermi_dirac_inc_0($x, $b);#TODO
+ XXX-delete-XXX int B<gsl_sf_fermi_dirac_inc_0_e> (I<double x, double b, gsl_sf_result * result>)
+
+These routines compute the incomplete Fermi-Dirac integral with an
+index of zero, F_0(x,b) = \ln(1 + e^{b-x}) - (b-x).
+
+=head2 Gamma and Beta Functions
+
+This following routines compute the gamma and beta functions in their
+full and incomplete forms, as well as various kinds of factorials.
+
+=head2 Gamma Functions
+
+The Gamma function is defined by the
+following integral, It is related to the factorial function by
+\Gamma(n)=(n-1)! for positive integer n. Further information on the
+Gamma function can be found in Abramowitz & Stegun, Chapter 6.
+
+=head3 sf_gamma
+
+ $result = sf_gamma($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gamma_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Gamma function \Gamma(x), subject to x not
+being a negative integer or zero. The function is computed using the
+real Lanczos method. The maximum value of x such that \Gamma(x) is not
+considered an overflow is given by the macro C<GSL_SF_GAMMA_XMAX> and
+is 171.0.
+
+=head3 sf_lngamma
+
+ $result = sf_lngamma($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lngamma_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the
+logarithm of the Gamma function, \log(\Gamma(x)), subject to x not
+being a negative integer or zero. For xE<lt>0 the real part of
+\log(\Gamma(x)) is returned, which is equivalent to \log(|\Gamma(x)|).
+The function is computed using the real Lanczos method.
+
+=head3 sf_lngamma_sgn
+
+ ($lg, $sgn) = sf_lngamma_sgn($x);
+
+This routine computes the sign of the gamma function and the logarithm
+of its magnitude, subject to x not being a negative integer or zero.
+The function is computed using the real Lanczos method. The value of
+the gamma function and its error can be reconstructed using the
+relation \Gamma(x) = sgn * \exp(result\_lg), taking into account the
+two components of I<result_lg>.
+
+=head3 sf_gammastar
+
+ $result = sf_gammastar($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gammastar_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the
+regulated Gamma Function \Gamma^*(x) for x E<gt> 0. The regulated gamma
+function is given by, and is a useful suggestion of Temme.
+
+=head3 sf_gammainv
+
+ $result = sf_gammainv($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gammainv_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the
+reciprocal of the gamma function, 1/\Gamma(x) using the real Lanczos
+method.
+
+=head3 sf_lngamma_complex
+
+ ($lnr, $arg) = sf_lngamma_complex($zr, $zi);
+
+This routine computes
+\log(\Gamma(z)) for complex z=z_r+i z_i and z not a negative integer or
+zero, using the complex Lanczos method. The returned parameters are lnr
+= \log|\Gamma(z)| and arg = \arg(\Gamma(z)) in (-\pi,\pi]. Note that
+the phase part (I<arg>) is not well-determined when |z| is very large,
+due to inevitable roundoff in restricting to (-\pi,\pi]. This will
+result in a C<GSL_ELOSS> error when it occurs. The absolute value part
+(I<lnr>), however, never suffers from loss of precision.
+
+=head2 Factorials
+
+ Although factorials can be computed from the
+Gamma function, using the relation n! = \Gamma(n+1) for non-negative
+integer n, it is usually more efficient to call the functions in this
+section, particularly for small values of n, whose factorial values are
+maintained in hardcoded tables.
+
+=head3 sf_fact
+
+ $result = sf_fact($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_fact_e> (I<unsigned int n, gsl_sf_result * result>)
+
+These routines compute the factorial n!. The
+factorial is related to the Gamma function by n! = \Gamma(n+1). The
+maximum value of n such that n! is not considered an overflow is given
+by the macro C<GSL_SF_FACT_NMAX> and is 170.
+
+=head3 sf_doublefact
+
+ $result = sf_doublefact($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_doublefact_e> (I<unsigned int n, gsl_sf_result * result>)
+
+These routines compute the double
+factorial n!! = n(n-2)(n-4) \dots. The maximum value of n such that n!!
+is not considered an overflow is given by the macro
+C<GSL_SF_DOUBLEFACT_NMAX> and is 297.
+
+=head3 sf_lnfact
+
+ $result = sf_lnfact($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_lnfact_e> (I<unsigned int n, gsl_sf_result * result>)
+
+These routines compute the logarithm
+of the factorial of I<n>, \log(n!). The algorithm is faster than
+computing \ln(\Gamma(n+1)) via C<gsl_sf_lngamma> for n E<lt> 170, but
+defers for larger I<n>.
+
+=head3 sf_lndoublefact
+
+ $result = sf_lndoublefact($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_lndoublefact_e> (I<unsigned int n, gsl_sf_result * result>)
+
+These routines compute the
+logarithm of the double factorial of I<n>, \log(n!!).
+
+=head3 sf_choose
+
+ $result = sf_choose($n, $m);#TODO
+ XXX-delete-XXX int B<gsl_sf_choose_e> (I<unsigned int n, unsigned int m, gsl_sf_result * result>)
+
+These routines
+compute the combinatorial factor C<n choose m> = n!/(m!(n-m)!)
+
+=head3 sf_lnchoose
+
+ $result = sf_lnchoose($n, $m);#TODO
+ XXX-delete-XXX int B<gsl_sf_lnchoose_e> (I<unsigned int n, unsigned int m, gsl_sf_result * result>)
+
+These
+routines compute the logarithm of C<n choose m>. This is equivalent to
+the sum \log(n!) - \log(m!) - \log((n-m)!).
+
+=head3 sf_taylorcoeff
+
+ $result = sf_taylorcoeff($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_taylorcoeff_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines
+compute the Taylor coefficient x^n / n! for x E<gt>= 0, n E<gt>= 0.
+
+=head2 Pochhammer Symbol
+
+=head3 sf_poch
+
+ $result = sf_poch($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_poch_e> (I<double a, double x, gsl_sf_result * result>)
+
+These
+routines compute the Pochhammer symbol (a)_x = \Gamma(a + x)/\Gamma(a).
+The Pochhammer symbol is also known as the Apell symbol and sometimes
+written as (a,x). When a and a+x are negative integers or zero, the
+limiting value of the ratio is returned.
+
+=head3 sf_lnpoch
+
+ $result = sf_lnpoch($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lnpoch_e> (I<double a, double x, gsl_sf_result * result>)
+
+These routines compute the
+logarithm of the Pochhammer symbol, \log((a)_x) = \log(\Gamma(a + x)/\Gamma(a)).
+
+=head3 sf_lnpoch_sgn_e
+
+ int B<gsl_sf_lnpoch_sgn_e> (I<double a, double x, gsl_sf_result * result, double * sgn>)
+
+These routines compute the sign of the Pochhammer symbol and the
+logarithm of its magnitude. The computed parameters are result =
+\log(|(a)_x|) with a corresponding error term, and sgn = \sgn((a)_x)
+where (a)_x = \Gamma(a + x)/\Gamma(a).
+
+=head3 sf_pochrel
+
+ $result = sf_pochrel($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_pochrel_e> (I<double a, double x, gsl_sf_result * result>)
+
+These routines compute the
+relative Pochhammer symbol ((a)_x - 1)/x where (a)_x = \Gamma(a +
+x)/\Gamma(a).
+
+=head2 Incomplete Gamma Functions
+
+=head3 sf_gamma_inc
+
+ $result = sf_gamma_inc($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gamma_inc_e> (I<double a, double x, gsl_sf_result * result>)
+
+These
+functions compute the unnormalized incomplete Gamma Function
+\Gamma(a,x) = \int_x^\infty dt t^{a-1} \exp(-t) for a real and x E<gt>=
+0.
+
+=head3 sf_gamma_inc_Q
+
+ $result = sf_gamma_inc_Q($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gamma_inc_Q_e> (I<double a, double x, gsl_sf_result * result>)
+
+These routines compute the
+normalized incomplete Gamma Function Q(a,x) = 1/\Gamma(a) \int_x^\infty
+dt t^{a-1} \exp(-t) for a E<gt> 0, x E<gt>= 0.
+
+=head3 sf_gamma_inc_P
+
+ $result = sf_gamma_inc_P($a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_gamma_inc_P_e> (I<double a, double x, gsl_sf_result * result>)
+
+These routines
+compute the complementary normalized incomplete Gamma Function P(a,x) =
+1 - Q(a,x) = 1/\Gamma(a) \int_0^x dt t^{a-1} \exp(-t) for a E<gt> 0, x
+E<gt>= 0.
+
+Note that Abramowitz & Stegun call P(a,x) the incomplete gamma function
+(section 6.5).
+
+=head2 Beta Functions
+
+=head3 sf_beta
+
+ $result = sf_beta($a, $b);#TODO
+ XXX-delete-XXX int B<gsl_sf_beta_e> (I<double a, double b, gsl_sf_result * result>)
+
+These routines compute the Beta Function,
+B(a,b) = \Gamma(a)\Gamma(b)/\Gamma(a+b) subject to a and b not being
+negative integers.
+
+=head3 sf_lnbeta
+
+ $result = sf_lnbeta($a, $b);#TODO
+ XXX-delete-XXX int B<gsl_sf_lnbeta_e> (I<double a, double b, gsl_sf_result * result>)
+
+These routines compute the
+logarithm of the Beta Function, \log(B(a,b)) subject to a and b not
+being negative integers.
+
+=head2 Incomplete Beta Function
+
+=head3 sf_beta_inc
+
+ $result = sf_beta_inc($a, $b, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_beta_inc_e> (I<double a, double b, double x, gsl_sf_result * result>)
+
+These
+routines compute the normalized incomplete Beta function
+I_x(a,b)=B_x(a,b)/B(a,b) where B_x(a,b) = \int_0^x t^{a-1} (1-t)^{b-1}
+dt for 0 E<lt>= x E<lt>= 1. For a E<gt> 0, b E<gt> 0 the value is
+computed using a continued fraction expansion. For all other values it
+is computed using the relation I_x(a,b,x) = (1/a) x^a
+2F1(a,1-b,a+1,x)/B(a,b).
+
+=head2 Gegenbauer Functions
+
+The Gegenbauer polynomials are
+defined in Abramowitz & Stegun, Chapter 22, where they are known as
+Ultraspherical polynomials.
+
+=head3 sf_gegenpoly_1
+
+ double B<gsl_sf_gegenpoly_1> (I<double lambda, double x>)
+
+=head3 sf_gegenpoly_2
+
+ double B<gsl_sf_gegenpoly_2> (I<double lambda, double x>)
+
+=head3 sf_gegenpoly_3
+
+ $result = sf_gegenpoly_1($lambda, $x);#TODO
+ $result = sf_gegenpoly_2($lambda, $x);#TODO
+ $result = sf_gegenpoly_3($lambda, $x);#TODO
+
+These functions evaluate the Gegenbauer polynomials C^{(\lambda)}_n(x)
+using explicit representations for n =1, 2, 3.
+
+=head3 sf_gegenpoly_n
+
+ $result = sf_gegenpoly_n($n, $lambda, $x);#TODO
+
+These functions evaluate the Gegenbauer polynomial C^{(\lambda)}_n(x)
+for a specific value of I<n>, I<lambda>, I<x> subject to \lambda E<gt>
+-1/2, n E<gt>= 0.
+
+=head3 sf_gegenpoly_array
+
+ int B<gsl_sf_gegenpoly_array> (I<int nmax, double lambda, double x, double result_array>[])
+
+This function computes an array of Gegenbauer polynomials
+C^{(\lambda)}_n(x) for n = 0, 1, 2, \dots, nmax, subject to \lambda
+E<gt> -1/2, nmax E<gt>= 0.
+
+=head2 Hypergeometric Functions
+
+Hypergeometric functions are described in Abramowitz & Stegun, Chapters
+13 and 15.
+
+=head3 sf_hyperg_0F1
+
+ $result = sf_hyperg_0F1($c, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_0F1_e> (I<double c, double x, gsl_sf_result * result>)
+
+These routines compute the hypergeometric function 0F1(c,x).
+
+=head3 sf_hyperg_1F1_int
+
+ $result = sf_hyperg_1F1_int($m, $n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_1F1_int_e> (I<int m, int n, double x, gsl_sf_result * result>)
+
+These routines compute the confluent hypergeometric function 1F1(m,n,x)
+= M(m,n,x) for integer parameters I<m>, I<n>.
+
+=head3 sf_hyperg_1F1
+
+ $result = sf_hyperg_1F1($a, $b, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_1F1_e> (I<double a, double b, double x, gsl_sf_result * result>)
+
+These routines compute the confluent hypergeometric function 1F1(a,b,x)
+= M(a,b,x) for general parameters I<a>, I<b>.
+
+=head3 sf_hyperg_U_int
+
+ $result = sf_hyperg_U_int($m, $n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_U_int_e> (I<int m, int n, double x, gsl_sf_result * result>)
+
+These routines compute the confluent hypergeometric function U(m,n,x)
+for integer parameters I<m>, I<n>.;#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_U_int_e10_e> (I<int m, int n, double x, gsl_sf_result_e10 * result>)
+
+This routine computes the confluent hypergeometric function U(m,n,x)
+for integer parameters I<m>, I<n> using the C<gsl_sf_result_e10> type
+to return a result with extended range.
+
+=head3 sf_hyperg_U
+
+ $result = sf_hyperg_U($a, $b, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_U_e> (I<double a, double b, double x, gsl_sf_result * result>)
+
+These routines compute the confluent hypergeometric function U(a,b,x).;#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_U_e10_e> (I<double a, double b, double x, gsl_sf_result_e10 * result>)
+
+This routine computes the confluent hypergeometric function U(a,b,x)
+using the C<gsl_sf_result_e10> type to return a result with extended
+range.
+
+=head3 sf_hyperg_2F1
+
+ $result = sf_hyperg_2F1($a, $b, $c, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_2F1_e> (I<double a, double b, double c, double x, gsl_sf_result * result>)
+
+These routines compute the Gauss hypergeometric function 2F1(a,b,c,x) =
+F(a,b,c,x) for |x| E<lt> 1.
+
+If the arguments (a,b,c,x) are too close to a singularity then the
+function can return the error code C<GSL_EMAXITER> when the series
+approximation converges too slowly. This occurs in the region of x=1, c
+- a - b = m for integer m.
+
+=head3 sf_hyperg_2F1_conj
+
+ $result = sf_hyperg_2F1_conj($aR, $aI, $c, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_2F1_conj_e> (I<double aR, double aI, double c, double x, gsl_sf_result * result>)
+
+These routines compute the Gauss hypergeometric function 2F1(a_R + i
+a_I, a_R - i a_I, c, x) with complex parameters for |x| E<lt> 1.
+
+=head3 sf_hyperg_2F1_renorm
+
+ $result = sf_hyperg_2F1_renorm($a, $b, $c, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_2F1_renorm_e> (I<double a, double b, double c, double x, gsl_sf_result * result>)
+
+These routines compute the renormalized Gauss hypergeometric function
+2F1(a,b,c,x) / \Gamma(c) for |x| E<lt> 1.
+
+=head3 sf_hyperg_2F1_conj_renorm
+
+ $result = sf_hyperg_2F1_conj_renorm($aR, $aI, $c, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_2F1_conj_renorm_e> (I<double aR, double aI, double c, double x, gsl_sf_result * result>)
+
+These routines compute the renormalized Gauss hypergeometric function
+2F1(a_R + i a_I, a_R - i a_I, c, x) / \Gamma(c) for |x| E<lt> 1.
+
+=head3 sf_hyperg_2F0
+
+ $result = sf_hyperg_2F0($a, $b, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_hyperg_2F0_e> (I<double a, double b, double x, gsl_sf_result * result>)
+
+These routines compute the hypergeometric function 2F0(a,b,x). The
+series representation is a divergent hypergeometric series. However,
+for x E<lt> 0 we have 2F0(a,b,x) = (-1/x)^a U(a,1+a-b,-1/x)
+
+=head2 Laguerre Functions
+
+The generalized Laguerre polynomials are defined in terms of confluent
+hypergeometric functions as L^a_n(x) = ((a+1)_n / n!) 1F1(-n,a+1,x),
+and are sometimes referred to as the associated Laguerre polynomials.
+They are related to the plain Laguerre polynomials L_n(x) by L^0_n(x) =
+L_n(x) and L^k_n(x) = (-1)^k (d^k/dx^k) L_(n+k)(x). For more
+information see Abramowitz & Stegun, Chapter 22.
+
+=head3 sf_laguerre_1
+
+ double B<gsl_sf_laguerre_1> (I<double a, double x>)
+
+=head3 sf_laguerre_2
+
+ double B<gsl_sf_laguerre_2> (I<double a, double x>)
+
+=head3 sf_laguerre_3
+
+ $result = sf_laguerre_1($a, $x);#TODO
+ $result = sf_laguerre_2($a, $x);#TODO
+ $result = sf_laguerre_3($a, $x);#TODO
+
+These routines evaluate the generalized Laguerre polynomials L^a_1(x),
+L^a_2(x), L^a_3(x) using explicit representations.
+
+=head3 sf_laguerre_n
+
+ $result = sf_laguerre_n($n, $a, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_laguerre_n_e> (I<int n, double a, double x, gsl_sf_result * result>)
+
+These routines evaluate the generalized Laguerre polynomials L^a_n(x)
+for a E<gt> -1, n E<gt>= 0.
+
+=head2 Lambert W Functions
+
+ Lambert's W
+functions, W(x), are defined to be solutions of the equation W(x)
+\exp(W(x)) = x. This function has multiple branches for x E<lt> 0;
+however, it has only two real-valued branches. We define W_0(x) to be
+the principal branch, where W E<gt> -1 for x E<lt> 0, and W_{-1}(x) to
+be the other real branch, where W E<lt> -1 for x E<lt> 0.
+
+=head3 sf_lambert_W0
+
+ $result = sf_lambert_W0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lambert_W0_e> (I<double x, gsl_sf_result * result>)
+
+These compute the principal branch of the Lambert W function, W_0(x).
+
+=head3 sf_lambert_Wm1
+
+ $result = sf_lambert_Wm1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lambert_Wm1_e> (I<double x, gsl_sf_result * result>)
+
+These compute the secondary real-valued branch of the Lambert W
+function, W_{-1}(x).
+
+=head2 Legendre Functions and Spherical Harmonics
+
+The Legendre Functions and Legendre Polynomials are described in
+Abramowitz & Stegun, Chapter 8.
+
+=head2 Legendre Polynomials
+
+=head3 sf_legendre_P1
+
+ double B<gsl_sf_legendre_P1> (I<double x>)
+
+=head3 sf_legendre_P2
+
+ double B<gsl_sf_legendre_P2> (I<double x>)
+
+=head3 sf_legendre_P3
+
+ $result = sf_legendre_P1($x);#TODO
+ $result = sf_legendre_P2($x);#TODO
+ $result = sf_legendre_P3($x);#TODO
+
+These functions evaluate the Legendre polynomials P_l(x) using explicit
+representations for l=1, 2, 3.
+
+=head3 sf_legendre_Pl
+
+ $result = sf_legendre_Pl($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_Pl_e> (I<int l, double x, gsl_sf_result * result>)
+
+These functions evaluate the Legendre polynomial P_l(x) for a specific
+value of I<l>, I<x> subject to l E<gt>= 0, |x| E<lt>= 1
+
+=head3 sf_legendre_Pl_array
+
+ int B<gsl_sf_legendre_Pl_array> (I<int lmax, double x, double result_array>[])
+
+=head3 sf_legendre_Pl_deriv_array
+
+ int B<gsl_sf_legendre_Pl_deriv_array> (I<int lmax, double x, double result_array>[]I<, double result_deriv_array>[])
+
+These functions compute arrays of Legendre polynomials P_l(x) and
+derivatives dP_l(x)/dx, for l = 0, \dots, lmax, |x| E<lt>= 1
+
+=head3 sf_legendre_Q0
+
+ $result = sf_legendre_Q0($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_Q0_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Legendre function Q_0(x) for x E<gt> -1, x
+!= 1.
+
+=head3 sf_legendre_Q1
+
+ $result = sf_legendre_Q1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_Q1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Legendre function Q_1(x) for x E<gt> -1, x
+!= 1.
+
+=head3 sf_legendre_Ql
+
+ $result = sf_legendre_Ql($l, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_Ql_e> (I<int l, double x, gsl_sf_result * result>)
+
+These routines compute the Legendre function Q_l(x) for x E<gt> -1, x
+!= 1 and l E<gt>= 0.
+
+=head2 Associated Legendre Polynomials and Spherical Harmonics
+
+The following functions compute the associated Legendre Polynomials
+P_l^m(x). Note that this function grows combinatorially with l and can
+overflow for l larger than about 150. There is no trouble for small m,
+but overflow occurs when m and l are both large. Rather than allow
+overflows, these functions refuse to calculate P_l^m(x) and return
+C<GSL_EOVRFLW> when they can sense that l and m are too big.
+
+If you want to calculate a spherical harmonic, then I<do not> use these
+functions. Instead use C<gsl_sf_legendre_sphPlm> below, which uses a
+similar recursion, but with the normalized functions.
+
+=head3 sf_legendre_Plm
+
+ $result = sf_legendre_Plm($l, $m, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_Plm_e> (I<int l, int m, double x, gsl_sf_result * result>)
+
+These routines compute the associated Legendre polynomial P_l^m(x) for
+m E<gt>= 0, l E<gt>= m, |x| E<lt>= 1.
+
+=head3 sf_legendre_Plm_array
+
+ int B<gsl_sf_legendre_Plm_array> (I<int lmax, int m, double x, double result_array>[])
+
+=head3 sf_legendre_Plm_deriv_array
+
+ int B<gsl_sf_legendre_Plm_deriv_array> (I<int lmax, int m, double x, double result_array>[]I<, double result_deriv_array>[])
+
+These functions compute arrays of Legendre polynomials P_l^m(x) and
+derivatives dP_l^m(x)/dx, for m E<gt>= 0, l = |m|, ..., lmax, |x|
+E<lt>= 1.
+
+=head3 sf_legendre_sphPlm
+
+ $result = sf_legendre_sphPlm($l, $m, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_sphPlm_e> (I<int l, int m, double x, gsl_sf_result * result>)
+
+These routines compute the normalized associated Legendre polynomial
+\sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x) suitable for use in
+spherical harmonics. The parameters must satisfy m E<gt>= 0, l E<gt>=
+m, |x| E<lt>= 1. Theses routines avoid the overflows that occur for the
+standard normalization of P_l^m(x).
+
+=head3 sf_legendre_sphPlm_array
+
+ int B<gsl_sf_legendre_sphPlm_array> (I<int lmax, int m, double x, double result_array>[])
+
+=head3 sf_legendre_sphPlm_deriv_array
+
+ int B<gsl_sf_legendre_sphPlm_deriv_array> (I<int lmax, int m, double x, double result_array>[]I<, double result_deriv_array>[])
+
+These functions compute arrays of normalized associated Legendre
+functions \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x), and
+derivatives, for m E<gt>= 0, l = |m|, ..., lmax, |x| E<lt>= 1.0
+
+=head3 sf_legendre_array_size
+
+ int B<gsl_sf_legendre_array_size> (I<const int lmax, const int m>)
+
+This function returns the size of I<result_array>[] needed for the
+array versions of P_l^m(x), I<lmax> - I<m> + 1. An inline version of
+this function is used when C<HAVE_INLINE> is defined.
+
+=head2 Conical Functions
+
+The Conical Functions P^\mu_{-(1/2)+i\lambda}(x) and
+Q^\mu_{-(1/2)+i\lambda} are described in Abramowitz & Stegun, Section
+8.12.
+
+=head3 sf_conicalP_half
+
+ $result = sf_conicalP_half($lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_half_e> (I<double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the irregular Spherical Conical Function
+P^{1/2}_{-1/2 + i \lambda}(x) for x E<gt> -1.
+
+=head3 sf_conicalP_mhalf
+
+ $result = sf_conicalP_mhalf($lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_mhalf_e> (I<double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the regular Spherical Conical Function
+P^{-1/2}_{-1/2 + i \lambda}(x) for x E<gt> -1.
+
+=head3 sf_conicalP_0
+
+ $result = sf_conicalP_0($lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_0_e> (I<double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the conical function P^0_{-1/2 + i \lambda}(x)
+for x E<gt> -1.
+
+=head3 sf_conicalP_1
+
+ $result = sf_conicalP_1($lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_1_e> (I<double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the conical function P^1_{-1/2 + i \lambda}(x)
+for x E<gt> -1.
+
+=head3 sf_conicalP_sph_reg
+
+ $result = sf_conicalP_sph_reg($l, $lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_sph_reg_e> (I<int l, double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the Regular Spherical Conical Function
+P^{-1/2-l}_{-1/2 + i \lambda}(x) for x E<gt> -1, l E<gt>= -1.
+
+=head3 sf_conicalP_cyl_reg
+
+ $result = sf_conicalP_cyl_reg($m, $lambda, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_conicalP_cyl_reg_e> (I<int m, double lambda, double x, gsl_sf_result * result>)
+
+These routines compute the Regular Cylindrical Conical Function
+P^{-m}_{-1/2 + i \lambda}(x) for x E<gt> -1, m E<gt>= -1.
+
+=head2 Radial Functions for Hyperbolic Space
+
+The following spherical functions are specializations of Legendre
+functions which give the regular eigenfunctions of the Laplacian on a
+3-dimensional hyperbolic space H3d. Of particular interest is the flat
+limit, \lambda \to \infty, \eta \to 0, \lambda\eta fixed.
+
+=head3 sf_legendre_H3d_0
+
+ $result = sf_legendre_H3d_0($lambda, $eta);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_H3d_0_e> (I<double lambda, double eta, gsl_sf_result * result>)
+
+These routines compute the zeroth radial eigenfunction of the Laplacian
+on the 3-dimensional hyperbolic space, L^{H3d}_0(\lambda,\eta) :=
+\sin(\lambda\eta)/(\lambda\sinh(\eta)) for \eta E<gt>= 0. In the flat
+limit this takes the form L^{H3d}_0(\lambda,\eta) = j_0(\lambda\eta).
+
+=head3 sf_legendre_H3d_1
+
+ $result = sf_legendre_H3d_1($lambda, $eta);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_H3d_1_e> (I<double lambda, double eta, gsl_sf_result * result>)
+
+These routines compute the first radial eigenfunction of the Laplacian
+on the 3-dimensional hyperbolic space, L^{H3d}_1(\lambda,\eta) :=
+1/\sqrt{\lambda^2 + 1} \sin(\lambda \eta)/(\lambda \sinh(\eta))
+(\coth(\eta) - \lambda \cot(\lambda\eta)) for \eta E<gt>= 0. In the
+flat limit this takes the form L^{H3d}_1(\lambda,\eta) =
+j_1(\lambda\eta).
+
+=head3 sf_legendre_H3d
+
+ $result = sf_legendre_H3d($l, $lambda, $eta);#TODO
+ XXX-delete-XXX int B<gsl_sf_legendre_H3d_e> (I<int l, double lambda, double eta, gsl_sf_result * result>)
+
+These routines compute the I<l>-th radial eigenfunction of the
+Laplacian on the 3-dimensional hyperbolic space \eta E<gt>= 0, l E<gt>=
+0. In the flat limit this takes the form L^{H3d}_l(\lambda,\eta) =
+j_l(\lambda\eta).
+
+=head3 sf_legendre_H3d_array
+
+ int B<gsl_sf_legendre_H3d_array> (I<int lmax, double lambda, double eta, double result_array>[])
+
+This function computes an array of radial eigenfunctions
+L^{H3d}_l(\lambda, \eta) for 0 E<lt>= l E<lt>= lmax.
+
+=head2 Logarithm and Related Functions
+
+ Information on the
+properties of the Logarithm function can be found in Abramowitz &
+Stegun, Chapter 4.
+
+=head3 sf_log
+
+ $result = sf_log($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_log_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the logarithm of I<x>, \log(x), for x E<gt> 0.
+
+=head3 sf_log_abs
+
+ $result = sf_log_abs($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_log_abs_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the logarithm of the magnitude of I<x>,
+\log(|x|), for x \ne 0.
+
+=head3 sf_complex_log_e
+
+ int B<gsl_sf_complex_log_e> (I<double zr, double zi, gsl_sf_result * lnr, gsl_sf_result * theta>)
+
+This routine computes the complex logarithm of z = z_r + i z_i. The
+results are returned as I<lnr>, I<theta> such that \exp(lnr + i \theta)
+= z_r + i z_i, where \theta lies in the range [-\pi,\pi].
+
+=head3 sf_log_1plusx
+
+ $result = sf_log_1plusx($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_log_1plusx_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute \log(1 + x) for x E<gt> -1 using an algorithm
+that is accurate for small x.
+
+=head3 sf_log_1plusx_mx
+
+ $result = sf_log_1plusx_mx($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_log_1plusx_mx_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute \log(1 + x) - x for x E<gt> -1 using an
+algorithm that is accurate for small x.
+
+=head2 Mathieu Functions
+
+The routines described in this section
+compute the angular and radial Mathieu functions, and their
+characteristic values. Mathieu functions are the solutions of the
+following two differential equations: The angular Mathieu functions
+ce_r(x,q), se_r(x,q) are the even and odd periodic solutions of the
+first equation, which is known as Mathieu's equation. These exist only
+for the discrete sequence of characteristic values a=a_r(q)
+(even-periodic) and a=b_r(q) (odd-periodic).
+
+The radial Mathieu functions Mc^{(j)}_{r}(z,q), Ms^{(j)}_{r}(z,q) are
+the solutions of the second equation, which is referred to as Mathieu's
+modified equation. The radial Mathieu functions of the first, second,
+third and fourth kind are denoted by the parameter j, which takes the
+value 1, 2, 3 or 4.
+
+For more information on the Mathieu functions, see Abramowitz and
+Stegun, Chapter 20.
+
+=head2 Mathieu Function Workspace
+
+The Mathieu functions can be computed for a single order or for
+multiple orders, using array-based routines. The array-based routines
+require a preallocated workspace.
+
+=head3 sf_mathieu_alloc
+
+ gsl_sf_mathieu_workspace * B<gsl_sf_mathieu_alloc> (I<size_t n, double qmax>)
+
+This function returns
+a workspace for the array versions of the Mathieu routines. The
+arguments I<n> and I<qmax> specify the maximum order and q-value of
+Mathieu functions which can be computed with this workspace.
+
+=head3 sf_mathieu_free
+
+ void B<gsl_sf_mathieu_free> (I<gsl_sf_mathieu_workspace * work>)
+
+This function frees the workspace I<work>.
+
+=head2 Mathieu Function Characteristic Values
+
+=head3 sf_mathieu_a
+
+ int B<gsl_sf_mathieu_a> (I<int n, double q, gsl_sf_result * result>)
+
+=head3 sf_mathieu_b
+
+ int B<gsl_sf_mathieu_b> (I<int n, double q, gsl_sf_result * result>)
+
+These routines compute the characteristic values a_n(q), b_n(q) of the
+Mathieu functions ce_n(q,x) and se_n(q,x), respectively.
+
+=head3 sf_mathieu_a_array
+
+ int B<gsl_sf_mathieu_a_array> (I<int order_min, int order_max, double q, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+=head3 sf_mathieu_b_array
+
+ int B<gsl_sf_mathieu_b_array> (I<int order_min, int order_max, double q, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+These routines compute a series of Mathieu characteristic values
+a_n(q), b_n(q) for n from I<order_min> to I<order_max> inclusive,
+storing the results in the array I<result_array>.
+
+=head2 Angular Mathieu Functions
+
+=head3 sf_mathieu_ce
+
+ int B<gsl_sf_mathieu_ce> (I<int n, double q, double x, gsl_sf_result * result>)
+
+=head3 sf_mathieu_se
+
+ int B<gsl_sf_mathieu_se> (I<int n, double q, double x, gsl_sf_result * result>)
+
+These routines compute the angular Mathieu functions ce_n(q,x) and
+se_n(q,x), respectively.
+
+=head3 sf_mathieu_ce_array
+
+ int B<gsl_sf_mathieu_ce_array> (I<int nmin, int nmax, double q, double x, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+=head3 sf_mathieu_se_array
+
+ int B<gsl_sf_mathieu_se_array> (I<int nmin, int nmax, double q, double x, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+These routines compute a series of the angular Mathieu functions
+ce_n(q,x) and se_n(q,x) of order n from I<nmin> to I<nmax> inclusive,
+storing the results in the array I<result_array>.
+
+=head2 Radial Mathieu Functions
+
+=head3 sf_mathieu_Mc
+
+ int B<gsl_sf_mathieu_Mc> (I<int j, int n, double q, double x, gsl_sf_result * result>)
+
+=head3 sf_mathieu_Ms
+
+ int B<gsl_sf_mathieu_Ms> (I<int j, int n, double q, double x, gsl_sf_result * result>)
+
+These routines compute the radial I<j>-th kind Mathieu functions
+Mc_n^{(j)}(q,x) and Ms_n^{(j)}(q,x) of order I<n>.
+
+The allowed values of I<j> are 1 and 2. The functions for j = 3,4 can
+be computed as M_n^{(3)} = M_n^{(1)} + iM_n^{(2)} and M_n^{(4)} =
+M_n^{(1)} - iM_n^{(2)}, where M_n^{(j)} = Mc_n^{(j)} or Ms_n^{(j)}.
+
+=head3 sf_mathieu_Mc_array
+
+ int B<gsl_sf_mathieu_Mc_array> (I<int j, int nmin, int nmax, double q, double x, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+=head3 sf_mathieu_Ms_array
+
+ int B<gsl_sf_mathieu_Ms_array> (I<int j, int nmin, int nmax, double q, double x, gsl_sf_mathieu_workspace * work, double result_array>[])
+
+These routines compute a series of the radial Mathieu functions of kind
+I<j>, with order from I<nmin> to I<nmax> inclusive, storing the results
+in the array I<result_array>.
+
+=head2 Power Function
+
+The following functions are equivalent to the function C<gsl_pow_int> (see <Small
+integer powers) with an error estimate.
+
+=head3 sf_pow_int
+
+ $result = sf_pow_int($x, $n);#TODO
+ XXX-delete-XXX int B<gsl_sf_pow_int_e> (I<double x, int n, gsl_sf_result * result>)
+
+These routines compute the power x^n for integer I<n>. The power is
+computed using the minimum number of multiplications. For example, x^8
+is computed as ((x^2)^2)^2, requiring only 3 multiplications. For
+reasons of efficiency, these functions do not check for overflow or
+underflow conditions.
+
+     #include <gsl/gsl_sf_pow_int.h>
+     /* compute 3.0**12 */
+     double y = gsl_sf_pow_int(3.0, 12);
+
+=head2 Psi (Digamma) Function
+
+The polygamma functions of order n are defined by where \psi(x) =
+\Gamma'(x)/\Gamma(x) is known as the digamma function.
+
+=head2 Digamma Function
+
+=head3 sf_psi_int
+
+ $result = sf_psi_int($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_int_e> (I<int n, gsl_sf_result * result>)
+
+These routines compute the digamma function \psi(n) for positive
+integer I<n>. The digamma function is also called the Psi function.
+
+=head3 sf_psi
+
+ $result = sf_psi($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the digamma function \psi(x) for general x, x
+\ne 0.
+
+=head3 sf_psi_1piy
+
+ $result = sf_psi_1piy($y);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_1piy_e> (I<double y, gsl_sf_result * result>)
+
+These routines compute the real part of the digamma function on the
+line 1+i y, \Re[\psi(1 + i y)].
+
+=head2 Trigamma Function
+
+=head3 sf_psi_1_int
+
+ $result = sf_psi_1_int($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_1_int_e> (I<int n, gsl_sf_result * result>)
+
+These routines compute the Trigamma function \psi'(n) for positive
+integer n.
+
+=head3 sf_psi_1
+
+ $result = sf_psi_1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the Trigamma function \psi'(x) for general x.
+
+=head2 Polygamma Function
+
+=head3 sf_psi_n
+
+ $result = sf_psi_n($n, $x);#TODO
+ XXX-delete-XXX int B<gsl_sf_psi_n_e> (I<int n, double x, gsl_sf_result * result>)
+
+These routines compute the polygamma function \psi^{(n)}(x) for n
+E<gt>= 0, x E<gt> 0.
+
+=head2 Synchrotron Functions
+
+=head3 sf_synchrotron_1
+
+ $result = sf_synchrotron_1($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_synchrotron_1_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the first synchrotron function x \int_x^\infty
+dt K_{5/3}(t) for x E<gt>= 0.
+
+=head3 sf_synchrotron_2
+
+ $result = sf_synchrotron_2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_synchrotron_2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the second synchrotron function x K_{2/3}(x) for
+x E<gt>= 0.
+
+=head2 Transport Functions
+
+The transport functions J(n,x) are
+defined by the integral representations J(n,x) := \int_0^x dt t^n e^t
+/(e^t - 1)^2.
+
+=head3 sf_transport_2
+
+ $result = sf_transport_2($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_transport_2_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the transport function J(2,x).
+
+=head3 sf_transport_3
+
+ $result = sf_transport_3($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_transport_3_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the transport function J(3,x).
+
+=head3 sf_transport_4
+
+ $result = sf_transport_4($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_transport_4_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the transport function J(4,x).
+
+=head3 sf_transport_5
+
+ $result = sf_transport_5($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_transport_5_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute the transport function J(5,x).
+
+=head2 Trigonometric Functions
+
+The library includes its own
+trigonometric functions in order to provide consistency across
+platforms and reliable error estimates.
+
+=head2 Circular Trigonometric Functions
+
+=head3 sf_sin
+
+ $result = sf_sin($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_sin_e> (I<double x, gsl_sf_result * result>)
+
+These routines compute
+the sine function \sin(x).
+
+=head3 sf_cos
+
+ $result = sf_cos($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_cos_e> (I<double x, gsl_sf_result * result>)
+
+These routines
+compute the cosine function \cos(x).
+
+=head3 sf_hypot
+
+ $result = sf_hypot($x, $y);#TODO
+ XXX-delete-XXX int B<gsl_sf_hypot_e> (I<double x, double y, gsl_sf_result * result>)
+
+These routines
+compute the hypotenuse function \sqrt{x^2 + y^2} avoiding overflow and
+underflow.
+
+=head3 sf_sinc
+
+ $result = sf_sinc($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_sinc_e> (I<double x, gsl_sf_result * result>)
+
+These routines
+compute \sinc(x) = \sin(\pi x) / (\pi x) for any value of I<x>.
+
+=head2 Trigonometric Functions for Complex Arguments
+
+=head3 sf_complex_sin_e
+
+ int B<gsl_sf_complex_sin_e> (I<double zr, double zi, gsl_sf_result * szr, gsl_sf_result * szi>)
+
+This function
+computes the complex sine, \sin(z_r + i z_i) storing the real and
+imaginary parts in I<szr>, I<szi>.
+
+=head3 sf_complex_cos_e
+
+ int B<gsl_sf_complex_cos_e> (I<double zr, double zi, gsl_sf_result * czr, gsl_sf_result * czi>)
+
+This
+function computes the complex cosine, \cos(z_r + i z_i) storing the
+real and imaginary parts in I<czr>, I<czi>.
+
+=head3 sf_complex_logsin_e
+
+ int B<gsl_sf_complex_logsin_e> (I<double zr, double zi, gsl_sf_result * lszr, gsl_sf_result * lszi>)
+
+This
+function computes the logarithm of the complex sine, \log(\sin(z_r + i
+z_i)) storing the real and imaginary parts in I<lszr>, I<lszi>.
+
+=head2 Hyperbolic Trigonometric Functions
+
+=head3 sf_lnsinh
+
+ $result = sf_lnsinh($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lnsinh_e> (I<double x, gsl_sf_result * result>)
+
+These
+routines compute \log(\sinh(x)) for x E<gt> 0.
+
+=head3 sf_lncosh
+
+ $result = sf_lncosh($x);#TODO
+ XXX-delete-XXX int B<gsl_sf_lncosh_e> (I<double x, gsl_sf_result * result>)
+
+These
+routines compute \log(\cosh(x)) for any I<x>.
+
+=head2 Conversion Functions
+
+=head3 sf_polar_to_rect
+
+ int B<gsl_sf_polar_to_rect> (I<double r, double theta, gsl_sf_result * x, gsl_sf_result * y>)I<;>
+
+This function converts the polar coordinates (I<r>,I<theta>) to
+rectilinear coordinates (I<x>,I<y>), x = r\cos(\theta), y =
+r\sin(\theta).
+
+=head3 sf_rect_to_polar
+
+ int B<gsl_sf_rect_to_polar> (I<double x, double y, gsl_sf_result * r, gsl_sf_result * theta>)
+
+This function converts the rectilinear coordinates (I<x>,I<y>) to polar
+coordinates (I<r>,I<theta>), such that x = r\cos(\theta), y =
+r\sin(\theta). The argument I<theta> lies in the range [-\pi, \pi].
+
+=head2 Restriction Functions
+
+=head3 sf_angle_restrict_symm
+
+ $result = sf_angle_restrict_symm($theta);#TODO
+ XXX-delete-XXX int B<gsl_sf_angle_restrict_symm_e> (I<double * theta>)
+
+These routines force the angle I<theta> to lie in the range (-\pi,\pi].
+
+Note that the mathematical value of \pi is slightly greater than
+C<M_PI>, so the machine numbers C<M_PI> and C<-M_PI> are included in
+the range.
+
+=head3 sf_angle_restrict_pos
+
+ $result = sf_angle_restrict_pos($theta);#TODO
+ XXX-delete-XXX int B<gsl_sf_angle_restrict_pos_e> (I<double * theta>)
+
+These routines force the angle I<theta> to lie in the range [0, 2\pi).
+
+Note that the mathematical value of 2\pi is slightly greater than
+C<2*M_PI>, so the machine number C<2*M_PI> is included in the range.
+
+=head2 Trigonometric Functions With Error Estimates
+
+=head3 sf_sin_err
+
+ $result = sf_sin_err_e($x, $dx);
+
+This routine computes the sine of an angle I<x> with an associated
+absolute error I<dx>, \sin(x \pm dx). Note that this function is
+provided in the error-handling form only since its purpose is to
+compute the propagated error.
+
+=head3 sf_cos_err
+
+ $result = sf_cos_err_e($x, $dx);
+
+This routine computes the cosine of an angle I<x> with an associated
+absolute error I<dx>, \cos(x \pm dx). Note that this function is
+provided in the error-handling form only since its purpose is to
+compute the propagated error.
+
+=head2 Zeta Functions
+
+The Riemann zeta function is defined in Abramowitz & Stegun, Section 23.2.
+
+=head2 Riemann Zeta Function
+
+The Riemann zeta function is defined
+by the infinite sum \zeta(s) = \sum_{k=1}^\infty k^{-s}.
+
+=head3 sf_zeta_int
+
+ $result = sf_zeta_int($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_zeta_int_e> (I<int n, gsl_sf_result * result>)
+
+These routines compute the Riemann zeta function \zeta(n) for integer
+I<n>, n \ne 1.
+
+=head3 sf_zeta
+
+ $result = sf_zeta($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_zeta_e> (I<double s, gsl_sf_result * result>)
+
+These routines compute the Riemann zeta function \zeta(s) for arbitrary
+I<s>, s \ne 1.
+
+=head2 Riemann Zeta Function Minus One
+
+For large positive argument, the Riemann zeta function approaches one.
+In this region the fractional part is interesting, and therefore we
+need a function to evaluate it explicitly.
+
+=head3 sf_zetam1_int
+
+ $result = sf_zetam1_int($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_zetam1_int_e> (I<int n, gsl_sf_result * result>)
+
+These routines compute \zeta(n) - 1 for integer I<n>, n \ne 1.
+
+=head3 sf_zetam1
+
+ $result = sf_zetam1($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_zetam1_e> (I<double s, gsl_sf_result * result>)
+
+These routines compute \zeta(s) - 1 for arbitrary I<s>, s \ne 1.
+
+=head2 Hurwitz Zeta Function
+
+The Hurwitz zeta function is defined
+by \zeta(s,q) = \sum_0^\infty (k+q)^{-s}.
+
+=head3 sf_hzeta
+
+ $result = sf_hzeta($s, $q);#TODO
+ XXX-delete-XXX int B<gsl_sf_hzeta_e> (I<double s, double q, gsl_sf_result * result>)
+
+These routines compute the Hurwitz zeta function \zeta(s,q) for s E<gt>
+1, q E<gt> 0.
+
+=head2 Eta Function
+
+The eta function is defined by \eta(s) =
+(1-2^{1-s}) \zeta(s).
+
+=head3 sf_eta_int
+
+ $result = sf_eta_int($n);#TODO
+ XXX-delete-XXX int B<gsl_sf_eta_int_e> (I<int n, gsl_sf_result * result>)
+
+These routines compute the eta function \eta(n) for integer I<n>.
+
+=head3 sf_eta
+
+ $result = sf_eta($s);#TODO
+ XXX-delete-XXX int B<gsl_sf_eta_e> (I<double s, gsl_sf_result * result>)
+
+These routines compute the eta function \eta(s) for arbitrary I<s>.
+
+=head1 SEE ALSO
+
+L<Math::EasyGSL>

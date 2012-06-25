@@ -30,22 +30,22 @@ size_t arr_ref_size(SV * data, char * warnmsg) {
   return rv+1;
 }
 
-MODULE = Math::EasyGSL::Functions	PACKAGE = Math::EasyGSL::Functions
+MODULE = Math::EasyGSL::Functions        PACKAGE = Math::EasyGSL::Functions
 
 void
 GSL_PREC_DOUBLE()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(GSL_PREC_DOUBLE)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(GSL_PREC_DOUBLE)));
 
 void
 GSL_PREC_SINGLE()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(GSL_PREC_SINGLE)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(GSL_PREC_SINGLE)));
 
 void
 GSL_PREC_APPROX()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(GSL_PREC_APPROX)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(GSL_PREC_APPROX)));
 
 ###### generated part - start ######
 
@@ -54,38 +54,54 @@ GSL_PREC_APPROX()
 void
 [% f.xs_name %]([% f.xs_params %])
 [% FOREACH p IN f.xs_args -%]
-		[% p.decl %];
+        [% p.decl %];
 [% END -%]
-	INIT:
-		int rv_;
+    INIT:
+        int rv_;
 [% FOREACH p IN f.init_decl -%]
-		[% p %];
-[% END -%]	
-	PPCODE:
+        [% p %];
+[% END -%]
+    PPCODE:
 [% IF f.r2val -%]
-		rv_ = [% f.gsl_name %]([% f.gsl_params %]);
-		XPUSHs(sv_2mortal(newSVnv([% f.r2val %](rv_,result_))));
+        rv_ = [% f.gsl_name %]([% f.gsl_params %]);
+        XPUSHs(sv_2mortal(newSVnv([% f.r2val %](rv_,result_))));
 [% ELSIF f.result_array_size_msg %]
-		/* allocate memory */
-		result_array_size = [% f.result_array_size %];
-		if (result_array_size<=0) {
-                  warn("Warning: [% f.xs_name %]() - [% f.result_array_size_msg %]");
-                  XSRETURN_UNDEF;
-		}
-		result_array_ = malloc(result_array_size * sizeof(double));
-		if (!result_array_) {
-                  warn("Warning: [% f.xs_name %]() - malloc failed");
-                  XSRETURN_UNDEF;
-		}
-		/* do the job */
-		rv_ = [% f.gsl_name %]([% f.gsl_params %]);
-		if (rv_) warn("Error: rv(%d)",gsl_strerror(rv_));
-		for(i=0;i<result_array_size;i++)
-		  XPUSHs(sv_2mortal(newSVnv(result_array_[i])));
-		/* free memory */
-		free(result_array_);
+        /* allocate memory */
+        result_array_size = [% f.result_array_size %];
+        if (result_array_size<=0) {
+          warn("Warning: [% f.xs_name %]() - [% f.result_array_size_msg %]");
+          XSRETURN_UNDEF;
+        }
+        result_array_ = malloc(result_array_size * sizeof(double));
+        if (!result_array_) {
+          warn("Warning: [% f.xs_name %]() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* do the job */
+        rv_ = [% f.gsl_name %]([% f.gsl_params %]);
+        if (rv_) warn("Error: rv(%d)",gsl_strerror(rv_));
+        /* process results */
+/*[%# COMMENT: XXX-FIXME do we want to return array / arrayref based on context*/
+        if (GIMME_V == G_ARRAY) {
+          /* in list context returning array */
+          for(i=0;i<result_array_size;i++)
+            XPUSHs(sv_2mortal(newSVnv(result_array_[i])));
+        }
+        else
+/*-%]*/
+        {
+          /* returning arrayref */
+          AV* rv_array;
+          rv_array = (AV *)sv_2mortal((SV *)newAV()); /* new array */
+          av_extend(rv_array,result_array_size); /* not needed but faster */
+          for(i=0;i<result_array_size;i++)
+            av_push(rv_array,newSVnv(result_array_[i]));
+          XPUSHs(sv_2mortal(newRV((SV*)rv_array)));
+        }
+        /* free memory */
+        free(result_array_);
 [% ELSE %]
-		XPUSHs(sv_2mortal(newSVnv([% f.gsl_name %]([% f.gsl_params %]))));
+        XPUSHs(sv_2mortal(newSVnv([% f.gsl_name %]([% f.gsl_params %]))));
 [% END -%]
 
 [% END -%]

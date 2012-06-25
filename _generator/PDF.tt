@@ -24,166 +24,166 @@ MODULE = Math::EasyGSL::PDF       PACKAGE = Math::EasyGSL::PDF
 ## GSL function: double gsl_ran_dirichlet_pdf(size_t K, const double alpha[], const double theta[]);
 void
 pdf_dirichlet(K,alpha,theta)
-		size_t K;
-		SV * alpha;
-		SV * theta;
-	INIT:
-		int i;
-		AV * av;
-		double * alpha_;
-		size_t alpha_size;
-		double * theta_;
-		size_t theta_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		alpha_size = arr_ref_size(alpha, "Warning: pdf_dirichlet() - invalid 'alpha' argument");
-		theta_size = arr_ref_size(theta, "Warning: pdf_dirichlet() - invalid 'theta' argument");
-		if (alpha_size<0 || theta_size<0) XSRETURN_UNDEF;
-		/* check size */
-		if (alpha_size!=theta_size || alpha_size!=K) {
-		  warn("Warning: pdf_dirichlet() - array sizes differ: K(%d), alpha_size(%d), theta_size(%d)", K, alpha_size, theta_size);
-		  XSRETURN_UNDEF;
-		}
-		/* allocate memory */
-		alpha_ = malloc(alpha_size * sizeof(double));
-		theta_ = malloc(theta_size * sizeof(double));
-		if (!alpha_ || !theta_) {
-		  warn("Warning: pdf_dirichlet() - malloc failed");
-		  if (alpha_) free(alpha_);
-		  if (theta_) free(theta_);
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));	
-		for(i=0, av=(AV*)SvRV(theta); i<theta_size; i++) theta_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_dirichlet_pdf(K,alpha_,theta_))));
-		/* free memory */
-		free(alpha_);
-		free(theta_);
+        size_t K;
+        SV * alpha;
+        SV * theta;
+    INIT:
+        int i;
+        AV * av;
+        double * alpha_;
+        size_t alpha_size;
+        double * theta_;
+        size_t theta_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        alpha_size = arr_ref_size(alpha, "Warning: pdf_dirichlet() - invalid 'alpha' argument");
+        theta_size = arr_ref_size(theta, "Warning: pdf_dirichlet() - invalid 'theta' argument");
+        if (alpha_size<0 || theta_size<0) XSRETURN_UNDEF;
+        /* check size */
+        if (alpha_size!=theta_size || alpha_size!=K) {
+          warn("Warning: pdf_dirichlet() - array sizes differ: K(%d), alpha_size(%d), theta_size(%d)", K, alpha_size, theta_size);
+          XSRETURN_UNDEF;
+        }
+        /* allocate memory */
+        alpha_ = malloc(alpha_size * sizeof(double));
+        theta_ = malloc(theta_size * sizeof(double));
+        if (!alpha_ || !theta_) {
+          warn("Warning: pdf_dirichlet() - malloc failed");
+          if (alpha_) free(alpha_);
+          if (theta_) free(theta_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));
+        for(i=0, av=(AV*)SvRV(theta); i<theta_size; i++) theta_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_dirichlet_pdf(K,alpha_,theta_))));
+        /* free memory */
+        free(alpha_);
+        free(theta_);
 
 ## GSL function: double gsl_ran_dirichlet_lnpdf(size_t K, const double alpha[], const double theta[]);
 void
 pdf_dirichlet_ln(K,alpha,theta)
-		size_t K;
-		SV * alpha;
-		SV * theta;
-	INIT:
-		int i;
-		AV * av;
-		double * alpha_;
-		size_t alpha_size;
-		double * theta_;
-		size_t theta_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		alpha_size = arr_ref_size(alpha, "Warning: pdf_dirichlet_ln() - invalid 'alpha' argument");
-		theta_size = arr_ref_size(theta, "Warning: pdf_dirichlet_ln() - invalid 'theta' argument");
-		if (alpha_size<0 || theta_size<0) XSRETURN_UNDEF;
-		/* check size */
-		if (alpha_size!=theta_size || alpha_size!=K) {
-		  warn("Warning: pdf_dirichlet_ln() - array sizes differ: K(%d), alpha_size(%d), theta_size(%d)", K, alpha_size, theta_size);
-		  XSRETURN_UNDEF;
-		}
-		/* allocate memory */
-		alpha_ = malloc(alpha_size * sizeof(double));
-		theta_ = malloc(theta_size * sizeof(double));
-		if (!alpha_ || !theta_) {
-		  warn("Warning: pdf_dirichlet_ln() - malloc failed");
-		  if (alpha_) free(alpha_);
-		  if (theta_) free(theta_);
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));	
-		for(i=0, av=(AV*)SvRV(theta); i<theta_size; i++) theta_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_dirichlet_lnpdf(K,alpha_,theta_))));
-		/* free memory */
-		free(alpha_);
-		free(theta_);
+        size_t K;
+        SV * alpha;
+        SV * theta;
+    INIT:
+        int i;
+        AV * av;
+        double * alpha_;
+        size_t alpha_size;
+        double * theta_;
+        size_t theta_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        alpha_size = arr_ref_size(alpha, "Warning: pdf_dirichlet_ln() - invalid 'alpha' argument");
+        theta_size = arr_ref_size(theta, "Warning: pdf_dirichlet_ln() - invalid 'theta' argument");
+        if (alpha_size<0 || theta_size<0) XSRETURN_UNDEF;
+        /* check size */
+        if (alpha_size!=theta_size || alpha_size!=K) {
+          warn("Warning: pdf_dirichlet_ln() - array sizes differ: K(%d), alpha_size(%d), theta_size(%d)", K, alpha_size, theta_size);
+          XSRETURN_UNDEF;
+        }
+        /* allocate memory */
+        alpha_ = malloc(alpha_size * sizeof(double));
+        theta_ = malloc(theta_size * sizeof(double));
+        if (!alpha_ || !theta_) {
+          warn("Warning: pdf_dirichlet_ln() - malloc failed");
+          if (alpha_) free(alpha_);
+          if (theta_) free(theta_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(alpha); i<alpha_size; i++) alpha_[i] = SvNV(*av_fetch(av,i,0));
+        for(i=0, av=(AV*)SvRV(theta); i<theta_size; i++) theta_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_dirichlet_lnpdf(K,alpha_,theta_))));
+        /* free memory */
+        free(alpha_);
+        free(theta_);
 
 ## GSL function: double gsl_ran_multinomial_pdf(size_t K, const double p[], const unsigned int n[]);
 void
 pdf_multinomial(K,p,n)
-		size_t K;
-		SV * p;
-		SV * n;
-	INIT:
-		int i;
-		AV * av;
-		double * p_;
-		size_t p_size;
-		unsigned int * n_;
-		size_t n_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		p_size = arr_ref_size(p, "Warning: pdf_multinomial() - invalid 'p' argument");
-		n_size = arr_ref_size(n, "Warning: pdf_multinomial() - invalid 'n' argument");
-		if (p_size<0 || n_size<0) XSRETURN_UNDEF;
-		/* check size */
-		if (p_size!=n_size || p_size!=K) {
-		  warn("Warning: pdf_multinomial() - array sizes differ: K(%d), p_size(%d), n_size(%d)", K, p_size, n_size);
-		  XSRETURN_UNDEF;
-		}
-		/* allocate memory */
-		p_ = malloc(p_size * sizeof(double));
-		n_ = malloc(n_size * sizeof(unsigned int));
-		if (!p_ || !n_) {
-		  warn("Warning: pdf_multinomial() - malloc failed");
-		  if (p_) free(p_);
-		  if (n_) free(n_);
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(p); i<p_size; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
-		for(i=0, av=(AV*)SvRV(n); i<n_size; i++) n_[i] = SvIV(*av_fetch(av,i,0));	
-		/* do the job */
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_multinomial_pdf(K,p_,n_))));
-		/* free memory */
-		free(p_);
-		free(n_);
+        size_t K;
+        SV * p;
+        SV * n;
+    INIT:
+        int i;
+        AV * av;
+        double * p_;
+        size_t p_size;
+        unsigned int * n_;
+        size_t n_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        p_size = arr_ref_size(p, "Warning: pdf_multinomial() - invalid 'p' argument");
+        n_size = arr_ref_size(n, "Warning: pdf_multinomial() - invalid 'n' argument");
+        if (p_size<0 || n_size<0) XSRETURN_UNDEF;
+        /* check size */
+        if (p_size!=n_size || p_size!=K) {
+          warn("Warning: pdf_multinomial() - array sizes differ: K(%d), p_size(%d), n_size(%d)", K, p_size, n_size);
+          XSRETURN_UNDEF;
+        }
+        /* allocate memory */
+        p_ = malloc(p_size * sizeof(double));
+        n_ = malloc(n_size * sizeof(unsigned int));
+        if (!p_ || !n_) {
+          warn("Warning: pdf_multinomial() - malloc failed");
+          if (p_) free(p_);
+          if (n_) free(n_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(p); i<p_size; i++) p_[i] = SvNV(*av_fetch(av,i,0));
+        for(i=0, av=(AV*)SvRV(n); i<n_size; i++) n_[i] = SvIV(*av_fetch(av,i,0));
+        /* do the job */
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_multinomial_pdf(K,p_,n_))));
+        /* free memory */
+        free(p_);
+        free(n_);
 
 ## GSL function: double gsl_ran_multinomial_lnpdf(size_t K, const double p[], const unsigned int n[]);
 void
 pdf_multinomial_ln(K,p,n)
-		size_t K;
-		SV * p;
-		SV * n;
-	INIT:
-		int i;
-		AV * av;
-		double * p_;
-		size_t p_size;
-		unsigned int * n_;
-		size_t n_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		p_size = arr_ref_size(p, "Warning: pdf_multinomial_ln() - invalid 'p' argument");
-		n_size = arr_ref_size(n, "Warning: pdf_multinomial_ln() - invalid 'n' argument");
-		if (p_size<0 || n_size<0) XSRETURN_UNDEF;
-		/* check size */
-		if (p_size!=n_size || p_size!=K) {
-		  warn("Warning: pdf_multinomial_ln() - array sizes differ: K(%d), p_size(%d), n_size(%d)", K, p_size, n_size);
-		  XSRETURN_UNDEF;
-		}
-		/* allocate memory */
-		p_ = malloc(p_size * sizeof(double));
-		n_ = malloc(n_size * sizeof(unsigned int));
-		if (!p_ || !n_) {
-		  warn("Warning: pdf_multinomial_ln() - malloc failed");
-		  if (p_) free(p_);
-		  if (n_) free(n_);
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(p); i<p_size; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
-		for(i=0, av=(AV*)SvRV(n); i<n_size; i++) n_[i] = SvIV(*av_fetch(av,i,0));	
-		/* do the job */
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_multinomial_lnpdf(K,p_,n_))));
-		/* free memory */
-		free(p_);
-		free(n_);
+        size_t K;
+        SV * p;
+        SV * n;
+    INIT:
+        int i;
+        AV * av;
+        double * p_;
+        size_t p_size;
+        unsigned int * n_;
+        size_t n_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        p_size = arr_ref_size(p, "Warning: pdf_multinomial_ln() - invalid 'p' argument");
+        n_size = arr_ref_size(n, "Warning: pdf_multinomial_ln() - invalid 'n' argument");
+        if (p_size<0 || n_size<0) XSRETURN_UNDEF;
+        /* check size */
+        if (p_size!=n_size || p_size!=K) {
+          warn("Warning: pdf_multinomial_ln() - array sizes differ: K(%d), p_size(%d), n_size(%d)", K, p_size, n_size);
+          XSRETURN_UNDEF;
+        }
+        /* allocate memory */
+        p_ = malloc(p_size * sizeof(double));
+        n_ = malloc(n_size * sizeof(unsigned int));
+        if (!p_ || !n_) {
+          warn("Warning: pdf_multinomial_ln() - malloc failed");
+          if (p_) free(p_);
+          if (n_) free(n_);
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(p); i<p_size; i++) p_[i] = SvNV(*av_fetch(av,i,0));
+        for(i=0, av=(AV*)SvRV(n); i<n_size; i++) n_[i] = SvIV(*av_fetch(av,i,0));
+        /* do the job */
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_multinomial_lnpdf(K,p_,n_))));
+        /* free memory */
+        free(p_);
+        free(n_);
 
 
 [% INCLUDE Common.tt %]

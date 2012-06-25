@@ -277,8 +277,8 @@ get_discrete(self,P)
         }
         for(i=0, av=(AV*)SvRV(P); i<K; i++) P_[i] = SvNV(*av_fetch(av,i,0));
         g = gsl_ran_discrete_preproc(K,P_);
-        rv = gsl_ran_discrete(ref2rng(self),g);        
-        XPUSHs(sv_2mortal(newSViv(rv)));        
+        rv = gsl_ran_discrete(ref2rng(self),g);
+        XPUSHs(sv_2mortal(newSViv(rv)));
         gsl_ran_discrete_free(g);
         free(P_);
 
@@ -336,7 +336,7 @@ get_multinomial(self,N,p)
           XSRETURN_UNDEF;
         }
         /* copy data */
-        for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
+        for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));
         /* do the job */
         gsl_ran_multinomial(ref2rng(self),K,N,p_,n_);
         /* create array to be returned */

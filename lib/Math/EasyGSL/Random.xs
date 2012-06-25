@@ -277,8 +277,8 @@ get_discrete(self,P)
         }
         for(i=0, av=(AV*)SvRV(P); i<K; i++) P_[i] = SvNV(*av_fetch(av,i,0));
         g = gsl_ran_discrete_preproc(K,P_);
-        rv = gsl_ran_discrete(ref2rng(self),g);        
-        XPUSHs(sv_2mortal(newSViv(rv)));        
+        rv = gsl_ran_discrete(ref2rng(self),g);
+        XPUSHs(sv_2mortal(newSViv(rv)));
         gsl_ran_discrete_free(g);
         free(P_);
 
@@ -336,7 +336,7 @@ get_multinomial(self,N,p)
           XSRETURN_UNDEF;
         }
         /* copy data */
-        for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));	
+        for(i=0, av=(AV*)SvRV(p); i<K; i++) p_[i] = SvNV(*av_fetch(av,i,0));
         /* do the job */
         gsl_ran_multinomial(ref2rng(self),K,N,p_,n_);
         /* create array to be returned */
@@ -461,359 +461,359 @@ get_dir_nd(self,n)
 ## GSL function: unsigned int gsl_ran_bernoulli(const gsl_rng * r, double p);
 void
 get_bernoulli(self,p)
-		SV * self;
-		double p;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_bernoulli(ref2rng(self),p))));
+        SV * self;
+        double p;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_bernoulli(ref2rng(self),p))));
 
 ## GSL function: double gsl_ran_beta(const gsl_rng * r, const double a, const double b);
 void
 get_beta(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_beta(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_beta(ref2rng(self),a,b))));
 
 ## GSL function: unsigned int gsl_ran_binomial(const gsl_rng * r, double p, unsigned int n);
 void
 get_binomial(self,p,n)
-		SV * self;
-		double p;
-		unsigned int n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial(ref2rng(self),p,n))));
+        SV * self;
+        double p;
+        unsigned int n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial(ref2rng(self),p,n))));
 
 ## GSL function: unsigned int gsl_ran_binomial_knuth(const gsl_rng * r, double p, unsigned int n);
 void
 get_binomial_knuth(self,p,n)
-		SV * self;
-		double p;
-		unsigned int n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial_knuth(ref2rng(self),p,n))));
+        SV * self;
+        double p;
+        unsigned int n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial_knuth(ref2rng(self),p,n))));
 
 ## GSL function: unsigned int gsl_ran_binomial_tpe(const gsl_rng * r, double p, unsigned int n);
 void
 get_binomial_tpe(self,p,n)
-		SV * self;
-		double p;
-		unsigned int n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial_tpe(ref2rng(self),p,n))));
+        SV * self;
+        double p;
+        unsigned int n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_binomial_tpe(ref2rng(self),p,n))));
 
 ## GSL function: double gsl_ran_cauchy(const gsl_rng * r, const double a);
 void
 get_cauchy(self,a)
-		SV * self;
-		double a;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_cauchy(ref2rng(self),a))));
+        SV * self;
+        double a;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_cauchy(ref2rng(self),a))));
 
 ## GSL function: double gsl_ran_chisq(const gsl_rng * r, const double nu);
 void
 get_chisq(self,nu)
-		SV * self;
-		double nu;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_chisq(ref2rng(self),nu))));
+        SV * self;
+        double nu;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_chisq(ref2rng(self),nu))));
 
 ## GSL function: double gsl_ran_erlang(const gsl_rng * r, const double a, const double n);
 void
 get_erlang(self,a,n)
-		SV * self;
-		double a;
-		double n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_erlang(ref2rng(self),a,n))));
+        SV * self;
+        double a;
+        double n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_erlang(ref2rng(self),a,n))));
 
 ## GSL function: double gsl_ran_exponential(const gsl_rng * r, const double mu);
 void
 get_exponential(self,mu)
-		SV * self;
-		double mu;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_exponential(ref2rng(self),mu))));
+        SV * self;
+        double mu;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_exponential(ref2rng(self),mu))));
 
 ## GSL function: double gsl_ran_exppow(const gsl_rng * r, const double a, const double b);
 void
 get_exppow(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_exppow(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_exppow(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_fdist(const gsl_rng * r, const double nu1, const double nu2);
 void
 get_fdist(self,nu1,nu2)
-		SV * self;
-		double nu1;
-		double nu2;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_fdist(ref2rng(self),nu1,nu2))));
+        SV * self;
+        double nu1;
+        double nu2;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_fdist(ref2rng(self),nu1,nu2))));
 
 ## GSL function: double gsl_ran_flat(const gsl_rng * r, const double a, const double b);
 void
 get_flat(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_flat(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_flat(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_gamma(const gsl_rng * r, const double a, const double b);
 void
 get_gamma(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_gamma_int(const gsl_rng * r, const unsigned int a);
 void
 get_gamma_int(self,a)
-		SV * self;
-		unsigned int a;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_int(ref2rng(self),a))));
+        SV * self;
+        unsigned int a;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_int(ref2rng(self),a))));
 
 ## GSL function: double gsl_ran_gamma_knuth(const gsl_rng * r, const double a, const double b);
 void
 get_gamma_knuth(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_knuth(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_knuth(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_gamma_mt(const gsl_rng * r, const double a, const double b);
 void
 get_gamma_mt(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_mt(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gamma_mt(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_gaussian(const gsl_rng * r, const double sigma);
 void
 get_gaussian(self,sigma)
-		SV * self;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian(ref2rng(self),sigma))));
+        SV * self;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian(ref2rng(self),sigma))));
 
 ## GSL function: double gsl_ran_gaussian_ratio_method(const gsl_rng * r, const double sigma);
 void
 get_gaussian_ratio_method(self,sigma)
-		SV * self;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_ratio_method(ref2rng(self),sigma))));
+        SV * self;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_ratio_method(ref2rng(self),sigma))));
 
 ## GSL function: double gsl_ran_gaussian_tail(const gsl_rng * r, const double a, const double sigma);
 void
 get_gaussian_tail(self,a,sigma)
-		SV * self;
-		double a;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_tail(ref2rng(self),a,sigma))));
+        SV * self;
+        double a;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_tail(ref2rng(self),a,sigma))));
 
 ## GSL function: double gsl_ran_gaussian_ziggurat(const gsl_rng * r, const double sigma);
 void
 get_gaussian_ziggurat(self,sigma)
-		SV * self;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_ziggurat(ref2rng(self),sigma))));
+        SV * self;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gaussian_ziggurat(ref2rng(self),sigma))));
 
 ## GSL function: unsigned int gsl_ran_geometric(const gsl_rng * r, const double p);
 void
 get_geometric(self,p)
-		SV * self;
-		double p;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_geometric(ref2rng(self),p))));
+        SV * self;
+        double p;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_geometric(ref2rng(self),p))));
 
 ## GSL function: double gsl_ran_gumbel1(const gsl_rng * r, const double a, const double b);
 void
 get_gumbel1(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gumbel1(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gumbel1(ref2rng(self),a,b))));
 
 ## GSL function: double gsl_ran_gumbel2(const gsl_rng * r, const double a, const double b);
 void
 get_gumbel2(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_gumbel2(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_gumbel2(ref2rng(self),a,b))));
 
 ## GSL function: unsigned int gsl_ran_hypergeometric(const gsl_rng * r, unsigned int n1, unsigned int n2, unsigned int t);
 void
 get_hypergeometric(self,n1,n2,t)
-		SV * self;
-		unsigned int n1;
-		unsigned int n2;
-		unsigned int t;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_hypergeometric(ref2rng(self),n1,n2,t))));
+        SV * self;
+        unsigned int n1;
+        unsigned int n2;
+        unsigned int t;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_hypergeometric(ref2rng(self),n1,n2,t))));
 
 ## GSL function: double gsl_ran_landau(const gsl_rng * r);
 void
 get_landau(self)
-		SV * self;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_landau(ref2rng(self)))));
+        SV * self;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_landau(ref2rng(self)))));
 
 ## GSL function: double gsl_ran_laplace(const gsl_rng * r, const double a);
 void
 get_laplace(self,a)
-		SV * self;
-		double a;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_laplace(ref2rng(self),a))));
+        SV * self;
+        double a;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_laplace(ref2rng(self),a))));
 
 ## GSL function: double gsl_ran_levy(const gsl_rng * r, const double c, const double alpha);
 void
 get_levy(self,c,alpha)
-		SV * self;
-		double c;
-		double alpha;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_levy(ref2rng(self),c,alpha))));
+        SV * self;
+        double c;
+        double alpha;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_levy(ref2rng(self),c,alpha))));
 
 ## GSL function: double gsl_ran_levy_skew(const gsl_rng * r, const double c, const double alpha, const double beta);
 void
 get_levy_skew(self,c,alpha,beta)
-		SV * self;
-		double c;
-		double alpha;
-		double beta;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_levy_skew(ref2rng(self),c,alpha,beta))));
+        SV * self;
+        double c;
+        double alpha;
+        double beta;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_levy_skew(ref2rng(self),c,alpha,beta))));
 
 ## GSL function: unsigned int gsl_ran_logarithmic(const gsl_rng * r, const double p);
 void
 get_logarithmic(self,p)
-		SV * self;
-		double p;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_logarithmic(ref2rng(self),p))));
+        SV * self;
+        double p;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_logarithmic(ref2rng(self),p))));
 
 ## GSL function: double gsl_ran_logistic(const gsl_rng * r, const double a);
 void
 get_logistic(self,a)
-		SV * self;
-		double a;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_logistic(ref2rng(self),a))));
+        SV * self;
+        double a;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_logistic(ref2rng(self),a))));
 
 ## GSL function: double gsl_ran_lognormal(const gsl_rng * r, const double zeta, const double sigma);
 void
 get_lognormal(self,zeta,sigma)
-		SV * self;
-		double zeta;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_lognormal(ref2rng(self),zeta,sigma))));
+        SV * self;
+        double zeta;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_lognormal(ref2rng(self),zeta,sigma))));
 
 ## GSL function: unsigned int gsl_ran_negative_binomial(const gsl_rng * r, double p, double n);
 void
 get_negative_binomial(self,p,n)
-		SV * self;
-		double p;
-		double n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_negative_binomial(ref2rng(self),p,n))));
+        SV * self;
+        double p;
+        double n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_negative_binomial(ref2rng(self),p,n))));
 
 ## GSL function: double gsl_ran_pareto(const gsl_rng * r, double a, const double b);
 void
 get_pareto(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_pareto(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_pareto(ref2rng(self),a,b))));
 
 ## GSL function: unsigned int gsl_ran_pascal(const gsl_rng * r, double p, unsigned int n);
 void
 get_pascal(self,p,n)
-		SV * self;
-		double p;
-		unsigned int n;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_pascal(ref2rng(self),p,n))));
+        SV * self;
+        double p;
+        unsigned int n;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_pascal(ref2rng(self),p,n))));
 
 ## GSL function: unsigned int gsl_ran_poisson(const gsl_rng * r, double mu);
 void
 get_poisson(self,mu)
-		SV * self;
-		double mu;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(gsl_ran_poisson(ref2rng(self),mu))));
+        SV * self;
+        double mu;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(gsl_ran_poisson(ref2rng(self),mu))));
 
 ## GSL function: double gsl_ran_rayleigh(const gsl_rng * r, const double sigma);
 void
 get_rayleigh(self,sigma)
-		SV * self;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_rayleigh(ref2rng(self),sigma))));
+        SV * self;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_rayleigh(ref2rng(self),sigma))));
 
 ## GSL function: double gsl_ran_rayleigh_tail(const gsl_rng * r, const double a, const double sigma);
 void
 get_rayleigh_tail(self,a,sigma)
-		SV * self;
-		double a;
-		double sigma;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_rayleigh_tail(ref2rng(self),a,sigma))));
+        SV * self;
+        double a;
+        double sigma;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_rayleigh_tail(ref2rng(self),a,sigma))));
 
 ## GSL function: double gsl_ran_tdist(const gsl_rng * r, const double nu);
 void
 get_tdist(self,nu)
-		SV * self;
-		double nu;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_tdist(ref2rng(self),nu))));
+        SV * self;
+        double nu;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_tdist(ref2rng(self),nu))));
 
 ## GSL function: double gsl_ran_ugaussian(const gsl_rng * r);
 void
 get_ugaussian(self)
-		SV * self;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian(ref2rng(self)))));
+        SV * self;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian(ref2rng(self)))));
 
 ## GSL function: double gsl_ran_ugaussian_ratio_method(const gsl_rng * r);
 void
 get_ugaussian_ratio_method(self)
-		SV * self;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian_ratio_method(ref2rng(self)))));
+        SV * self;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian_ratio_method(ref2rng(self)))));
 
 ## GSL function: double gsl_ran_ugaussian_tail(const gsl_rng * r, const double a);
 void
 get_ugaussian_tail(self,a)
-		SV * self;
-		double a;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian_tail(ref2rng(self),a))));
+        SV * self;
+        double a;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_ugaussian_tail(ref2rng(self),a))));
 
 ## GSL function: double gsl_ran_weibull(const gsl_rng * r, const double a, const double b);
 void
 get_weibull(self,a,b)
-		SV * self;
-		double a;
-		double b;
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVnv(gsl_ran_weibull(ref2rng(self),a,b))));
+        SV * self;
+        double a;
+        double b;
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVnv(gsl_ran_weibull(ref2rng(self),a,b))));
 
 ###### generated part - end ######

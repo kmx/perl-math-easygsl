@@ -20,120 +20,120 @@ size_t arr_ref_size(SV * data, char * warnmsg) {
   return rv+1;
 }
 
-MODULE = Math::EasyGSL::Statistics	PACKAGE = Math::EasyGSL::Statistics
+MODULE = Math::EasyGSL::Statistics    PACKAGE = Math::EasyGSL::Statistics
 
 ## GSL function: double gsl_stats_median_from_sorted_data(const double sorted_data[], const size_t stride, const size_t n);
 void
 stats_median(data)
-		SV * data;
-	INIT:
-		int i;
-		AV * av;
-		double * data_;
-		size_t data_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		data_size = arr_ref_size(data, "Warning: stats_median() - invalid 'data' argument");
-		if (data_size<0) XSRETURN_UNDEF;
-		/* allocate memory */
-		data_ = malloc(data_size * sizeof(double));
-		if (!data_) {
-		  warn("Warning: stats_median() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		gsl_sort(data_, 1, data_size);
-		XPUSHs(sv_2mortal(newSVnv(gsl_stats_median_from_sorted_data(data_,1,data_size))));
-		/* free memory */
-		free(data_);
+        SV * data;
+    INIT:
+        int i;
+        AV * av;
+        double * data_;
+        size_t data_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        data_size = arr_ref_size(data, "Warning: stats_median() - invalid 'data' argument");
+        if (data_size<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        data_ = malloc(data_size * sizeof(double));
+        if (!data_) {
+          warn("Warning: stats_median() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        gsl_sort(data_, 1, data_size);
+        XPUSHs(sv_2mortal(newSVnv(gsl_stats_median_from_sorted_data(data_,1,data_size))));
+        /* free memory */
+        free(data_);
 
 ## GSL function: void gsl_stats_minmax(double * min, double * max, const double data[], const size_t stride, const size_t n);
 void
 stats_minmax(data)
-		SV * data;
-	INIT:
-		int i;
-		AV * av;
-		double min_;
-		double max_;
-		double * data_;
-		size_t data_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		data_size = arr_ref_size(data, "Warning: stats_minmax() - invalid 'data' argument");
-		if (data_size<0) XSRETURN_UNDEF;
-		/* allocate memory */
-		data_ = malloc(data_size * sizeof(double));
-		if (!data_) {
-		  warn("Warning: stats_minmax() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		gsl_stats_minmax(&min_,&max_,data_,1,data_size);
-		XPUSHs(sv_2mortal(newSVnv(min_)));
-		XPUSHs(sv_2mortal(newSVnv(max_)));
-		/* free memory */
-		free(data_);
+        SV * data;
+    INIT:
+        int i;
+        AV * av;
+        double min_;
+        double max_;
+        double * data_;
+        size_t data_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        data_size = arr_ref_size(data, "Warning: stats_minmax() - invalid 'data' argument");
+        if (data_size<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        data_ = malloc(data_size * sizeof(double));
+        if (!data_) {
+          warn("Warning: stats_minmax() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        gsl_stats_minmax(&min_,&max_,data_,1,data_size);
+        XPUSHs(sv_2mortal(newSVnv(min_)));
+        XPUSHs(sv_2mortal(newSVnv(max_)));
+        /* free memory */
+        free(data_);
 
 ## GSL function: void gsl_stats_minmax_index(size_t * min_index, size_t * max_index, const double data[], const size_t stride, const size_t n);
 void
 stats_minmax_index(data)
-		SV * data;
-	INIT:
-		int i;
-		AV * av;
-		size_t min_index_;
-		size_t max_index_;
-		double * data_;
-		size_t data_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		data_size = arr_ref_size(data, "Warning: stats_minmax_index() - invalid 'data' argument");
-		if (data_size<0) XSRETURN_UNDEF;
-		/* allocate memory */
-		data_ = malloc(data_size * sizeof(double));
-		if (!data_) {
-		  warn("Warning: stats_minmax_index() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		gsl_stats_minmax_index(&min_index_,&max_index_,data_,1,data_size);
-		XPUSHs(sv_2mortal(newSVnv(min_index_)));
-		XPUSHs(sv_2mortal(newSVnv(max_index_)));
-		/* free memory */
-		free(data_);
+        SV * data;
+    INIT:
+        int i;
+        AV * av;
+        size_t min_index_;
+        size_t max_index_;
+        double * data_;
+        size_t data_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        data_size = arr_ref_size(data, "Warning: stats_minmax_index() - invalid 'data' argument");
+        if (data_size<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        data_ = malloc(data_size * sizeof(double));
+        if (!data_) {
+          warn("Warning: stats_minmax_index() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        gsl_stats_minmax_index(&min_index_,&max_index_,data_,1,data_size);
+        XPUSHs(sv_2mortal(newSVnv(min_index_)));
+        XPUSHs(sv_2mortal(newSVnv(max_index_)));
+        /* free memory */
+        free(data_);
 
 ## GSL function: double gsl_stats_quantile_from_sorted_data(const double sorted_data[], const size_t stride, const size_t n, const double f);
 void
 stats_quantile(data,f)
-		SV * data;
-		double f;
-	INIT:
-		int i;
-		AV * av;
-		double * data_;
-		size_t data_size;
-	PPCODE:
-		/* check valid ARRAYREF */
-		data_size = arr_ref_size(data, "Warning: stats_quantile() - invalid 'data' argument");
-		if (data_size<0) XSRETURN_UNDEF;
-		/* allocate memory */
-		data_ = malloc(data_size * sizeof(double));
-		if (!data_) {
-		  warn("Warning: stats_quantile() - malloc failed");
-		  XSRETURN_UNDEF;
-		}
-		/* copy data */
-		for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));	
-		/* do the job */
-		XPUSHs(sv_2mortal(newSVnv(gsl_stats_quantile_from_sorted_data(data_,1,data_size,f))));
-		/* free memory */
-		free(data_);
+        SV * data;
+        double f;
+    INIT:
+        int i;
+        AV * av;
+        double * data_;
+        size_t data_size;
+    PPCODE:
+        /* check valid ARRAYREF */
+        data_size = arr_ref_size(data, "Warning: stats_quantile() - invalid 'data' argument");
+        if (data_size<0) XSRETURN_UNDEF;
+        /* allocate memory */
+        data_ = malloc(data_size * sizeof(double));
+        if (!data_) {
+          warn("Warning: stats_quantile() - malloc failed");
+          XSRETURN_UNDEF;
+        }
+        /* copy data */
+        for(i=0, av=(AV*)SvRV(data); i<data_size; i++) data_[i] = SvNV(*av_fetch(av,i,0));
+        /* do the job */
+        XPUSHs(sv_2mortal(newSVnv(gsl_stats_quantile_from_sorted_data(data_,1,data_size,f))));
+        /* free memory */
+        free(data_);
 
 [% INCLUDE Common.tt %]

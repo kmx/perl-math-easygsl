@@ -20,15 +20,15 @@ gsl_set_error_handler (&warn_handler);
 
 void
 GSL_VERSION()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSVpv(GSL_VERSION,0)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSVpv(GSL_VERSION,0)));
 
 void
 GSL_MAJOR_VERSION()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(GSL_MAJOR_VERSION)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(GSL_MAJOR_VERSION)));
 
 void
 GSL_MINOR_VERSION()
-	PPCODE:
-		XPUSHs(sv_2mortal(newSViv(GSL_MINOR_VERSION)));
+    PPCODE:
+        XPUSHs(sv_2mortal(newSViv(GSL_MINOR_VERSION)));
