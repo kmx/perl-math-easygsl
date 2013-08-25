@@ -41,6 +41,7 @@
 
 # Misc
 ignore.txt
+poznamky.txt
 \.gif$
 \.png$
 tmp*

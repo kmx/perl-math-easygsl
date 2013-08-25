@@ -37,14 +37,14 @@ EXPORT
 
 SUBROUTINES/METHODS
   Version related functions
-    GSL_VERSION
-    Returns a string with version of underlaying GSL library like: `1.14'
+   GSL_VERSION
+    Returns a string with version of underlaying GSL library like: 1.14
 
-    GSL_MAJOR_VERSION
-    Returns major version number like: `1' (for GSL v1.14)
+   GSL_MAJOR_VERSION
+    Returns major version number like: 1 (for GSL v1.14)
 
-    GSL_MINOR_VERSION
-    Returns version number like: `14' (for GSL v1.14)
+   GSL_MINOR_VERSION
+    Returns version number like: 14 (for GSL v1.14)
 
 LICENSE AND COPYRIGHT
     Copyright 2011 KMX.
